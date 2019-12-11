@@ -14,7 +14,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
         
       ),
       body: Container(
-        child: Text("Hell World!"),
+        child: Text("Hell World"),
       ),
     );
   }
