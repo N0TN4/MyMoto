@@ -57,7 +57,7 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           suffixIcon: posIcone,
           prefixIcon: preIcone,
-          labelText: rotulo),
+          hintText: rotulo),
     );
   }
 }

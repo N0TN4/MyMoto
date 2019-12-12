@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -50,7 +51,7 @@ Widget _introScreen() {
         
 
         //alterar MenuPrincipal para rota que irá editar
-        navigateAfterSeconds: MenuPrincipal(),
+        navigateAfterSeconds: LoginSocial(),
         loaderColor: Colors.red,
  
       ),
