@@ -15,17 +15,14 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
       appBar: AppBar(
         
       ),
-      body: Container(
-        // conflito prefix 0
-        // verificar em Componentes -> CampoCampoDeTextoFormularioCustomizado
-        // ou ctrl + click botão esquerdo para ir direto pra classe criada
-        // seguir mesmo padrão de widget stateless para botões
-        
-        child: CampoDeTextoFormularioCustomizado(
-          rotulo: "Hello World",
-          required: true,
-          tipoDoInput: prefix0.TextInputType.number,
-        )
+      body: Column(
+        children: <Widget>[
+          Container(
+           
+           
+             
+          ),
+        ],
       ),
     );
   }
