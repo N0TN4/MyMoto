@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "685966952690",
+    "firebase_url": "https://mymoto-4b493.firebaseio.com",
+    "project_id": "mymoto-4b493",
+    "storage_bucket": "mymoto-4b493.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685966952690:android:56ae1745b6ae1173fd286b",
+        "android_client_info": {
+          "package_name": "com.example.mymoto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685966952690-4a5nobssgoqe42cke4uct2fao9guh769.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeM1f93vBDnqwR7UWTK7t_Zi2iHMu8O_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685966952690-4a5nobssgoqe42cke4uct2fao9guh769.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

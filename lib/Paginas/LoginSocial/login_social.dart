@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
 
 class LoginSocial extends StatefulWidget {
   @override
@@ -8,6 +9,10 @@ class LoginSocial extends StatefulWidget {
 }
 
 class _LoginSocialState extends State<LoginSocial> {
+  TextEditingController _loginController = new TextEditingController();
+  TextEditingController _senhaController = new TextEditingController();
+  BlocLoginSocial _bloc = new BlocLoginSocial();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +59,15 @@ class _LoginSocialState extends State<LoginSocial> {
           ),
           Container(
             child: CampoDeTextoFormularioCustomizado(
+              controlador: _loginController,
+              bloc: _bloc.mudarLogin(_loginController.text),
               rotulo: "Login",
             ),
           ),
           Container(
             child: CampoDeTextoFormularioCustomizado(
+              controlador: _senhaController,
+              bloc: _bloc.mudarSenha(_senhaController.text),
               rotulo: "Senha",
             ),
           ),
@@ -69,6 +78,9 @@ class _LoginSocialState extends State<LoginSocial> {
                 Expanded(
                   flex: 1,
                   child: Checkbox(
+                    onChanged: (check){
+
+                    },
                     value: true,
                     checkColor: Color(0xffF24333),
                   ),
@@ -82,7 +94,7 @@ class _LoginSocialState extends State<LoginSocial> {
                     child: RaisedButton(
                       color: Color(0xffF24333),
                       child: Text("Entrar"),
-                      onPressed: () {},
+                      onPressed: _bloc.salvar
                     )),
               ],
             ),
