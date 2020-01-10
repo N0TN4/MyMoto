@@ -1,4 +1,4 @@
-package com.example.mymoto
+package com.notna.mymoto
 
 import android.os.Bundle
 

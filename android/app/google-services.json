@@ -10,10 +10,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:685966952690:android:56ae1745b6ae1173fd286b",
         "android_client_info": {
-          "package_name": "com.example.mymoto"
+          "package_name": "com.notna.mymoto"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "685966952690-qdjjkf89o957v17b74kgkqrknqoo6le1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notna.mymoto",
+            "certificate_hash": "833d7ddea7f6348e162bf98416398730db10c182"
+          }
+        },
         {
           "client_id": "685966952690-4a5nobssgoqe42cke4uct2fao9guh769.apps.googleusercontent.com",
           "client_type": 3

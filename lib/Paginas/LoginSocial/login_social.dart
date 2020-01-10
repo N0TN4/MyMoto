@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mymoto/Autenticacao/autenticacao_google.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Modelos/usuario.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginSocial extends StatefulWidget {
   @override
@@ -12,6 +18,25 @@ class _LoginSocialState extends State<LoginSocial> {
   TextEditingController _loginController = new TextEditingController();
   TextEditingController _senhaController = new TextEditingController();
   BlocLoginSocial _bloc = new BlocLoginSocial();
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<FirebaseUser> _handleSignIn() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    //final FirebaseUser user =
+    //    (await _auth.signInWithCredential(credential)).user;
+    //print("signed in " + user.displayName);
+    //return user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +103,7 @@ class _LoginSocialState extends State<LoginSocial> {
                 Expanded(
                   flex: 1,
                   child: Checkbox(
-                    onChanged: (check){
-
-                    },
+                    onChanged: (check) {},
                     value: true,
                     checkColor: Color(0xffF24333),
                   ),
@@ -92,15 +115,29 @@ class _LoginSocialState extends State<LoginSocial> {
                 Expanded(
                     flex: 1,
                     child: RaisedButton(
-                      color: Color(0xffF24333),
-                      child: Text("Entrar"),
-                      onPressed: _bloc.salvar
-                    )),
+                        color: Color(0xffF24333),
+                        child: Text("Entrar"),
+                        onPressed: _bloc.salvar)),
               ],
             ),
-          )
+          ),
+          GoogleSignInButton(
+            text: "Cadastrar",
+            onPressed: () async {
+              AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
+              autenticacao.logarComGoogle();
+              /* _handleSignIn().then((FirebaseUser user) {
+                print(user);
+                
+
+              }).catchError((e) => print(e));
+            */
+            },
+          ),
         ],
       ),
     );
   }
+
+  
 }

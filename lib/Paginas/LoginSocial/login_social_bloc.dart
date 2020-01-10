@@ -2,6 +2,7 @@ import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Paginas/LoginSocial/servico_firebase.dart';
 import 'package:rxdart/rxdart.dart';
 
+
 class BlocLoginSocial{
   final _login = BehaviorSubject<String>();
   final _senha = BehaviorSubject<String>();

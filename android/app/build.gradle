@@ -40,7 +40,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.mymoto"
+        applicationId "com.notna.mymoto"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
@@ -70,3 +70,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     
 }
+
+
+apply plugin: 'com.google.gms.google-services'
