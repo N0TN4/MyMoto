@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TelaMensagens extends StatefulWidget {
@@ -19,6 +20,31 @@ class _TelaMensagensState extends State<TelaMensagens> {
             child: SizedBox(width: 80, child: Icon(Icons.search)),
           ),
         ],
+      ),
+      body: Center(
+        child: StreamBuilder(
+          stream: Firestore.instance.collection('usuarios').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot){
+            if(snapshot.hasError) {
+              return new Text('Error: ${snapshot.error}');
+            }
+            switch (snapshot.connectionState){
+              case ConnectionState.waiting:
+              return LinearProgressIndicator();
+              break;
+              default:
+                return Center(
+                  child: ListView(
+                    children: snapshot.data.documents.map<Widget>((DocumentSnapshot doc){
+                      return ListTile(
+                        title: Text(doc.data['login'].toString()),
+                      );
+                  }).toList()
+                ),
+                );
+            }
+          }
+        ),
       ),
     );
   }
