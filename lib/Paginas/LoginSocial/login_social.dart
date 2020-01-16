@@ -8,6 +8,7 @@ import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
 class LoginSocial extends StatefulWidget {
   @override
@@ -125,7 +126,10 @@ class _LoginSocialState extends State<LoginSocial> {
             text: "Cadastrar",
             onPressed: () async {
               AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-              autenticacao.logarComGoogle();
+              await autenticacao.logarComGoogle();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MenuPrincipal()));
+
               /* _handleSignIn().then((FirebaseUser user) {
                 print(user);
                 
@@ -138,6 +142,4 @@ class _LoginSocialState extends State<LoginSocial> {
       ),
     );
   }
-
-  
 }
