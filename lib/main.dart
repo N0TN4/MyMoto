@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
+     
     super.initState();
   }
 
@@ -46,7 +47,7 @@ Widget _introScreen() {
   return Stack(
     children: <Widget>[
       SplashScreen(
-        seconds: 5,
+        seconds: 2,
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -56,7 +57,7 @@ Widget _introScreen() {
         loadingText: Text("Pilote com cuidado!"),
 
         //alterar  para rota que irá editar
-        navigateAfterSeconds: EditarPerfil(),
+        navigateAfterSeconds: LoginSocial(),
         loaderColor: Colors.red,
       ),
       Container(

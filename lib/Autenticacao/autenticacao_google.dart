@@ -44,6 +44,7 @@ class AutenticacaoGoogle {
       nome: user.displayName,
       email: user.email,
       linkFoto: user.photoUrl,
+      
 
       //telefone?
     );

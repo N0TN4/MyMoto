@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymoto/Ferramentas/estilos_de_texto.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
+import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
 
 class MenuPrincipal extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             ),
             criarCelulaNoMenu("MyMoto", Icons.motorcycle),
             criarCelulaNoMenu("Oficina", Icons.settings),
-            criarCelulaNoMenu("Perfil", Icons.person),
+            criarCelulaNoMenu("Perfil", Icons.person, pagina: EditarPerfil()),
           ],
         ),
       ),
@@ -96,12 +97,13 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
     );
   }
 
-  criarCelulaNoMenu(String label, IconData icone) {
+  criarCelulaNoMenu(String label, IconData icone, {pagina}) {
     return ListTile(
       leading: Icon(icone),
       title: Text(label),
       onTap: () {
-        print("${UsuarioLogado.usuario.linkFoto}");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => pagina));
       },
     );
   }

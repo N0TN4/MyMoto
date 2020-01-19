@@ -112,14 +112,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
         ),
         centerTitle: true,
         backgroundColor: Colors.red,
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_arrow_left,
-            size: 40.0,
-            semanticLabel: "voltar",
-          ),
-          onPressed: () => voltarPagina(context, MenuPrincipal()),
-        ),
+        automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(30.0),
