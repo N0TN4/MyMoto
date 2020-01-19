@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mymoto/Ferramentas/estilos_de_texto.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
+import 'package:mymoto/Paginas/EditarOdometro/editar_odometro.dart';
 
 class MenuPrincipal extends StatefulWidget {
   @override
@@ -35,8 +36,8 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                     : Image.network("${UsuarioLogado.usuario.linkFoto}"),
               ),
             ),
-            criarCelulaNoMenu("MyMoto", Icons.motorcycle),
-            criarCelulaNoMenu("Oficina", Icons.settings),
+            criarCelulaNoMenu("MyMoto", Icons.motorcycle, pagina: EditarOdometro()),
+            criarCelulaNoMenu("Oficina", Icons.settings,),
             criarCelulaNoMenu("Perfil", Icons.person, pagina: EditarPerfil()),
           ],
         ),
