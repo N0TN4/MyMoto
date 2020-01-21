@@ -10,9 +10,9 @@ class ServicoFirebase {
     // Para fazer: converter todas as variáveis do usuario para map, e print no setData
     // ao invés de por um por um.
 
-    Firestore.instance
-        .collection('usuarios')
-        .document()
-        .setData({'login': usuario.login, 'nome': usuario.nome});
+    Firestore.instance.collection('usuarios').document().setData({
+      'login': usuario.login,
+      'nome': usuario.nome,
+    });
   }
 }

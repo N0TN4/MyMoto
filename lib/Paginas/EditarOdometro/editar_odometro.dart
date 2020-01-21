@@ -22,10 +22,21 @@ class _EditarOdometroState extends State<EditarOdometro> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            // retirar divider
+
             Divider(
               height: 50,
               color: Colors.white,
             ),
+            
+            //retirar center
+            // adicionar padding no text 
+            // padding : EdgeInsects.only(top : 20 ),
+            // MediaQuery.of(context).size.height - 100
+            // pintar de vermelho
+            
+
+
             Center(
               child: Text(
                 "Moto 150cc",
