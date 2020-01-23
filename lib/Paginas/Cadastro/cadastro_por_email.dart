@@ -167,6 +167,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Confirmar senha",
                 required: true,
+                
                 controlador: confirmarSenhaCtrl,
                 bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
               ),

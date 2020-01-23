@@ -48,7 +48,7 @@ class BlocCadastroPorEmail {
     //usuario.moto.quiometragem = _quilometragem.value;
 
     print(usuario.toString());
-    _servico.salvar(usuario);
+     _servico.salvar(usuario);
   }
 
   void dispose() {
