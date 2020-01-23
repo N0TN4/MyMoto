@@ -9,13 +9,12 @@ class CadastroPorEmail extends StatefulWidget {
 }
 
 class _CadastroPorEmailState extends State<CadastroPorEmail> {
-
-TextEditingController loginCtrl = TextEditingController();
-TextEditingController nomeCtrl = TextEditingController();
-TextEditingController emailCtrl = TextEditingController ();
-TextEditingController senhaCtrl = TextEditingController ();
-TextEditingController confirmarSenhaCtrl = TextEditingController();
-TextEditingController telefoneCtrl = TextEditingController();
+  TextEditingController loginCtrl = TextEditingController();
+  TextEditingController nomeCtrl = TextEditingController();
+  TextEditingController emailCtrl = TextEditingController();
+  TextEditingController senhaCtrl = TextEditingController();
+  TextEditingController confirmarSenhaCtrl = TextEditingController();
+  TextEditingController telefoneCtrl = TextEditingController();
 
   Widget botaoSelecaoModelo() {
     String dropdownValue = 'Selecionar';
@@ -234,10 +233,12 @@ TextEditingController telefoneCtrl = TextEditingController();
                   ),
                 ),
                 onPressed: () {
-                   print("login: ${loginCtrl.text}" + " nome: ${nomeCtrl.text}"
-                    + " email : ${emailCtrl.text}" + " senha: ${senhaCtrl.text}"
-                    + " confirmar senha : ${confirmarSenhaCtrl.text}" 
-                    + " telefone: ${telefoneCtrl.text}");
+                  print("login: ${loginCtrl.text}" +
+                      " nome: ${nomeCtrl.text}" +
+                      " email : ${emailCtrl.text}" +
+                      " senha: ${senhaCtrl.text}" +
+                      " confirmar senha : ${confirmarSenhaCtrl.text}" +
+                      " telefone: ${telefoneCtrl.text}");
                 },
               )
             ],

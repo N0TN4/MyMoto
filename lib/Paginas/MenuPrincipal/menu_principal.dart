@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mymoto/Componentes/menu_lateral.dart';
 import 'package:mymoto/Ferramentas/estilos_de_texto.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
@@ -20,28 +21,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("${UsuarioLogado.usuario.nome}"),
-              accountEmail: Text("${UsuarioLogado.usuario.email}"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor:
-                    Theme.of(context).platform == TargetPlatform.iOS
-                        ? Colors.blue
-                        : Colors.white,
-                child: UsuarioLogado.usuario.linkFoto == null
-                    ? Text("A")
-                    : Image.network("${UsuarioLogado.usuario.linkFoto}"),
-              ),
-            ),
-            criarCelulaNoMenu("MyMoto", Icons.motorcycle, pagina: EditarOdometro()),
-            criarCelulaNoMenu("Oficina", Icons.settings,),
-            criarCelulaNoMenu("Perfil", Icons.person, pagina: EditarPerfil()),
-          ],
-        ),
-      ),
+      drawer: MenuLateral(),
       appBar: AppBar(
         title: Text(
           "MyMoto",

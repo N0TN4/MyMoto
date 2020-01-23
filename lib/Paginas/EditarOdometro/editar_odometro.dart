@@ -28,14 +28,12 @@ class _EditarOdometroState extends State<EditarOdometro> {
               height: 50,
               color: Colors.white,
             ),
-            
+
             //retirar center
-            // adicionar padding no text 
+            // adicionar padding no text
             // padding : EdgeInsects.only(top : 20 ),
             // MediaQuery.of(context).size.height - 100
             // pintar de vermelho
-            
-
 
             Center(
               child: Text(
@@ -46,7 +44,6 @@ class _EditarOdometroState extends State<EditarOdometro> {
           ],
         ),
       ),
-
     );
   }
 }
