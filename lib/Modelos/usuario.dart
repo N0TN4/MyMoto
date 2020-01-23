@@ -1,3 +1,5 @@
+import 'package:mymoto/Modelos/moto.dart';
+
 class Usuario{
   String id;
   String login;
@@ -7,6 +9,8 @@ class Usuario{
   String linkFoto;
   String cpf;
   String telefone;
+  String confirmarSenha;
+  Moto moto;
 
   /// usuario tem moto.
   /// 

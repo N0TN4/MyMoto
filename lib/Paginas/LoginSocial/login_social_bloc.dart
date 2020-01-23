@@ -8,7 +8,7 @@ class BlocLoginSocial{
   final _senha = BehaviorSubject<String>();
 
   Stream<String> get login => _login.stream;
-  Stream<String> get senha => _login.stream;
+  Stream<String> get senha => _senha.stream;
 
   Function(String) get mudarLogin => _login.sink.add;
   Function(String) get mudarSenha => _senha.sink.add;
