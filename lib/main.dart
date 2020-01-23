@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mymoto/Autenticacao/autenticacao_google.dart';
+import 'package:mymoto/Paginas/Cadastro/cadastro_por_email.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
@@ -57,7 +58,7 @@ Widget _introScreen() {
         loadingText: Text("Pilote com cuidado!"),
 
         //alterar  para rota que irá editar
-        navigateAfterSeconds: LoginSocial(),
+        navigateAfterSeconds:  CadastroPorEmail(),
         loaderColor: Colors.red,
       ),
       Container(

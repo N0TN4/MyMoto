@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
 class CadastroPorEmail extends StatefulWidget {
@@ -15,6 +16,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
   TextEditingController senhaCtrl = TextEditingController();
   TextEditingController confirmarSenhaCtrl = TextEditingController();
   TextEditingController telefoneCtrl = TextEditingController();
+  BlocCadastroPorEmail _bloc = BlocCadastroPorEmail();
 
   Widget botaoSelecaoModelo() {
     String dropdownValue = 'Selecionar';
@@ -125,6 +127,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 rotulo: "Login",
                 required: true,
                 controlador: loginCtrl,
+                bloc: _bloc.mudarLogin(loginCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -134,6 +137,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 rotulo: "Nome",
                 required: true,
                 controlador: nomeCtrl,
+                bloc: _bloc.mudarNome(nomeCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -144,6 +148,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 tipoDoInput: TextInputType.emailAddress,
                 controlador: emailCtrl,
                 required: true,
+                bloc: _bloc.mudarEmail(emailCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -153,6 +158,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 rotulo: "Senha",
                 required: true,
                 controlador: senhaCtrl,
+                bloc: _bloc.mudarSenha(senhaCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -162,6 +168,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 rotulo: "Confirmar senha",
                 required: true,
                 controlador: confirmarSenhaCtrl,
+                bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -171,6 +178,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 rotulo: "Telefone",
                 tipoDoInput: TextInputType.number,
                 controlador: telefoneCtrl,
+                bloc: _bloc.mudarTelefone(telefoneCtrl.text),
               ),
               Divider(
                 height: 20.0,
@@ -188,22 +196,6 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     child: botaoSelecaoModelo(),
                   ),
                 ],
-              ),
-              Divider(height: 20.0, color: Colors.white10),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                  side: BorderSide(color: Colors.red),
-                ),
-                onPressed: () {
-                  /*funcao para calcular quilometragem*/
-                },
-                color: Colors.red,
-                textColor: Colors.white,
-                child: Text(
-                  "Buy now".toUpperCase(),
-                  style: TextStyle(fontSize: 14),
-                ),
               ),
               Divider(height: 20.0, color: Colors.white10),
               Row(
@@ -233,6 +225,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   ),
                 ),
                 onPressed: () {
+                  _bloc.salvar();
                   print("login: ${loginCtrl.text}" +
                       " nome: ${nomeCtrl.text}" +
                       " email : ${emailCtrl.text}" +

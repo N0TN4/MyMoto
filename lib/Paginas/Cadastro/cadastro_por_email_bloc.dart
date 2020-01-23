@@ -41,11 +41,13 @@ class BlocCadastroPorEmail {
     usuario.nome = _nome.value;
     usuario.senha = _senha.value;
     usuario.email = _email.value;
-    usuario.confirmarSenha = _confirmarSenha.value;
+    usuario.confirmarSenha = _confirmarSenha.value; // todo
     usuario.telefone = _telefone.value;
-    usuario.moto.modelo = _modelo.value;
-    usuario.moto.marca = _marca.value;
-    usuario.moto.quiometragem = _quilometragem.value;
+    //usuario.moto.modelo = _modelo.value;
+    //usuario.moto.marca = _marca.value;
+    //usuario.moto.quiometragem = _quilometragem.value;
+
+    print(usuario.toString());
     _servico.salvar(usuario);
   }
 
