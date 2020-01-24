@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
@@ -167,7 +168,6 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Confirmar senha",
                 required: true,
-                
                 controlador: confirmarSenhaCtrl,
                 bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
               ),
@@ -187,12 +187,29 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
               ),
               Row(
                 children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      "Modelo",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
+                  StreamBuilder(
+                      stream:
+                          Firestore.instance.collection('motos').snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error: ${snapshot.error}');
+                        }
+                        if (snapshot.hasData) {
+                          DocumentSnapshot ds = snapshot.data.documents[0];
+                          //mostra  a marca da moto que está no documento do firebase
+                          //a variavel ds tem o array 0 ou seja, honda.
+
+                          print(ds['marca']);
+                          return Expanded(
+                            child: Text(
+                              "Modelo",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                   Expanded(
                     child: botaoSelecaoModelo(),
                   ),
