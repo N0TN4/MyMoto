@@ -1,3 +1,4 @@
+import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Paginas/Cadastro/servico_firebase_cadastro_por_email.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,10 +11,10 @@ class BlocCadastroPorEmail {
   final _confirmarSenha = BehaviorSubject<String>();
   final _telefone = BehaviorSubject<String>();
   // mudar modelo marca e quilometragem para receber o tipo Moto
-
-  final _modelo = BehaviorSubject<String>();
-  final _marca = BehaviorSubject<String>();
-  final _quilometragem = BehaviorSubject<String>();
+  
+  final _modelo = BehaviorSubject<Moto>();
+  final _marca = BehaviorSubject<Moto>();
+  final _quilometragem = BehaviorSubject<Moto>();
 
   Stream<String> get login => _login.stream;
   Stream<String> get nome => _nome.stream;
@@ -22,9 +23,9 @@ class BlocCadastroPorEmail {
   Stream<String> get confirmarSenha => _confirmarSenha.stream;
   Stream<String> get telefone => _telefone.stream;
   // mudar modelo marca e quilometragem para receber o tipo Moto
-  Stream<String> get modelo => _modelo.stream;
-  Stream<String> get marca => _marca.stream;
-  Stream<String> get quilometragem => _quilometragem.stream;
+  Stream<Moto> get modelo => _modelo.stream;
+  Stream<Moto> get marca => _marca.stream;
+  Stream<Moto> get quilometragem => _quilometragem.stream;
 
   Function(String) get mudarLogin => _login.sink.add;
   Function(String) get mudarNome => _nome.sink.add;
@@ -33,9 +34,9 @@ class BlocCadastroPorEmail {
   Function(String) get mudarConfirmarSenhar => _confirmarSenha.sink.add;
   Function(String) get mudarTelefone => _telefone.sink.add;
   // mudar modelo marca e quilometragem para receber o tipo Moto
-  Function(String) get mudarModelo => _modelo.sink.add;
-  Function(String) get mudarMarca => _marca.sink.add;
-  Function(String) get mudarQuilometragem => _quilometragem.sink.add;
+  Function(Moto) get mudarModelo => _modelo.sink.add;
+  Function(Moto) get mudarMarca => _marca.sink.add;
+  Function(Moto) get mudarQuilometragem => _quilometragem.sink.add;
 
   ServicoFirebaseCadastroPorEmail _servico = ServicoFirebaseCadastroPorEmail();
 
@@ -48,12 +49,13 @@ class BlocCadastroPorEmail {
     usuario.confirmarSenha = _confirmarSenha.value; // todo
     usuario.telefone = _telefone.value;
     // passar o objeto de moto que está sendo criado no cadastro para o bloc (esta tela)
-
-    //usuario.moto.modelo = _modelo.value;
-    //usuario.moto.marca = _marca.value;
-    //usuario.moto.quiometragem = _quilometragem.value;
+    Moto moto = new Moto();
+    //moto.modelo = _modelo.value;
+    //moto.marca = _marca.value;
+    //moto.quiometragem = _quilometragem.value;
 
     print(usuario.toString());
+    print(moto.toString());
     _servico.salvar(usuario);
   }
 
