@@ -73,11 +73,11 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
     final senha = senhaCtrl.text;
     final confirmarSenha = confirmarSenhaCtrl.text;
 
-     print("Login: $confirmarSenha , Senha: $senha " );  
+    print("Login: $confirmarSenha , Senha: $senha ");
 
-     if(!formKey.currentState.validate())  {
+    if (!formKey.currentState.validate()) {
       return;
-     }
+    }
 
     if (confirmarSenha != senha) {
       showDialog(
@@ -135,18 +135,79 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(30.0),
         child: Center(
-          child: Container(
-            margin: EdgeInsets.only(bottom: 20.0),
-            child: Form(
-              child: Column(
+          child: Column(
+            children: <Widget>[
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "Login",
+                required: true,
+                controlador: loginCtrl,
+                bloc: _bloc.mudarLogin(loginCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "Nome",
+                required: true,
+                controlador: nomeCtrl,
+                bloc: _bloc.mudarNome(nomeCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "E-mail",
+                tipoDoInput: TextInputType.emailAddress,
+                controlador: emailCtrl,
+                required: true,
+                bloc: _bloc.mudarEmail(emailCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "Senha",
+                required: true,
+                controlador: senhaCtrl,
+                bloc: _bloc.mudarSenha(senhaCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "Confirmar senha",
+                required: true,
+                controlador: confirmarSenhaCtrl,
+                bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              CampoDeTextoFormularioCustomizado(
+                rotulo: "Telefone",
+                tipoDoInput: TextInputType.number,
+                controlador: telefoneCtrl,
+                bloc: _bloc.mudarTelefone(telefoneCtrl.text),
+              ),
+              Divider(
+                height: 20.0,
+                color: Colors.white10,
+              ),
+              Row(
                 children: <Widget>[
-                  CampoDeTextoFormularioCustomizado(
-                    rotulo: "Login",
-                    required: true,
-                    key: formKey,
-                    controlador: loginCtrl,
-                    campoSubmetido: validadorVazio("Login"),
-                    bloc: _bloc.mudarLogin(loginCtrl.text),
+                  Expanded(
+                    child: Text(
+                      "Modelo",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  Expanded(
+                    child: botaoSelecaoModelo(),
                   ),
                   CampoDeTextoFormularioCustomizado(
                     rotulo: "Nome",
@@ -264,7 +325,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   )
                 ],
               ),
-            ),
+            ],
           ),
         ),
       ),

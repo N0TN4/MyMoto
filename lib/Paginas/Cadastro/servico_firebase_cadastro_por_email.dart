@@ -9,10 +9,10 @@ class ServicoFirebaseCadastroPorEmail {
       'senha': usuario.senha,
       'email': usuario.email,
       //'confirmarSenha': usuario.confirmarSenha,
-      'telefone': "usuario.telefone",
-      'modelo': usuario.moto.modelo,
-      'marca': usuario.moto.marca,
-      'quilometragem': usuario.moto.quiometragem
+      'telefone': usuario.telefone,
+      //'modelo': usuario.moto.modelo,
+      //'marca': usuario.moto.marca,
+      //'quilometragem': usuario.moto.quiometragem,
     });
   }
 }
