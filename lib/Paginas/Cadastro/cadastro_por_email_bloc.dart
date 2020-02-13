@@ -1,3 +1,4 @@
+import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Paginas/Cadastro/servico_firebase_cadastro_por_email.dart';
 import 'package:rxdart/rxdart.dart';
@@ -48,8 +49,10 @@ class BlocCadastroPorEmail {
     usuario.confirmarSenha = _confirmarSenha.value; // todo
     usuario.telefone = _telefone.value;
     // passar o objeto de moto que está sendo criado no cadastro para o bloc (esta tela)
-
-    //usuario.moto.modelo = _modelo.value;
+    Moto moto = new Moto();
+    usuario.moto = moto;
+    usuario.moto.modelo = _modelo.value;
+    // moto do usuario é a moto que está foi instanciada
     //usuario.moto.marca = _marca.value;
     //usuario.moto.quiometragem = _quilometragem.value;
 

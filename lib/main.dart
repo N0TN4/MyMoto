@@ -58,7 +58,7 @@ Widget _introScreen() {
         loadingText: Text("Pilote com cuidado!"),
 
         //alterar  para rota que irá editar
-        navigateAfterSeconds:  CadastroPorEmail(),
+        navigateAfterSeconds:  MenuPrincipal(),
         loaderColor: Colors.red,
       ),
       Container(
