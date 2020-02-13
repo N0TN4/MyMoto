@@ -10,22 +10,7 @@ class BlocCadastroPorEmail {
   final _email = BehaviorSubject<String>();
   final _confirmarSenha = BehaviorSubject<String>();
   final _telefone = BehaviorSubject<String>();
-  // mudar modelo marca e quilometragem para receber o tipo Moto
-
   final _modelo = BehaviorSubject<String>();
-  final _marca = BehaviorSubject<String>();
-  final _quilometragem = BehaviorSubject<String>();
-
-  Stream<String> get login => _login.stream;
-  Stream<String> get nome => _nome.stream;
-  Stream<String> get senha => _login.stream;
-  Stream<String> get email => _email.stream;
-  Stream<String> get confirmarSenha => _confirmarSenha.stream;
-  Stream<String> get telefone => _telefone.stream;
-  // mudar modelo marca e quilometragem para receber o tipo Moto
-  Stream<String> get modelo => _modelo.stream;
-  Stream<String> get marca => _marca.stream;
-  Stream<String> get quilometragem => _quilometragem.stream;
 
   Function(String) get mudarLogin => _login.sink.add;
   Function(String) get mudarNome => _nome.sink.add;
@@ -33,17 +18,14 @@ class BlocCadastroPorEmail {
   Function(String) get mudarEmail => _email.sink.add;
   Function(String) get mudarConfirmarSenhar => _confirmarSenha.sink.add;
   Function(String) get mudarTelefone => _telefone.sink.add;
-  // mudar modelo marca e quilometragem para receber o tipo Moto
   Function(String) get mudarModelo => _modelo.sink.add;
-  Function(String) get mudarMarca => _marca.sink.add;
-  Function(String) get mudarQuilometragem => _quilometragem.sink.add;
 
-  ServicoFirebaseCadastroPorEmail _servico = ServicoFirebaseCadastroPorEmail();
+  ServicoFirebaseCadastroPorEmail _servico =
+      new ServicoFirebaseCadastroPorEmail();
 
   void salvar() {
     Usuario usuario = new Usuario();
     usuario.login = _login.value;
-    usuario.nome = _nome.value;
     usuario.senha = _senha.value;
     usuario.email = _email.value;
     usuario.confirmarSenha = _confirmarSenha.value; // todo
@@ -68,7 +50,5 @@ class BlocCadastroPorEmail {
     _confirmarSenha.close();
     _telefone.close();
     _modelo.close();
-    _marca.close();
-    _quilometragem.close();
   }
 }

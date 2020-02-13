@@ -17,6 +17,9 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
   final String valorInicial;
   final String valorController;
   final dynamic bloc;
+  final String mask;
+  final TextEditingController maskedTextFieldController;
+  final bool obscureText;
 
   CampoDeTextoFormularioCustomizado({
     this.key,
@@ -34,6 +37,9 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
     this.valorInicial,
     this.valorController,
     this.bloc,
+    this.mask,
+    this.maskedTextFieldController, 
+    this.obscureText,
   });
 
   @override

@@ -19,6 +19,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
   TextEditingController senhaCtrl = TextEditingController();
   TextEditingController confirmarSenhaCtrl = TextEditingController();
   TextEditingController telefoneCtrl = TextEditingController();
+  TextEditingController textTelefoneCtrl = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   BlocCadastroPorEmail _bloc = BlocCadastroPorEmail();
   final _formularioChave = GlobalKey<FormState>();
 
