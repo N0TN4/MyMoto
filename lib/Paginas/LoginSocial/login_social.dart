@@ -144,7 +144,7 @@ class _LoginSocialState extends State<LoginSocial> {
       senhaAuxiliar = onData.documents[0].data['senha'];
       if (senha == senhaAuxiliar) {
         print("Sucesso");
-
+        
         //Navigator.of(context).pop();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
