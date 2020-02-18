@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(),
+      // my home page trocar para splash
+      home: LoginSocial(),
     );
   }
 }
@@ -32,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-     
     super.initState();
   }
 
@@ -54,11 +54,10 @@ Widget _introScreen() {
           end: Alignment.bottomLeft,
           colors: [Colors.white, Colors.white70],
         ),
-
         loadingText: Text("Pilote com cuidado!"),
 
         //alterar  para rota que irá editar
-        navigateAfterSeconds:  MenuPrincipal(),
+        navigateAfterSeconds: CadastroPorEmail(),
         loaderColor: Colors.red,
       ),
       Container(

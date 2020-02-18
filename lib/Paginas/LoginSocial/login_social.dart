@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -5,6 +6,7 @@ import 'package:mymoto/Autenticacao/autenticacao_google.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
+import 'package:mymoto/Paginas/Cadastro/cadastro_por_email.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,8 +24,6 @@ class _LoginSocialState extends State<LoginSocial> {
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -69,63 +69,91 @@ class _LoginSocialState extends State<LoginSocial> {
               ],
             ),
           ),
-          Container(
-            child: CampoDeTextoFormularioCustomizado(
-              controlador: _loginController,
-              bloc: _bloc.mudarLogin(_loginController.text),
-              rotulo: "Login",
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              child: CampoDeTextoFormularioCustomizado(
+                controlador: _loginController,
+                bloc: _bloc.mudarLogin(_loginController.text),
+                rotulo: "Login",
+              ),
             ),
           ),
-          Container(
-            child: CampoDeTextoFormularioCustomizado(
-              controlador: _senhaController,
-              bloc: _bloc.mudarSenha(_senhaController.text),
-              rotulo: "Senha",
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              child: CampoDeTextoFormularioCustomizado(
+                controlador: _senhaController,
+                bloc: _bloc.mudarSenha(_senhaController.text),
+                rotulo: "Senha",
+              ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Checkbox(
-                    onChanged: (check) {},
-                    value: true,
-                    checkColor: Color(0xffF24333),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Text("Me lembre"),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: RaisedButton(
-                        color: Color(0xffF24333),
-                        child: Text("Entrar"),
-                        onPressed: _bloc.salvar)),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(20),
+                child: RaisedButton(
+                    color: Color(0xffF24333),
+                    child: Text("Cadastrar"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CadastroPorEmail()));
+                    }),
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: RaisedButton(
+                    color: Color(0xffF24333),
+                    child: Text("Entrar"),
+                    onPressed: () async {
+                      logar(_loginController.text, _senhaController.text);
+                    }),
+              ),
+            ],
           ),
           GoogleSignInButton(
             text: "Login",
             onPressed: () async {
               AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-              await autenticacao.logarComGoogle();
+              autenticacao.logarComGoogle();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MenuPrincipal()));
-
-              /* _handleSignIn().then((FirebaseUser user) {
-                print(user);
-                
-
-              }).catchError((e) => print(e));
-            */
             },
           ),
         ],
       ),
     );
+  }
+
+  logar(String login, String senha) {
+    String loginAuxiliar;
+    String senhaAuxiliar;
+    Future<bool> futuro = Future(() => false); // inicializa logado como falso
+    // consulta
+    Firestore.instance
+        .collection('usuarios')
+        .where('login', isEqualTo: login)
+        .snapshots()
+        .listen((onData) {
+      print(onData.documents[0].data);
+      loginAuxiliar = onData.documents[0].data['login'];
+      senhaAuxiliar = onData.documents[0].data['senha'];
+      if (senha == senhaAuxiliar) {
+        print("Sucesso");
+
+        //Navigator.of(context).pop();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
+        _bloc.dispose();
+      } else {
+        print("Senha errada.");
+      }
+    });
+    //print("Logado ? $logado");
+    //return logado;
   }
 }
