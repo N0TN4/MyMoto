@@ -104,7 +104,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       onPressed: () {},
                       color: Colors.red,
                       textColor: Colors.white,
-                      child: Text("Buy now".toUpperCase(),
+                      child: Text("Botao".toUpperCase(),
                           style: TextStyle(fontSize: 14)),
                     ),
                   ], // Coluna do body
