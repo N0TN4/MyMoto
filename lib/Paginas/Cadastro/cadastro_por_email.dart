@@ -179,12 +179,6 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   onPressed: () {
                     if (_formularioChave.currentState.validate()) {
                       _bloc.salvar();
-                      // print("login: ${loginCtrl.text}" +
-                      //     " nome: ${nomeCtrl.text}" +
-                      //     " email : ${emailCtrl.text}" +
-                      //     " senha: ${senhaCtrl.text}" +
-                      //     " confirmar senha : ${confirmarSenhaCtrl.text}" +
-                      //     " telefone: ${telefoneCtrl.text}");
                     }
                   },
                 )

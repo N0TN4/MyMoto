@@ -1,6 +1,6 @@
 import 'package:mymoto/Modelos/moto.dart';
 
-class Usuario{
+class Usuario {
   String id;
   String login;
   String nome;
@@ -11,12 +11,21 @@ class Usuario{
   String telefone;
   String confirmarSenha;
   Moto moto;
+  String modelo;
 
   /// usuario tem moto.
-  /// 
-  Usuario();
+  ///
+  Usuario(
+      {this.id,
+      this.login,
+      this.nome,
+      this.senha,
+      this.email,
+      this.linkFoto,
+      this.cpf,
+      this.telefone,
+      this.confirmarSenha,
+      this.modelo});
 
-  Usuario.firebase({this.id, this.nome, this.email,this.linkFoto});
-  
-
+  Usuario.firebase({this.id, this.nome, this.email, this.linkFoto});
 }

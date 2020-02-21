@@ -11,7 +11,7 @@ class ServicoFirebaseCadastroPorEmail {
       'email': usuario.email,
       //'confirmarSenha': usuario.confirmarSenha,
       'telefone': usuario.telefone,
-      'modelo': usuario.moto.modelo,
+      'modelo': usuario.modelo,
       //'marca': usuario.moto.marca,
       //'quilometragem': usuario.moto.quiometragem
     });

@@ -24,22 +24,24 @@ class BlocCadastroPorEmail {
       new ServicoFirebaseCadastroPorEmail();
 
   void salvar() {
-    Usuario usuario = new Usuario();
-    usuario.login = _login.value;
-    usuario.senha = _senha.value;
-    usuario.email = _email.value;
-    usuario.confirmarSenha = _confirmarSenha.value; // todo
-    usuario.telefone = _telefone.value;
+    Usuario usuario = new Usuario(
+      login: _login.value,
+      nome: _nome.value,
+      senha: _senha.value,
+      confirmarSenha: _confirmarSenha.value,
+      email: _email.value,
+      telefone: _telefone.value,
+      modelo: _modelo.value,
+    );
+
     // passar o objeto de moto que está sendo criado no cadastro para o bloc (esta tela)
-    Moto moto = new Moto();
-    usuario.moto = moto;
-    usuario.moto.modelo = _modelo.value;
+
     // moto do usuario é a moto que está foi instanciada
     //usuario.moto.marca = _marca.value;
     //usuario.moto.quiometragem = _quilometragem.value;
 
     print(usuario.nome);
-    //_servico.salvar(usuario);
+    _servico.salvar(usuario);
   }
 
   void dispose() {

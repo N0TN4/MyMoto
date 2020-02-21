@@ -44,29 +44,31 @@ class _LoginSocialState extends State<LoginSocial> {
                 ),
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(90))),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 60),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.motorcycle,
-                        size: 80,
-                      ),
-                      Text(
-                        "MyMoto",
-                        style: TextStyle(color: Colors.black, fontSize: 30),
-                      ),
-                    ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.motorcycle,
+                          size: 80,
+                        ),
+                        Text(
+                          "MyMoto",
+                          style: TextStyle(color: Colors.black, fontSize: 30),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text("Login"),
-                )
-              ],
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text("Login"),
+                  )
+                ],
+              ),
             ),
           ),
           Padding(
