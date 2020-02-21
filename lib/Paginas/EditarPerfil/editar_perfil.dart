@@ -133,7 +133,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      "foto do Perfil",
+                      "Foto do Perfil",
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
@@ -204,22 +204,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     child: botaoSelecaoModelo(),
                   ),
                 ],
-              ),
-              Divider(height: 20.0, color: Colors.white10),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                  side: BorderSide(color: Colors.red),
-                ),
-                onPressed: () {
-                  /*funcao para calcular quilometragem*/
-                },
-                color: Colors.red,
-                textColor: Colors.white,
-                child: Text(
-                  "Buy now".toUpperCase(),
-                  style: TextStyle(fontSize: 14),
-                ),
               ),
               Divider(height: 20.0, color: Colors.white10),
               Row(

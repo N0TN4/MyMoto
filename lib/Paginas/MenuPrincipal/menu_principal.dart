@@ -38,12 +38,13 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             children: <Widget>[
               //tela de boas vindas
               SizedBox(
-                height: 15,
+                height: 30,
               ),
               Center(
                 child: Container(
                   child: Text(
-                    "Bem vindo ao MyMoto ${UsuarioLogado.usuario.nome}",
+                    "Bem vindo ao MyMoto \n${UsuarioLogado.usuario.nome}",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -51,15 +52,15 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 44.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     CarouselSlider(
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 2),
-                      autoPlayAnimationDuration: Duration(milliseconds: 977),
-                      pauseAutoPlayOnTouch: Duration(seconds: 10),
+                      autoPlayInterval: Duration(seconds: 4),
+                      autoPlayAnimationDuration: Duration(milliseconds: 1300),
+                      pauseAutoPlayOnTouch: Duration(seconds: 8),
                       height: 220.0,
                       items: imagemLista.map((imagemUrl) {
                         return Builder(
@@ -104,7 +105,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       onPressed: () {},
                       color: Colors.red,
                       textColor: Colors.white,
-                      child: Text("Botao".toUpperCase(),
+                      child: Text("Oficina".toUpperCase(),
                           style: TextStyle(fontSize: 14)),
                     ),
                   ], // Coluna do body
