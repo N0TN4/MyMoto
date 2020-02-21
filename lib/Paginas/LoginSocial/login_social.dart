@@ -25,109 +25,121 @@ class _LoginSocialState extends State<LoginSocial> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  final _formularioLoginChave = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xffBA1B1D),
-                      Color(0xffF24333),
+        child: Form(
+          key: _formularioLoginChave,
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xffBA1B1D),
+                        Color(0xffF24333),
+                      ],
+                    ),
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(90))),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.motorcycle,
+                              size: 80,
+                            ),
+                            Text(
+                              "MyMoto",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 30),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text("Login"),
+                      )
                     ],
                   ),
-                  borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(90))),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.motorcycle,
-                            size: 80,
-                          ),
-                          Text(
-                            "MyMoto",
-                            style: TextStyle(color: Colors.black, fontSize: 30),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text("Login"),
-                    )
-                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: CampoDeTextoFormularioCustomizado(
-                  controlador: _loginController,
-                  bloc: _bloc.mudarLogin(_loginController.text),
-                  rotulo: "Login",
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  child: CampoDeTextoFormularioCustomizado(
+                    controlador: _loginController,
+                    bloc: _bloc.mudarLogin(_loginController.text),
+                    rotulo: "Login",
+                    required: true,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: CampoDeTextoFormularioCustomizado(
-                  controlador: _senhaController,
-                  bloc: _bloc.mudarSenha(_senhaController.text),
-                  rotulo: "Senha",
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  child: CampoDeTextoFormularioCustomizado(
+                    controlador: _senhaController,
+                    bloc: _bloc.mudarSenha(_senhaController.text),
+                    //tipoDoInput: TextInputType.visiblePassword,
+                    obscureText: true,
+                    required: true,
+                    rotulo: "Senha",
+                  ),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: RaisedButton(
-                      color: Color(0xffF24333),
-                      child: Text("Cadastrar"),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CadastroPorEmail()));
-                      }),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: RaisedButton(
-                      color: Color(0xffF24333),
-                      child: Text("Entrar"),
-                      onPressed: () async {
-                        logar(_loginController.text, _senhaController.text);
-                      }),
-                ),
-              ],
-            ),
-            GoogleSignInButton(
-              text: "Login",
-              onPressed: () async {
-                AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-                autenticacao.logarComGoogle();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MenuPrincipal()));
-              },
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                        color: Color(0xffF24333),
+                        child: Text("Cadastrar"),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CadastroPorEmail()));
+                        }),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                        color: Color(0xffF24333),
+                        child: Text("Entrar"),
+                        onPressed: () async {
+                          if (_formularioLoginChave.currentState.validate()) {
+                            logar(_loginController.text, _senhaController.text);
+                          }
+                        }),
+                  ),
+                ],
+              ),
+              GoogleSignInButton(
+                text: "Login",
+                onPressed: () async {
+                  AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
+                  autenticacao.logarComGoogle();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MenuPrincipal()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

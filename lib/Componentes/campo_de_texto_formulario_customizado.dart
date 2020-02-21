@@ -20,27 +20,28 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
   final String mask;
   final TextEditingController maskedTextFieldController;
   final bool obscureText;
+  final InputDecoration decoration;
 
-  CampoDeTextoFormularioCustomizado({
-    this.key,
-    this.preIcone,
-    this.posIcone,
-    this.rotulo,
-    this.controlador,
-    this.tipoDoInput,
-    this.ativo,
-    this.focusNode,
-    this.campoSubmetido,
-    this.linhasMax,
-    this.required,
-    this.capitalizacao,
-    this.valorInicial,
-    this.valorController,
-    this.bloc,
-    this.mask,
-    this.maskedTextFieldController, 
-    this.obscureText,
-  });
+  CampoDeTextoFormularioCustomizado(
+      {this.key,
+      this.preIcone,
+      this.posIcone,
+      this.rotulo,
+      this.controlador,
+      this.tipoDoInput,
+      this.ativo,
+      this.focusNode,
+      this.campoSubmetido,
+      this.linhasMax,
+      this.required,
+      this.capitalizacao,
+      this.valorInicial,
+      this.valorController,
+      this.bloc,
+      this.mask,
+      this.maskedTextFieldController,
+      this.obscureText = false,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +55,19 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
       onFieldSubmitted: campoSubmetido,
       keyboardType: tipoDoInput,
       controller: controlador,
+      obscureText: obscureText,
       validator: required == true
-          ? (value) => value.isEmpty ? 'campo obrigatorio' : null
+          ? (value) => value.isEmpty ? 'Obrigatório' : null
           : null,
-      decoration: InputDecoration(
-          labelStyle: TextStyle(height: 0.0, color: tema.primaryColor),
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          suffixIcon: posIcone,
-          prefixIcon: preIcone,
-          hintText: rotulo),
+      decoration: decoration == null
+          ? InputDecoration(
+              labelStyle: TextStyle(height: 0.0, color: tema.primaryColor),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              suffixIcon: posIcone,
+              prefixIcon: preIcone,
+              hintText: rotulo)
+          : decoration,
     );
   }
 }

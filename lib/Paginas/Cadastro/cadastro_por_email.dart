@@ -79,6 +79,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Senha",
                   required: true,
+                  obscureText: true,
                   controlador: senhaCtrl,
                   bloc: _bloc.mudarSenha(senhaCtrl.text),
                 ),
@@ -89,6 +90,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Confirmar senha",
                   required: true,
+                  obscureText: true,
                   controlador: confirmarSenhaCtrl,
                   bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
                 ),
