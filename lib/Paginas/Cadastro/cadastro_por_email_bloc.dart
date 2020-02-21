@@ -28,7 +28,7 @@ class BlocCadastroPorEmail {
       login: _login.value,
       nome: _nome.value,
       senha: _senha.value,
-      confirmarSenha: _confirmarSenha.value,
+      //confirmarSenha: _confirmarSenha.value,
       email: _email.value,
       telefone: _telefone.value,
       modelo: _modelo.value,

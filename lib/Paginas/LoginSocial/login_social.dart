@@ -146,7 +146,8 @@ class _LoginSocialState extends State<LoginSocial> {
       senhaAuxiliar = onData.documents[0].data['senha'];
       if (senha == senhaAuxiliar) {
         print("Sucesso");
-        
+        // dados usuario usuario =  from json
+        UsuarioLogado.usuario = Usuario.fromJson(onData.documents[0].data);
         //Navigator.of(context).pop();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MenuPrincipal()));

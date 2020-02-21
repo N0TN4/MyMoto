@@ -39,6 +39,7 @@ class AutenticacaoGoogle {
     assert(await user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();
+    
     Usuario usuario = new Usuario.firebase(
       id: user.uid,
       nome: user.displayName,
