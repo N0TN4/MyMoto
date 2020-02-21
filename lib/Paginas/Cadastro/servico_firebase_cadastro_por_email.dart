@@ -3,6 +3,7 @@ import 'package:mymoto/Modelos/usuario.dart';
 
 class ServicoFirebaseCadastroPorEmail {
   salvar(Usuario usuario) {
+    print(usuario.nome);
     Firestore.instance.collection("usuarios").document().setData({
       'login': usuario.login,
       'nome': usuario.nome,

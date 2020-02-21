@@ -38,8 +38,8 @@ class BlocCadastroPorEmail {
     //usuario.moto.marca = _marca.value;
     //usuario.moto.quiometragem = _quilometragem.value;
 
-    print(usuario.toString());
-    _servico.salvar(usuario);
+    print(usuario.nome);
+    //_servico.salvar(usuario);
   }
 
   void dispose() {
