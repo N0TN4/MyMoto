@@ -27,6 +27,10 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
 
   @override
   Widget build(BuildContext context) {
+    final pularLinha = Divider(
+      height: 20.0,
+      color: Colors.white10,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -51,20 +55,14 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   controlador: loginCtrl,
                   bloc: _bloc.mudarLogin(loginCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Nome",
                   required: true,
                   controlador: nomeCtrl,
                   bloc: _bloc.mudarNome(nomeCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "E-mail",
                   tipoDoInput: TextInputType.emailAddress,
@@ -72,10 +70,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   required: true,
                   bloc: _bloc.mudarEmail(emailCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Senha",
                   required: true,
@@ -83,10 +78,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   controlador: senhaCtrl,
                   bloc: _bloc.mudarSenha(senhaCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Confirmar senha",
                   required: true,
@@ -94,20 +86,14 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   controlador: confirmarSenhaCtrl,
                   bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 CampoDeTextoFormularioCustomizado(
                   rotulo: "Telefone",
                   tipoDoInput: TextInputType.number,
                   controlador: telefoneCtrl,
                   bloc: _bloc.mudarTelefone(telefoneCtrl.text),
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white10,
-                ),
+                pularLinha,
                 Row(
                   children: <Widget>[
                     StreamBuilder(
@@ -151,7 +137,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         }),
                   ],
                 ),
-                Divider(height: 20.0, color: Colors.white10),
+                pularLinha,
                 Row(
                   children: <Widget>[
                     Expanded(
