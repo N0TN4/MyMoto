@@ -84,6 +84,7 @@ class _LoginSocialState extends State<LoginSocial> {
                     controlador: _loginController,
                     bloc: _bloc.mudarLogin(_loginController.text),
                     rotulo: "Login",
+                    linhasMax: 1,
                     required: true,
                   ),
                 ),
@@ -97,11 +98,12 @@ class _LoginSocialState extends State<LoginSocial> {
                     //tipoDoInput: TextInputType.visiblePassword,
                     obscureText: true,
                     required: true,
+                    linhasMax: 1,
                     rotulo: "Senha",
                   ),
                 ),
               ),
-              Row(
+              Row(  
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(

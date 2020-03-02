@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/EditarOdometro/editar_odometro.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
+import 'package:mymoto/Paginas/Mapa/tela_mapa.dart';
 import 'package:mymoto/Paginas/Oficina/oficina.dart';
 
 class MenuLateral extends StatelessWidget {
@@ -38,6 +39,7 @@ class MenuLateral extends StatelessWidget {
               pagina: EditarOdometro()),
           criarCelulaNoMenu("Oficina", Icons.settings, pagina: Oficina()),
           criarCelulaNoMenu("Perfil", Icons.person, pagina: EditarPerfil()),
+          criarCelulaNoMenu("Mapa", Icons.location_on, pagina: PageMapa()),
         ],
       ),
     );
