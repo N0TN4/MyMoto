@@ -26,6 +26,10 @@ class MenuLateral extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: Text("${UsuarioLogado.usuario.nome}"),
             accountEmail: Text("${UsuarioLogado.usuario.email}"),
+            onDetailsPressed: (){
+               Navigator.push(
+              context, MaterialPageRoute(builder: (context) => EditarPerfil()));
+            },
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
@@ -38,7 +42,7 @@ class MenuLateral extends StatelessWidget {
           criarCelulaNoMenu("MyMoto", Icons.motorcycle,
               pagina: EditarOdometro()),
           criarCelulaNoMenu("Oficina", Icons.settings, pagina: Oficina()),
-          criarCelulaNoMenu("Perfil", Icons.person, pagina: EditarPerfil()),
+          
           criarCelulaNoMenu("Mapa", Icons.location_on, pagina: PageMapa()),
         ],
       ),

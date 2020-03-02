@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
 
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
@@ -12,92 +14,20 @@ class EditarPerfil extends StatefulWidget {
 }
 
 class _EditarPerfilState extends State<EditarPerfil> {
-  Widget botaoSelecaoModelo() {
-    String dropdownValue = 'Selecionar';
+  TextEditingController usuarioController = new TextEditingController();
+  TextEditingController nomeController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController senhaController = new TextEditingController();
+  TextEditingController telefoneController = new TextEditingController();
 
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 20,
-      isExpanded: true,
-      style: TextStyle(color: Colors.red),
-      underline: Container(
-        height: 1,
-        color: Colors.red,
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>[
-        'Selecionar',
-        'Modelo 1',
-        'Modelo 2',
-        'Modelo 3',
-        'Modelo 4',
-        'Modelo 5'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget botaoSelecaoMarca() {
-    String dropdownValue = 'Selecionar';
-
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 20,
-      isExpanded: true,
-      style: TextStyle(color: Colors.red),
-      underline: Container(
-        height: 1,
-        color: Colors.red,
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>[
-        'Selecionar',
-        'Marca 1',
-        'Marca 2',
-        'Marca 3',
-        'Marca 4',
-        'Marca 5'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-
-  TextField campoTexto(String label) {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: label,
-      ),
-    );
-  }
-
-  void voltarPagina(BuildContext context, Widget page) async {
-    String s = await Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) {
-      return page;
-    }));
-
-    print(">> $s");
+  @override
+  initState() {
+    super.initState();
+    usuarioController.text = UsuarioLogado.usuario.login;
+    nomeController.text = UsuarioLogado.usuario.nome;
+    emailController.text = UsuarioLogado.usuario.email;
+    senhaController.text = UsuarioLogado.usuario.senha;
+    telefoneController.text = UsuarioLogado.usuario.telefone;
   }
 
   @override
@@ -146,14 +76,16 @@ class _EditarPerfilState extends State<EditarPerfil> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Usuário",
                 required: true,
+                controlador: usuarioController,
               ),
               Divider(
                 height: 20.0,
                 color: Colors.white10,
               ),
               CampoDeTextoFormularioCustomizado(
-                rotulo: "nome",
+                rotulo: "Nome",
                 required: true,
+                controlador: nomeController,
               ),
               Divider(
                 height: 20.0,
@@ -163,6 +95,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 rotulo: "E-mail",
                 tipoDoInput: TextInputType.emailAddress,
                 required: true,
+                controlador: emailController,
               ),
               Divider(
                 height: 20.0,
@@ -171,6 +104,10 @@ class _EditarPerfilState extends State<EditarPerfil> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Senha",
                 required: true,
+                controlador: senhaController,
+                obscureText: true,
+                tipoDoInput: TextInputType.visiblePassword,
+                linhasMax: 1,
               ),
               Divider(
                 height: 20.0,
@@ -179,6 +116,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Confirmar senha",
                 required: true,
+
               ),
               Divider(
                 height: 20.0,
@@ -187,6 +125,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Telefone",
                 tipoDoInput: TextInputType.number,
+                controlador: telefoneController,
               ),
               Divider(
                 height: 20.0,
@@ -200,9 +139,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                  Expanded(
-                    child: botaoSelecaoModelo(),
-                  ),
+                  // Expanded(
+                  //   child: botaoSelecaoModelo(),
+                  // ),
                 ],
               ),
               Divider(height: 20.0, color: Colors.white10),
@@ -214,9 +153,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                  Expanded(
-                    child: botaoSelecaoMarca(),
-                  ),
+                  // Expanded(
+                  //   child: botaoSelecaoMarca(),
+                  // ),
                 ],
               ),
               Divider(height: 60.0, color: Colors.white10),

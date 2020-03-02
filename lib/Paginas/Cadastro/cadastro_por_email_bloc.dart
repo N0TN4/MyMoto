@@ -1,4 +1,3 @@
-import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Paginas/Cadastro/servico_firebase_cadastro_por_email.dart';
 import 'package:rxdart/rxdart.dart';
