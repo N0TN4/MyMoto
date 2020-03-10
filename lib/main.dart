@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       // my home page trocar para splash
-      home: LoginSocial(),
+      home: MyHomePage(),
     );
   }
 }
@@ -57,7 +57,7 @@ Widget _introScreen() {
         loadingText: Text("Pilote com cuidado!"),
 
         //alterar  para rota que irá editar
-        navigateAfterSeconds: CadastroPorEmail(),
+        navigateAfterSeconds: LoginSocial(),
         loaderColor: Colors.red,
       ),
       Container(
