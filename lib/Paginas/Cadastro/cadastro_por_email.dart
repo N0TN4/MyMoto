@@ -164,7 +164,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   ),
                   onPressed: () {
                     if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
-                      print("senhas diferentes");
+                      print("senhas divergentes");
                     }
                      if (_formularioChave.currentState.validate()) {
                    _bloc.salvar();
