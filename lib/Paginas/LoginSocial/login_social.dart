@@ -24,7 +24,13 @@ class _LoginSocialState extends State<LoginSocial> {
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DateTime dataAtual = DateTime.now();
+    print(dataAtual);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
