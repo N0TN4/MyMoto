@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,7 @@ class _LoginSocialState extends State<LoginSocial> {
     DateTime dataAtual = DateTime.now();
     print(dataAtual);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +122,10 @@ class _LoginSocialState extends State<LoginSocial> {
                       color: Color(0xffF24333),
                       child: Text("Entrar"),
                       onPressed: () async {
-                        logar(_loginController.text, _senhaController.text);
+                        // tela login
+
+                        if (logar(
+                            _loginController.text, _senhaController.text)) {}
                       }),
                 ),
               ],
@@ -139,10 +145,10 @@ class _LoginSocialState extends State<LoginSocial> {
     );
   }
 
-  logar(String login, String senha) {
+  logar(String login, String senha) async {
     String loginAuxiliar;
     String senhaAuxiliar;
-    Future<bool> futuro = Future(() => false); // inicializa logado como falso
+    bool logado = false;
     // consulta
     Firestore.instance
         .collection('usuarios')
@@ -157,14 +163,56 @@ class _LoginSocialState extends State<LoginSocial> {
         // dados usuario usuario =  from json
         UsuarioLogado.usuario = Usuario.fromJson(onData.documents[0].data);
         //Navigator.of(context).pop();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
+        // Navigator.push(
+        //    context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
+        msg(true);
+
         //_bloc.dispose();
       } else {
         print("Senha errada.");
+        msg(false);
       }
     });
     //print("Logado ? $logado");
-    //return logado;
+    return logado;
+  }
+
+  msg(bool logado) {
+    if (logado) {
+      Timer(Duration(seconds: 1), () {
+        Navigator.of(context).pop();
+
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
+      });
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Carregando..."),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+    } else {
+      Timer(Duration(seconds: 1), () {
+        Navigator.of(context).pop();
+      });
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Não foi possível conectar"),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+    }
   }
 }
