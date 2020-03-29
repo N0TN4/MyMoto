@@ -31,7 +31,7 @@ class _TelaOficinaState extends State<TelaOficina> {
       return LinearPercentIndicator(
         width: MediaQuery.of(context).size.width - 80,
         animation: true,
-        lineHeight: 20.0,
+        lineHeight: 26.0,
         animationDuration: 2500,
         percent: porcentagem / 100,
         center: Text("$porcentagem%",
@@ -57,9 +57,18 @@ class _TelaOficinaState extends State<TelaOficina> {
           ],
           // array de cores para fazer o gradient
         ),
+        padding: EdgeInsets.only(left: 60),
       );
     }
 
+    Widget _pularLinha({double valor}) {
+      return SizedBox(
+        height: valor == null ? 16 : valor
+      );
+    }
+    Widget _mensagem(String texto){
+      return Text(texto, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -77,22 +86,37 @@ class _TelaOficinaState extends State<TelaOficina> {
           crossAxisAlignment:
               CrossAxisAlignment.center, // eixo x da coluna no centro (row)
           children: <Widget>[
-            Text("Funcionamento acelerador"),
-
+            _mensagem("Funcionamento acelerador"),
             _criarComponenteDePercentual(
               porcentagem: 70, // manipula o componente
             ),
+            _pularLinha(),
             // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
             // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
-            Text("Filtro de ar"),
-            _percentualIndicador, // Aqui apenas cria uma variavel
-            Text("Sinalização"),
-            _percentualIndicador,
-            Text("Cabo de freio"),
-            _percentualIndicador,
-            Text("Cabo de embreagem"),
-            _percentualIndicador,
-            Text("Tambor freio")
+            _mensagem("Filtro de ar"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
+            _pularLinha(),
+            _mensagem("Sinalização"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
+            _pularLinha(),
+            _mensagem("Cabo de freio"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
+            _pularLinha(),
+            _mensagem("Cabo de embreagem"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
+            _pularLinha(),
+            _mensagem("Tambor freio"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
           ],
         ),
       ),
@@ -147,40 +171,6 @@ class _TelaOficinaState extends State<TelaOficina> {
           ),
         ],
       ),
-      // bottomNavigationBar: Row(
-      //   children: <Widget>[
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Prevenção',
-      //           ))),
-      //     ),
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Manutenção',
-      //           ))),
-      //     ),
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Correção',
-      //           ))),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
