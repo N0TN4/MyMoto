@@ -21,19 +21,6 @@ class _TelaOficinaState extends State<TelaOficina> {
 
   @override
   Widget build(BuildContext context) {
-    // <<
-    final _percentualIndicador = LinearPercentIndicator(
-      width: MediaQuery.of(context).size.width - 80,
-      animation: true,
-      lineHeight: 20.0,
-      animationDuration: 2500,
-      percent: 1.0,
-      center: Text("100%", style: TextStyle(fontWeight: FontWeight.bold)),
-      linearStrokeCap: LinearStrokeCap.roundAll,
-      progressColor: Colors.green,
-    );
-
-    // >>
     // colocado retorno Widget só para entendimento que uma função
     // pode retornar um componente e ser manipulada pelos parametros
     //
@@ -86,6 +73,7 @@ class _TelaOficinaState extends State<TelaOficina> {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment:
               CrossAxisAlignment.center, // eixo x da coluna no centro (row)
           children: <Widget>[
