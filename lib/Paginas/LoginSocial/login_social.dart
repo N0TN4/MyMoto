@@ -38,6 +38,14 @@ class _LoginSocialState extends State<LoginSocial> {
   }
 
   @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    focusNode.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
