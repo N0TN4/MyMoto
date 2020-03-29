@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart' as prefix0;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
-import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
 class CadastroPorEmail extends StatefulWidget {
   @override
@@ -166,9 +165,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
                       print("senhas divergentes");
                     }
-                     if (_formularioChave.currentState.validate()) {
-                   _bloc.salvar();
-                     }
+                    if (_formularioChave.currentState.validate()) {
+                      _bloc.salvar();
+                    }
                   },
                 )
               ],

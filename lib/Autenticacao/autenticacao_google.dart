@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
-import 'package:mymoto/Paginas/LoginSocial/servico_firebase.dart';
+
 
 class AutenticacaoGoogle {
   final FirebaseAuth _auth = FirebaseAuth.instance;

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'MyMoto',
       theme: ThemeData(
         primarySwatch: Colors.red,
+        
       ),
       // my home page trocar para splash
       home: MyHomePage(),

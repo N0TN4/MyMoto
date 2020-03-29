@@ -26,6 +26,7 @@ class _LoginSocialState extends State<LoginSocial> {
   BlocLoginSocial _bloc = new BlocLoginSocial();
   bool campoDeTextoDeSenhaAtivo = false;
   FocusNode focusNode = FocusNode();
+  final _chaveFormulario = GlobalKey<FormState>();
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -39,7 +40,6 @@ class _LoginSocialState extends State<LoginSocial> {
 
   @override
   void dispose() {
-    // Clean up the focus node when the Form is disposed.
     focusNode.dispose();
 
     super.dispose();
@@ -49,114 +49,121 @@ class _LoginSocialState extends State<LoginSocial> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xffBA1B1D),
-                      Color(0xffF24333),
+        child: Form(
+          key: _chaveFormulario,
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xffBA1B1D),
+                        Color(0xffF24333),
+                      ],
+                    ),
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(90))),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.motorcycle,
+                              size: 80,
+                            ),
+                            Text(
+                              "MyMoto",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 30),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text("Login"),
+                      )
                     ],
                   ),
-                  borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(90))),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.motorcycle,
-                            size: 80,
-                          ),
-                          Text(
-                            "MyMoto",
-                            style: TextStyle(color: Colors.black, fontSize: 30),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text("Login"),
-                    )
-                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: CampoDeTextoFormularioCustomizado(
-                  controlador: _loginController,
-                  linhasMax: 1,
-                  campoSubmetido: (str) {
-                    focusNode.requestFocus();
-                  },
-                  bloc: _bloc.mudarLogin(_loginController.text),
-                  label: "Login",
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  child: CampoDeTextoFormularioCustomizado(
+                    controlador: _loginController,
+                    linhasMax: 1,
+                    required: true,
+                    campoSubmetido: (str) {
+                      focusNode.requestFocus();
+                    },
+                    bloc: _bloc.mudarLogin(_loginController.text),
+                    label: "Login",
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: CampoDeTextoSenhaCustomizado(
-                  controller: _senhaController,
-                  onFieldSubmitted: _bloc.mudarSenha(_senhaController.text),
-                  maxLines: 1,
-                  focusNode: focusNode,
-                  labelText: "Senha",
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  child: CampoDeTextoSenhaCustomizado(
+                    controller: _senhaController,
+                    required: true,
+                    onFieldSubmitted: _bloc.mudarSenha(_senhaController.text),
+                    maxLines: 1,
+                    focusNode: focusNode,
+                    labelText: "Senha",
+                  ),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: RaisedButton(
-                      color: Color(0xffF24333),
-                      child: Text("Cadastrar"),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CadastroPorEmail()));
-                      }),
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: RaisedButton(
-                      color: Color(0xffF24333),
-                      child: Text("Entrar"),
-                      onPressed: () async {
-                        // tela login
-
-                        if (logar(
-                            _loginController.text, _senhaController.text)) {}
-                      }),
-                ),
-              ],
-            ),
-            GoogleSignInButton(
-              text: "Login",
-              onPressed: () async {
-                AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-                autenticacao.logarComGoogle();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MenuPrincipal()));
-              },
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                        color: Color(0xffF24333),
+                        child: Text("Cadastrar"),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CadastroPorEmail()));
+                        }),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                        color: Color(0xffF24333),
+                        child: Text("Entrar"),
+                        onPressed: () async {
+                          // tela login
+                          if (_chaveFormulario.currentState.validate()) {
+                            await logar(
+                                _loginController.text, _senhaController.text);
+                          }
+                        }),
+                  ),
+                ],
+              ),
+              GoogleSignInButton(
+                text: "Login",
+                onPressed: () async {
+                  AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
+                  autenticacao.logarComGoogle();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MenuPrincipal()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -167,7 +174,7 @@ class _LoginSocialState extends State<LoginSocial> {
     String senhaAuxiliar;
     bool logado = false;
     // consulta
-    Firestore.instance
+    return await Firestore.instance
         .collection('usuarios')
         .where('login', isEqualTo: login)
         .snapshots()
@@ -191,7 +198,6 @@ class _LoginSocialState extends State<LoginSocial> {
       }
     });
     //print("Logado ? $logado");
-    return logado;
   }
 
   msg(bool logado) {

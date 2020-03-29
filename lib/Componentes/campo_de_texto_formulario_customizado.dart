@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mymoto/Componentes/cores_app.dart';
 
 class CampoDeTextoFormularioCustomizado extends StatelessWidget {
   final Key key;
@@ -47,35 +48,34 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
   Widget build(BuildContext context) {
     var tema = Theme.of(context);
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.black, width: 1),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: TextFormField(
-        enabled: ativo,
-        
-        maxLines: linhasMax,
-        focusNode: focusNode,
-        textCapitalization:
-            capitalizacao == null ? TextCapitalization.none : capitalizacao,
-        onFieldSubmitted: campoSubmetido,
-        keyboardType: tipoDoInput,
-        controller: controlador,
-        validator: required == true
-            ? (value) => value.isEmpty ? 'campo obrigatorio' : null
-            : null,
-        decoration: InputDecoration(
-            labelStyle: TextStyle(height: 0.0, color: tema.primaryColor),
-            
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
-            suffixIcon: posIcone,
-            prefixIcon: preIcone,
-            labelText: label,
-            hintText: rotulo),
-      ),
+    return TextFormField(
+      enabled: ativo,
+      maxLines: linhasMax,
+      focusNode: focusNode,
+      textCapitalization:
+          capitalizacao == null ? TextCapitalization.none : capitalizacao,
+      onFieldSubmitted: campoSubmetido,
+      keyboardType: tipoDoInput,
+      controller: controlador,
+      validator: required == true
+          ? (value) => value.isEmpty ? 'Obrigatório' : null
+          : null,
+      decoration: InputDecoration(
+          labelStyle: TextStyle(height: 0.0, color: CoresApp.secundaria),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(const Radius.circular(12)),
+            borderSide: BorderSide(color: CoresApp.principal, width: 1.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(const Radius.circular(12)),
+            borderSide: BorderSide(color: CoresApp.secundaria, width: 1.0),
+          ),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
+          suffixIcon: posIcone,
+          prefixIcon: preIcone,
+          labelText: label,
+          hintText: rotulo),
     );
   }
 }

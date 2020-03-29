@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
-
-import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override
@@ -116,7 +113,6 @@ class _EditarPerfilState extends State<EditarPerfil> {
               CampoDeTextoFormularioCustomizado(
                 rotulo: "Confirmar senha",
                 required: true,
-
               ),
               Divider(
                 height: 20.0,
