@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mymoto/Autenticacao/autenticacao_google.dart';
+import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
@@ -23,6 +24,8 @@ class _LoginSocialState extends State<LoginSocial> {
   TextEditingController _loginController = new TextEditingController();
   TextEditingController _senhaController = new TextEditingController();
   BlocLoginSocial _bloc = new BlocLoginSocial();
+  bool campoDeTextoDeSenhaAtivo = false;
+  FocusNode focusNode = FocusNode();
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -86,18 +89,24 @@ class _LoginSocialState extends State<LoginSocial> {
               child: Container(
                 child: CampoDeTextoFormularioCustomizado(
                   controlador: _loginController,
+                  linhasMax: 1,
+                  campoSubmetido: (str) {
+                    focusNode.requestFocus();
+                  },
                   bloc: _bloc.mudarLogin(_loginController.text),
-                  rotulo: "Login",
+                  label: "Login",
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-                child: CampoDeTextoFormularioCustomizado(
-                  controlador: _senhaController,
-                  bloc: _bloc.mudarSenha(_senhaController.text),
-                  rotulo: "Senha",
+                child: CampoDeTextoSenhaCustomizado(
+                  controller: _senhaController,
+                  onFieldSubmitted: _bloc.mudarSenha(_senhaController.text),
+                  maxLines: 1,
+                  focusNode: focusNode,
+                  labelText: "Senha",
                 ),
               ),
             ),
