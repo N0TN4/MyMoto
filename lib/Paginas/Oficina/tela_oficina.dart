@@ -18,7 +18,6 @@ class _TelaOficinaState extends State<TelaOficina> {
         []); // inicia o aplicativo em tela cheia
     // é necessário isso no meu celular, pois os botões nativos do android fica em cima da BottomNavigation
   }
-
   @override
   Widget build(BuildContext context) {
     // colocado retorno Widget só para entendimento que uma função
@@ -26,6 +25,13 @@ class _TelaOficinaState extends State<TelaOficina> {
     //
     // parametro com { }  dentro do ( ) "({variavel})"
     // por ser um atributo opcional.
+    List<Color> cores = List<Color>();
+    Color verde = Colors.green;
+    Color amarelo = Colors.yellow;
+    Color vermelho = Colors.red;
+    cores.add(verde);
+    cores.add(amarelo);
+    cores.add(vermelho);
 
     Widget _criarComponenteDePercentual({num porcentagem}) {
       return LinearPercentIndicator(
@@ -37,26 +43,29 @@ class _TelaOficinaState extends State<TelaOficina> {
         center: Text("$porcentagem%",
             style: TextStyle(fontWeight: FontWeight.bold)),
         linearStrokeCap: LinearStrokeCap.roundAll,
-        //progressColor: Colors.green,
+        progressColor: porcentagem >= 70 && porcentagem <= 100 ? verde :
+        porcentagem >= 40 && porcentagem < 70 ? amarelo : vermelho,
+
         //progressColor e linearGradient não pode ser utilizados juntos
-        linearGradient: LinearGradient(
-          // para fazer:
-          // 30 - 30 - 30
-          // verificar variavel que está vindo como parâmetro
-          // percontagem está entre 70 e 100? então mostrar 3 cores, (laranja, amarelo, limão)
-          // porcentagem está entre 40 e 70? então mostra 2 cores (laranja, amarelo e limão)
-          // porcentagem está 20 e 50 ? mostrar apenas 1 cor = laranja,
-          // posibilidade de colocar um vermelho mas escuro para porcentagens abaixo de 20
+//        linearGradient: LinearGradient(
+//          // para fazer:
+//          // 30 - 30 - 30
+//          // verificar variavel que está vindo como parâmetro
+//          // percontagem está entre 70 e 100? então mostrar 3 cores, (laranja, amarelo, limão)
+//          // porcentagem está entre 40 e 70? então mostra 2 cores (laranja, amarelo e limão)
+//          // porcentagem está 20 e 50 ? mostrar apenas 1 cor = laranja,
+//          // posibilidade de colocar um vermelho mas escuro para porcentagens abaixo de 20
+//
+//          //dicas : operador ternário já que o if nao pode ser utilizado dentro de um Widget
+//          //colors: porcentagem >= 70 && porcentagem <= 100 ? Colors.green
+//          colors: [
+//            porcentagem >= 70 && porcentagem <= 100 ? cor1 :
+//            porcentagem >= 40 && porcentagem < 70 ? cor2 : cor3,
+//            cor3,
+//          ],
+//          // array de cores para fazer o gradient
+//        ),
 
-          //dicas : operador ternário já que o if nao pode ser utilizado dentro de um Widget
-
-          colors: [
-            Colors.deepOrange,
-            Colors.yellow,
-            Colors.limeAccent,
-          ],
-          // array de cores para fazer o gradient
-        ),
         padding: EdgeInsets.only(left: 60),
       );
     }
@@ -95,7 +104,7 @@ class _TelaOficinaState extends State<TelaOficina> {
             // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
             _mensagem("Filtro de ar"),
             _criarComponenteDePercentual(
-              porcentagem: 100,
+              porcentagem: 69,
             ),
             _pularLinha(),
             _mensagem("Sinalização"),
@@ -105,24 +114,22 @@ class _TelaOficinaState extends State<TelaOficina> {
             _pularLinha(),
             _mensagem("Cabo de freio"),
             _criarComponenteDePercentual(
-              porcentagem: 100,
+              porcentagem: 70,
             ),
             _pularLinha(),
             _mensagem("Cabo de embreagem"),
             _criarComponenteDePercentual(
-              porcentagem: 100,
+              porcentagem: 40,
             ),
             _pularLinha(),
             _mensagem("Tambor freio"),
             _criarComponenteDePercentual(
-              porcentagem: 100,
+              porcentagem: 20,
             ),
           ],
         ),
       ),
 
-      // já existe um componente BottomNavigation bar ao invéz de uma row
-      // o que otimiza a performance
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey, // verificar cores chrome white
         currentIndex: indiceDaPagina, // aqui atribui a variavel criada
