@@ -18,61 +18,66 @@ class _TelaOficinaState extends State<TelaOficina> {
         []); // inicia o aplicativo em tela cheia
     // é necessário isso no meu celular, pois os botões nativos do android fica em cima da BottomNavigation
   }
-
   @override
   Widget build(BuildContext context) {
-    // <<
-    final _percentualIndicador = LinearPercentIndicator(
-      width: MediaQuery.of(context).size.width - 80,
-      animation: true,
-      lineHeight: 20.0,
-      animationDuration: 2500,
-      percent: 1.0,
-      center: Text("100%", style: TextStyle(fontWeight: FontWeight.bold)),
-      linearStrokeCap: LinearStrokeCap.roundAll,
-      progressColor: Colors.green,
-    );
-
-    // >>
     // colocado retorno Widget só para entendimento que uma função
     // pode retornar um componente e ser manipulada pelos parametros
     //
     // parametro com { }  dentro do ( ) "({variavel})"
     // por ser um atributo opcional.
+    List<Color> cores = List<Color>();
+    Color verde = Colors.green;
+    Color amarelo = Colors.yellow;
+    Color vermelho = Colors.red;
+    cores.add(verde);
+    cores.add(amarelo);
+    cores.add(vermelho);
 
     Widget _criarComponenteDePercentual({num porcentagem}) {
       return LinearPercentIndicator(
         width: MediaQuery.of(context).size.width - 80,
         animation: true,
-        lineHeight: 20.0,
+        lineHeight: 26.0,
         animationDuration: 2500,
         percent: porcentagem / 100,
         center: Text("$porcentagem%",
             style: TextStyle(fontWeight: FontWeight.bold)),
         linearStrokeCap: LinearStrokeCap.roundAll,
-        //progressColor: Colors.green,
+        progressColor: porcentagem >= 70 && porcentagem <= 100 ? verde :
+        porcentagem >= 40 && porcentagem < 70 ? amarelo : vermelho,
+
         //progressColor e linearGradient não pode ser utilizados juntos
-        linearGradient: LinearGradient(
-          // para fazer:
-          // 30 - 30 - 30
-          // verificar variavel que está vindo como parâmetro
-          // percontagem está entre 70 e 100? então mostrar 3 cores, (laranja, amarelo, limão)
-          // porcentagem está entre 40 e 70? então mostra 2 cores (laranja, amarelo e limão)
-          // porcentagem está 20 e 50 ? mostrar apenas 1 cor = laranja,
-          // posibilidade de colocar um vermelho mas escuro para porcentagens abaixo de 20
+//        linearGradient: LinearGradient(
+//          // para fazer:
+//          // 30 - 30 - 30
+//          // verificar variavel que está vindo como parâmetro
+//          // percontagem está entre 70 e 100? então mostrar 3 cores, (laranja, amarelo, limão)
+//          // porcentagem está entre 40 e 70? então mostra 2 cores (laranja, amarelo e limão)
+//          // porcentagem está 20 e 50 ? mostrar apenas 1 cor = laranja,
+//          // posibilidade de colocar um vermelho mas escuro para porcentagens abaixo de 20
+//
+//          //dicas : operador ternário já que o if nao pode ser utilizado dentro de um Widget
+//          //colors: porcentagem >= 70 && porcentagem <= 100 ? Colors.green
+//          colors: [
+//            porcentagem >= 70 && porcentagem <= 100 ? cor1 :
+//            porcentagem >= 40 && porcentagem < 70 ? cor2 : cor3,
+//            cor3,
+//          ],
+//          // array de cores para fazer o gradient
+//        ),
 
-          //dicas : operador ternário já que o if nao pode ser utilizado dentro de um Widget
-
-          colors: [
-            Colors.deepOrange,
-            Colors.yellow,
-            Colors.limeAccent,
-          ],
-          // array de cores para fazer o gradient
-        ),
+        padding: EdgeInsets.only(left: 60),
       );
     }
 
+    Widget _pularLinha({double valor}) {
+      return SizedBox(
+        height: valor == null ? 16 : valor
+      );
+    }
+    Widget _mensagem(String texto){
+      return Text(texto, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -86,31 +91,45 @@ class _TelaOficinaState extends State<TelaOficina> {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment:
               CrossAxisAlignment.center, // eixo x da coluna no centro (row)
           children: <Widget>[
-            Text("Funcionamento acelerador"),
-
+            _mensagem("Funcionamento acelerador"),
             _criarComponenteDePercentual(
               porcentagem: 70, // manipula o componente
             ),
+            _pularLinha(),
             // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
             // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
-            Text("Filtro de ar"),
-            _percentualIndicador, // Aqui apenas cria uma variavel
-            Text("Sinalização"),
-            _percentualIndicador,
-            Text("Cabo de freio"),
-            _percentualIndicador,
-            Text("Cabo de embreagem"),
-            _percentualIndicador,
-            Text("Tambor freio")
+            _mensagem("Filtro de ar"),
+            _criarComponenteDePercentual(
+              porcentagem: 69,
+            ),
+            _pularLinha(),
+            _mensagem("Sinalização"),
+            _criarComponenteDePercentual(
+              porcentagem: 100,
+            ),
+            _pularLinha(),
+            _mensagem("Cabo de freio"),
+            _criarComponenteDePercentual(
+              porcentagem: 70,
+            ),
+            _pularLinha(),
+            _mensagem("Cabo de embreagem"),
+            _criarComponenteDePercentual(
+              porcentagem: 40,
+            ),
+            _pularLinha(),
+            _mensagem("Tambor freio"),
+            _criarComponenteDePercentual(
+              porcentagem: 20,
+            ),
           ],
         ),
       ),
 
-      // já existe um componente BottomNavigation bar ao invéz de uma row
-      // o que otimiza a performance
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey, // verificar cores chrome white
         currentIndex: indiceDaPagina, // aqui atribui a variavel criada
@@ -159,40 +178,6 @@ class _TelaOficinaState extends State<TelaOficina> {
           ),
         ],
       ),
-      // bottomNavigationBar: Row(
-      //   children: <Widget>[
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Prevenção',
-      //           ))),
-      //     ),
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Manutenção',
-      //           ))),
-      //     ),
-      //     Expanded(
-      //       child: Container(
-      //           height: 60,
-      //           child: (Icon(
-      //             Icons.trip_origin,
-      //             color: Colors.pink,
-      //             size: 24.0,
-      //             semanticLabel: 'Correção',
-      //           ))),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
