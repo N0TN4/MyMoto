@@ -144,7 +144,6 @@ class _LoginSocialState extends State<LoginSocial> {
                         color: Color(0xffF24333),
                         child: Text("Entrar"),
                         onPressed: () async {
-                          // tela login
                           if (_chaveFormulario.currentState.validate()) {
                             await logar(
                                 _loginController.text, _senhaController.text);

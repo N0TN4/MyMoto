@@ -57,6 +57,7 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
       onFieldSubmitted: campoSubmetido,
       keyboardType: tipoDoInput,
       controller: controlador,
+      textInputAction: TextInputAction.done,
       validator: required == true
           ? (value) => value.isEmpty ? 'Obrigatório' : null
           : null,

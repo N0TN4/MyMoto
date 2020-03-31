@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
@@ -20,16 +21,36 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
   TextEditingController telefoneCtrl = TextEditingController();
   TextEditingController textTelefoneCtrl = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  FocusNode focoLogin = FocusNode();
+  FocusNode focoNome = FocusNode();
+  FocusNode focoEmail = FocusNode();
+  FocusNode focoSenha = FocusNode();
+  FocusNode focoConfirmarSenha = FocusNode();
+  FocusNode focoTelefone = FocusNode();
+  //FocusNode focoLogin = FocusNode();
 
   BlocCadastroPorEmail _bloc = BlocCadastroPorEmail();
   final _formularioChave = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    focoLogin.dispose();
+    focoNome.dispose();
+    focoEmail.dispose();
+    focoSenha.dispose();
+    focoConfirmarSenha.dispose();
+    focoTelefone.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final pularLinha = Divider(
-      height: 20.0,
-      color: Colors.white10,
-    );
+    Widget _pularLinha({double valor}) {
+      return SizedBox(
+        height: valor == null ? 16 : valor,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -49,48 +70,76 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
             child: Column(
               children: <Widget>[
                 CampoDeTextoFormularioCustomizado(
-                  rotulo: "Login",
+                  label: "Login",
                   required: true,
                   controlador: loginCtrl,
-                  bloc: _bloc.mudarLogin(loginCtrl.text),
+                  linhasMax: 1,
+                  focusNode: focoLogin,
+                  campoSubmetido: (txt) {
+                    _alterarFoco(context, focoLogin, focoNome);
+                  },
+                  //bloc: _bloc.mudarLogin(loginCtrl.text),
                 ),
-                pularLinha,
+                _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
-                  rotulo: "Nome",
+                  label: "Nome",
                   required: true,
                   controlador: nomeCtrl,
-                  bloc: _bloc.mudarNome(nomeCtrl.text),
+                  linhasMax: 1,
+                  focusNode: focoNome,
+                  campoSubmetido: (txt) {
+                    _alterarFoco(context, focoNome, focoEmail);
+                  },
+                  //bloc: _bloc.mudarNome(nomeCtrl.text),
                 ),
-                pularLinha,
+                _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
-                  rotulo: "E-mail",
+                  label: "E-mail",
                   tipoDoInput: TextInputType.emailAddress,
                   controlador: emailCtrl,
+                  linhasMax: 1,
                   required: true,
-                  bloc: _bloc.mudarEmail(emailCtrl.text),
+                  focusNode: focoEmail,
+                  campoSubmetido: (txt) {
+                    _alterarFoco(context, focoEmail, focoSenha);
+                  },
+                  //bloc: _bloc.mudarEmail(emailCtrl.text),
                 ),
-                pularLinha,
+                _pularLinha(),
+                CampoDeTextoSenhaCustomizado(
+                    labelText: "Senha",
+                    required: true,
+                    maxLines: 1,
+                    controller: senhaCtrl,
+                    focusNode: focoSenha,
+                    onFieldSubmitted: (txt) {
+                      _bloc.mudarSenha(senhaCtrl.text);
+                      _alterarFoco(context, focoSenha, focoConfirmarSenha);
+                    }),
+                _pularLinha(),
+                CampoDeTextoSenhaCustomizado(
+                    labelText: "Confirmar senha",
+                    required: true,
+                    maxLines: 1,
+                    controller: confirmarSenhaCtrl,
+                    focusNode: focoConfirmarSenha,
+                    onFieldSubmitted: (txt) {
+                      _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text);
+                      _alterarFoco(context, focoConfirmarSenha, focoTelefone);
+                    }),
+                _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
-                  rotulo: "Senha",
-                  required: true,
-                  controlador: senhaCtrl,
-                  bloc: _bloc.mudarSenha(senhaCtrl.text),
-                ),
-                pularLinha,
-                CampoDeTextoFormularioCustomizado(
-                  rotulo: "Confirmar senha",
-                  required: true,
-                  controlador: confirmarSenhaCtrl,
-                  bloc: _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text),
-                ),
-                pularLinha,
-                CampoDeTextoFormularioCustomizado(
-                  rotulo: "Telefone",
+                  label: "Telefone",
                   tipoDoInput: TextInputType.number,
                   controlador: telefoneCtrl,
+                  linhasMax: 1,
+                  focusNode: focoTelefone,
+                  campoSubmetido: (txt) {
+                    focoTelefone.unfocus();
+                  },
                   bloc: _bloc.mudarTelefone(telefoneCtrl.text),
                 ),
-                pularLinha,
+                _pularLinha(),
                 Row(
                   children: <Widget>[
                     StreamBuilder(
@@ -134,7 +183,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         }),
                   ],
                 ),
-                pularLinha,
+                _pularLinha(),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -176,5 +225,11 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
         ),
       ),
     );
+  }
+
+  _alterarFoco(
+      BuildContext context, FocusNode focoAtual, FocusNode proximoFoco) {
+    focoAtual.unfocus();
+    FocusScope.of(context).requestFocus(proximoFoco);
   }
 }
