@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mymoto/Paginas/Ajuda/relatar_bug.dart';
+import 'package:mymoto/Paginas/Ajuda/relatar_feedback.dart';
 
 class Ajuda extends StatelessWidget {
   @override
@@ -19,13 +21,18 @@ class Ajuda extends StatelessWidget {
           //
           children: <Widget>[
             ListTile(
-              title: Text("exemplo 1 "),
+              title: Text("Enviar feedback"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RelatarFeedback()));
+              },
             ),
             ListTile(
-              title: Text("exemplo 2 "),
-            ),
-            ListTile(
-              title: Text("exemplo 3"),
+              title: Text("Reporte um bug"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RelatarBug()));
+              },
             ),
           ],
         ),
