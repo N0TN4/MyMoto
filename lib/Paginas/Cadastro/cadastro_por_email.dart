@@ -40,7 +40,14 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
     focoSenha.dispose();
     focoConfirmarSenha.dispose();
     focoTelefone.dispose();
+
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _bloc.getMotos();
+    super.initState();
   }
 
   @override
