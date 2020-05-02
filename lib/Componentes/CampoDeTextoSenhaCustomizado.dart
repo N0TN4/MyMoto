@@ -4,7 +4,7 @@ import 'package:mymoto/Componentes/cores_app.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CampoDeTextoSenhaCustomizado extends StatefulWidget {
-  final Key key;
+  final Key key; 
   final Widget prefixIcon;
   final Widget suffixIcon;
   final String hintText;
@@ -20,6 +20,7 @@ class CampoDeTextoSenhaCustomizado extends StatefulWidget {
   final int maxLines;
   final Function validator;
   final bool ativo;
+  final dynamic bloc;
 
   CampoDeTextoSenhaCustomizado(
       {this.key,
@@ -37,6 +38,7 @@ class CampoDeTextoSenhaCustomizado extends StatefulWidget {
       this.onFieldSubmitted,
       this.maxLines,
       this.ativo,
+      this.bloc,
       this.validator});
 
   @override

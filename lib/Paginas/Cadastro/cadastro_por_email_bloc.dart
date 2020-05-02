@@ -13,8 +13,16 @@ class BlocCadastroPorEmail {
   final _telefone = BehaviorSubject<String>();
   final _modelo = BehaviorSubject<String>();
   final _motos = BehaviorSubject<List<Moto>>();
+  final _marcas = BehaviorSubject<List<String>>();
+  final _modelos = BehaviorSubject<List<String>>();
+  final _nomeMoto = BehaviorSubject<List<String>>();
+  final _motoSelecionada = BehaviorSubject<Moto>();
 
   Stream<List<Moto>> get motos => _motos.stream;
+  Stream<List<String>> get marcas => _marcas.stream;
+  Stream<List<String>> get modelos => _modelos.stream;
+  Stream<List<String>> get nomeMoto => _nomeMoto.stream;
+  Stream<Moto> get motoSelecionada => _motoSelecionada.stream;
 
   Function(String) get mudarLogin => _login.sink.add;
   Function(String) get mudarNome => _nome.sink.add;
@@ -24,39 +32,59 @@ class BlocCadastroPorEmail {
   Function(String) get mudarTelefone => _telefone.sink.add;
   Function(String) get mudarModelo => _modelo.sink.add;
   Function(List<Moto>) get mudarMotos => _motos.sink.add;
+  Function(List<String>) get mudarMarcas => _marcas.sink.add;
+  Function(List<String>) get mudarModelos => _modelos.sink.add;
+  Function(List<String>) get mudarNomeMoto => _nomeMoto.sink.add;
+  Function(Moto) get mudarMotoSelecioanda => _motoSelecionada.sink.add;
 
   ServicoFirebaseCadastroPorEmail _servico =
       new ServicoFirebaseCadastroPorEmail();
 
   CadastroServices _services = new CadastroServices();
 
-  void salvar() {
-    Usuario usuario = new Usuario(
-      login: _login.value,
-      nome: _nome.value,
-      senha: _senha.value,
-      //confirmarSenha: _confirmarSenha.value,
-      email: _email.value,
-      telefone: _telefone.value,
-      modelo: _modelo.value,
-    );
+  void salvar() async {
+    Usuario usuario = new Usuario();
+    usuario.nome = _nome.value;
+    usuario.login = _login.value;
+    usuario.senha = _senha.value;
+    usuario.email = _email.value;
+    usuario.telefone = _telefone.value;
+    Moto moto = new Moto();
+    moto = _motoSelecionada.value;
+    print("${usuario.nome}");
+    await _services.salvarCadastro(usuario, moto).then((response) {
+      print("POST - $response");
+    });
+  }
 
-    // passar o objeto de moto que está sendo criado no cadastro para o bloc (esta tela)
-
-    // moto do usuario é a moto que está foi instanciada
-    //usuario.moto.marca = _marca.value;
-    //usuario.moto.quiometragem = _quilometragem.value;
-
-    print(usuario.nome);
-    _servico.salvar(usuario);
+  selecionarMoto(String nomeDaMotoSelecionada) {
+    _motos.value.forEach((moto) {
+      if (moto.nome == nomeDaMotoSelecionada) {
+        mudarMotoSelecioanda(moto);
+      }
+    });
   }
 
   getMotos() {
+    List<String> marcas = new List<String>();
+    List<String> modelos = new List<String>();
+    List<String> nomeMoto = new List<String>();
     _services.getMotos().then((response) {
       if (response != null) {
+        response.forEach((moto) {
+          marcas.add(moto.marca);
+          modelos.add(moto.modelo);
+          nomeMoto.add(moto.nome);
+        });
         mudarMotos(response);
+        mudarMarcas(marcas);
+        mudarModelos(modelos);
+        mudarNomeMoto(nomeMoto);
       } else {
         mudarMotos(null);
+        mudarMarcas(null);
+        mudarModelos(null);
+        mudarNomeMoto(null);
       }
     });
   }
@@ -70,5 +98,9 @@ class BlocCadastroPorEmail {
     _telefone.close();
     _modelo.close();
     _motos.close();
+    _marcas.close();
+    _modelos.close();
+    _nomeMoto.close();
+    _motoSelecionada.close();
   }
 }

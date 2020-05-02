@@ -13,14 +13,14 @@ class Moto {
   String nome;
   String marca;
   String modelo;
-  int cilindradas;
-  int kmMaxTrocaOleo;
-  int kmMaxAcelerador;
-  int kmMaxVela;
-  int kmMaxFreio;
-  int kmMaxEmbreagem;
-  int kmMaxPneus;
-  int kmMaxSuspensao;
+  num cilindradas;
+  num kmMaxTrocaOleo;
+  num kmMaxAcelerador;
+  num kmMaxVela;
+  num kmMaxFreio;
+  num kmMaxEmbreagem;
+  num kmMaxPneus;
+  num kmMaxSuspensao;
 
   Moto({
     this.id,

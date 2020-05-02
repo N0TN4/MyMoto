@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
 
 class CadastroPorEmail extends StatefulWidget {
@@ -83,9 +84,10 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   linhasMax: 1,
                   focusNode: focoLogin,
                   campoSubmetido: (txt) {
+                    _bloc.mudarLogin(txt);
                     _alterarFoco(context, focoLogin, focoNome);
                   },
-                  //bloc: _bloc.mudarLogin(loginCtrl.text),
+                  bloc: _bloc.mudarLogin(loginCtrl.text),
                 ),
                 _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
@@ -95,9 +97,10 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   linhasMax: 1,
                   focusNode: focoNome,
                   campoSubmetido: (txt) {
+                    _bloc.mudarNome(txt);
                     _alterarFoco(context, focoNome, focoEmail);
                   },
-                  //bloc: _bloc.mudarNome(nomeCtrl.text),
+                  bloc: _bloc.mudarNome(nomeCtrl.text),
                 ),
                 _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
@@ -108,11 +111,12 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   required: true,
                   focusNode: focoEmail,
                   campoSubmetido: (txt) {
-                    _alterarFoco(context, focoEmail, focoSenha);
+                    _bloc.mudarEmail(txt);
+                     _alterarFoco(context, focoEmail, focoSenha);
                   },
-                  //bloc: _bloc.mudarEmail(emailCtrl.text),
+                  bloc: _bloc.mudarEmail(emailCtrl.text),
                 ),
-                _pularLinha(),
+                _pularLinha(), 
                 CampoDeTextoSenhaCustomizado(
                     labelText: "Senha",
                     required: true,
@@ -122,7 +126,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     onFieldSubmitted: (txt) {
                       _bloc.mudarSenha(senhaCtrl.text);
                       _alterarFoco(context, focoSenha, focoConfirmarSenha);
-                    }),
+                    },
+                     bloc: _bloc.mudarSenha(senhaCtrl.text),
+                  ),
                 _pularLinha(),
                 CampoDeTextoSenhaCustomizado(
                     labelText: "Confirmar senha",
@@ -147,63 +153,70 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   bloc: _bloc.mudarTelefone(telefoneCtrl.text),
                 ),
                 _pularLinha(),
-                Row(
-                  children: <Widget>[
-                    StreamBuilder(
-                        stream:
-                            Firestore.instance.collection('motos').snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return new Text('Error: ${snapshot.error}');
-                          }
-                          if (snapshot.hasData) {
-                            DocumentSnapshot ds = snapshot.data.documents[0];
-                            //mostra  a marca da moto que está no documento do firebase
-                            //a variavel ds tem o array 0 ou seja, honda.
-
-                            print(ds['marca']);
-                            return Row(
-                              children: <Widget>[
-                                Text(
-                                  "Modelo",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                ),
-                                CaixaDeSelecao(
-                                  value: "Selecione",
-                                  options: [
-                                    "Selecione",
-                                    ds['marca'],
-                                  ],
-                                  onChanged: (valor) {
-                                    _bloc.mudarModelo(valor);
-                                    print("PRINT VALOR $valor");
-                                  },
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }),
-                  ],
-                ),
+                StreamBuilder<List<String>>(
+                    stream: _bloc.nomeMoto,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        String valorMoto = snapshot.data[0];
+                        return Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Moto:",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                            Expanded(
+                              child: CaixaDeSelecao(
+                                value: valorMoto,
+                                options: snapshot.data,
+                                onChanged: (valor) {
+                                  setState(() {
+                                    valorMoto = valor;
+                                    _bloc.selecionarMoto(valor);
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
                 _pularLinha(),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "Marca",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    // Expanded(
-                    //   child: botaoSelecaoMarca(),
-                    // ),
-                  ],
-                ),
+                // StreamBuilder<List<String>>(
+                //     stream: _bloc.modelos,
+                //     builder: (context, snapshot) {
+                //       if (!snapshot.hasData) {
+                //         return Container();
+                //       } else {
+                //         String valorModelo = snapshot.data[0];
+                //         return Row(
+                //           children: <Widget>[
+                //             Expanded(
+                //               child: Text(
+                //                 "Modelo",
+                //                 style: TextStyle(color: Colors.red),
+                //               ),
+                //             ),
+                //             Expanded(
+                //               child: CaixaDeSelecao(
+                //                 value: valorModelo,
+                //                 options: snapshot.data,
+                //                 onChanged: (valor) {
+                //                   setState(() {
+                //                     valorModelo = valor;
+                //                   });
+                //                 },
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       }
+                //     }),
+                // _pularLinha(),
+
                 Divider(height: 60.0, color: Colors.white10),
                 RaisedButton.icon(
                   icon: Icon(

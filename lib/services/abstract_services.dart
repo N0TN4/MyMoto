@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 abstract class AbstractService<T> {
-  static String staticAPI = 'http://192.168.1.7:8080';
+  static String staticAPI = 'https://whispering-badlands-80994.herokuapp.com';
 
   String api = AbstractService.staticAPI;
 
