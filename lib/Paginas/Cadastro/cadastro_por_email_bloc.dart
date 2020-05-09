@@ -55,8 +55,9 @@ Function(num) get mudarkmDiariaSelecionada => _kmDiariaSelecionada.sink.add;
     usuario.mediaDiaria = _kmDiariaSelecionada.value;
     Moto moto = new Moto();
     moto = _motoSelecionada.value;
+    print(_kmDiariaSelecionada.value);
     
-    print("${usuario.nome}");
+    print("${usuario.nome}"); 
     await _services.salvarCadastro(usuario, moto).then((response) {
       print("POST - $response");
     });
