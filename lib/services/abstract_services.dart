@@ -3,12 +3,12 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 abstract class AbstractService<T> {
-  static String staticAPI = 'https://whispering-badlands-80994.herokuapp.com';
+  static String staticAPI = 'https://mymotoapi.herokuapp.com';
 
   String api = AbstractService.staticAPI;
 
   AbstractService(String path) {
-    this.api += path;
+    this.api += path; 
   }
 
   T fromJson(json);

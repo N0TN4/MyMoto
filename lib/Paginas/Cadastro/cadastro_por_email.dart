@@ -33,6 +33,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
   BlocCadastroPorEmail _bloc = BlocCadastroPorEmail();
   final _formularioChave = GlobalKey<FormState>();
 
+  String kmDiaria = '';
   @override
   void dispose() {
     focoLogin.dispose();
@@ -185,38 +186,36 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                       }
                     }),
                 _pularLinha(),
-                // StreamBuilder<List<String>>(
-                //     stream: _bloc.modelos,
-                //     builder: (context, snapshot) {
-                //       if (!snapshot.hasData) {
-                //         return Container();
-                //       } else {
-                //         String valorModelo = snapshot.data[0];
-                //         return Row(
-                //           children: <Widget>[
-                //             Expanded(
-                //               child: Text(
-                //                 "Modelo",
-                //                 style: TextStyle(color: Colors.red),
-                //               ),
-                //             ),
-                //             Expanded(
-                //               child: CaixaDeSelecao(
-                //                 value: valorModelo,
-                //                 options: snapshot.data,
-                //                 onChanged: (valor) {
-                //                   setState(() {
-                //                     valorModelo = valor;
-                //                   });
-                //                 },
-                //               ),
-                //             ),
-                //           ],
-                //         );
-                //       }
-                //     }),
-                // _pularLinha(),
-
+                
+Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Media km diária:",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                            Expanded(
+                              child: CaixaDeSelecao(
+                                value: "30",
+                                options: [
+                                  "30",
+                                  "50",
+                                  "80",
+                                  "100",
+                                
+                                ],
+                                onChanged: (valor) {
+                                  setState(() {
+                                    kmDiaria = valor;
+                                    _bloc.mudarkmDiariaSelecionada(num.parse(valor));
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        _pularLinha(),
                 Divider(height: 60.0, color: Colors.white10),
                 RaisedButton.icon(
                   icon: Icon(
