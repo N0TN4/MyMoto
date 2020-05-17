@@ -16,13 +16,16 @@ class BlocCadastroPorEmail {
   final _marcas = BehaviorSubject<List<String>>();
   final _modelos = BehaviorSubject<List<String>>();
   final _nomeMoto = BehaviorSubject<List<String>>();
+
   final _motoSelecionada = BehaviorSubject<Moto>();
+  final _kmDiariaSelecionada = BehaviorSubject<num>();
 
   Stream<List<Moto>> get motos => _motos.stream;
   Stream<List<String>> get marcas => _marcas.stream;
   Stream<List<String>> get modelos => _modelos.stream;
   Stream<List<String>> get nomeMoto => _nomeMoto.stream;
   Stream<Moto> get motoSelecionada => _motoSelecionada.stream;
+  Stream<num> get kmDiariaSelecionada => _kmDiariaSelecionada.stream;
 
   Function(String) get mudarLogin => _login.sink.add;
   Function(String) get mudarNome => _nome.sink.add;
@@ -36,7 +39,7 @@ class BlocCadastroPorEmail {
   Function(List<String>) get mudarModelos => _modelos.sink.add;
   Function(List<String>) get mudarNomeMoto => _nomeMoto.sink.add;
   Function(Moto) get mudarMotoSelecioanda => _motoSelecionada.sink.add;
-
+Function(num) get mudarkmDiariaSelecionada => _kmDiariaSelecionada.sink.add;
   ServicoFirebaseCadastroPorEmail _servico =
       new ServicoFirebaseCadastroPorEmail();
 
@@ -49,9 +52,12 @@ class BlocCadastroPorEmail {
     usuario.senha = _senha.value;
     usuario.email = _email.value;
     usuario.telefone = _telefone.value;
+    usuario.mediaDiaria = _kmDiariaSelecionada.value;
     Moto moto = new Moto();
     moto = _motoSelecionada.value;
-    print("${usuario.nome}");
+    print(_kmDiariaSelecionada.value);
+    
+    print("${usuario.nome}"); 
     await _services.salvarCadastro(usuario, moto).then((response) {
       print("POST - $response");
     });
@@ -102,5 +108,6 @@ class BlocCadastroPorEmail {
     _modelos.close();
     _nomeMoto.close();
     _motoSelecionada.close();
+    _kmDiariaSelecionada.close();
   }
 }

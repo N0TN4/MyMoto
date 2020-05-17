@@ -17,6 +17,7 @@ class Usuario {
   String modelo;
   String email;
   String linkFoto;
+  num mediaDiaria;
 
   Usuario({
     this.senha,
@@ -25,6 +26,7 @@ class Usuario {
     this.login,
     this.modelo,
     this.email,
+    this.mediaDiaria
   });
 
   Usuario.firebase({this.id, this.nome, this.email, this.linkFoto});

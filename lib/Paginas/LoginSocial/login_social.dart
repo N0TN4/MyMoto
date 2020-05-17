@@ -32,7 +32,7 @@ class _LoginSocialState extends State<LoginSocial> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     DateTime dataAtual = DateTime.now();
     print(dataAtual);
