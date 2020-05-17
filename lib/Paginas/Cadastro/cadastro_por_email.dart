@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
+import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 
 class CadastroPorEmail extends StatefulWidget {
   @override
@@ -112,23 +116,23 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   focusNode: focoEmail,
                   campoSubmetido: (txt) {
                     _bloc.mudarEmail(txt);
-                     _alterarFoco(context, focoEmail, focoSenha);
+                    _alterarFoco(context, focoEmail, focoSenha);
                   },
                   bloc: _bloc.mudarEmail(emailCtrl.text),
                 ),
-                _pularLinha(), 
+                _pularLinha(),
                 CampoDeTextoSenhaCustomizado(
-                    labelText: "Senha",
-                    required: true,
-                    maxLines: 1,
-                    controller: senhaCtrl,
-                    focusNode: focoSenha,
-                    onFieldSubmitted: (txt) {
-                      _bloc.mudarSenha(senhaCtrl.text);
-                      _alterarFoco(context, focoSenha, focoConfirmarSenha);
-                    },
-                     bloc: _bloc.mudarSenha(senhaCtrl.text),
-                  ),
+                  labelText: "Senha",
+                  required: true,
+                  maxLines: 1,
+                  controller: senhaCtrl,
+                  focusNode: focoSenha,
+                  onFieldSubmitted: (txt) {
+                    _bloc.mudarSenha(senhaCtrl.text);
+                    _alterarFoco(context, focoSenha, focoConfirmarSenha);
+                  },
+                  bloc: _bloc.mudarSenha(senhaCtrl.text),
+                ),
                 _pularLinha(),
                 CampoDeTextoSenhaCustomizado(
                     labelText: "Confirmar senha",
@@ -163,9 +167,14 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         return Row(
                           children: <Widget>[
                             Expanded(
-                              child: Text(
-                                "Moto:",
-                                style: TextStyle(color: Colors.red),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  "Moto:",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 18),
+                                ),
                               ),
                             ),
                             Expanded(
@@ -233,9 +242,11 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   onPressed: () {
                     if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
                       print("senhas divergentes");
+                      msg(false);
                     }
                     if (_formularioChave.currentState.validate()) {
-                      _bloc.salvar();
+                      msg(true);
+                      return _bloc.salvar();
                     }
                   },
                 )
@@ -251,5 +262,42 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
       BuildContext context, FocusNode focoAtual, FocusNode proximoFoco) {
     focoAtual.unfocus();
     FocusScope.of(context).requestFocus(proximoFoco);
+  }
+  msg(bool logado) {
+    if (logado) {
+      Timer(Duration(seconds: 2), () {
+        Navigator.of(context).pop();
+
+        
+      });
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Carregando..."),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+    } else {
+      Timer(Duration(seconds: 1), () {
+        Navigator.of(context).pop();
+      });
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Não foi possível cadastrar"),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+    }
   }
 }
