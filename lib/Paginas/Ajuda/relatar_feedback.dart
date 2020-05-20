@@ -21,14 +21,13 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        //height: 400,
         child: Column(
           children: <Widget>[
             SizedBox(
               height: 22,
             ),
             TextField(
-              maxLength: 140,
+              maxLength: 260,
               maxLines: 10,
               decoration: InputDecoration(
                 labelStyle: TextStyle(height: 0.0, color: Colors.red),
