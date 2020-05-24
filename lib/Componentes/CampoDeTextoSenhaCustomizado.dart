@@ -4,7 +4,7 @@ import 'package:mymoto/Componentes/cores_app.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CampoDeTextoSenhaCustomizado extends StatefulWidget {
-  final Key key; 
+  final Key key;
   final Widget prefixIcon;
   final Widget suffixIcon;
   final String hintText;
@@ -66,7 +66,7 @@ class _CampoDeTextoSenhaCustomizadoState
         if (value == null || value == "") {
           return 'Obrigatório';
         }
-        if (value.length < 3) {
+        if (value.length < 6) {
           return 'A senha precisa ter no minímo 6 caracteres.';
         } else {
           return null;
