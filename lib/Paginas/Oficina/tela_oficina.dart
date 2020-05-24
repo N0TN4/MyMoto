@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
+import 'package:mymoto/Modelos/usuario_model.dart';
+import 'package:mymoto/Paginas/Oficina/tela_oficina_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TelaOficina extends StatefulWidget {
@@ -10,14 +13,18 @@ class TelaOficina extends StatefulWidget {
 class _TelaOficinaState extends State<TelaOficina> {
   int indiceDaPagina = 0; // controla a bottom navigation
   // inicializa com prevenção
+
+  TelaOficinaBloc _blocOficina = new TelaOficinaBloc();
   @override
   void initState() {
     // TODO: implement initState
+    print("${UsuarioLogado.usuario.id}");
+    _blocOficina.getUsuarioMoto();
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays(
-        []); // inicia o aplicativo em tela cheia
+
     // é necessário isso no meu celular, pois os botões nativos do android fica em cima da BottomNavigation
   }
+
   @override
   Widget build(BuildContext context) {
     // colocado retorno Widget só para entendimento que uma função
@@ -43,8 +50,9 @@ class _TelaOficinaState extends State<TelaOficina> {
         center: Text("$porcentagem%",
             style: TextStyle(fontWeight: FontWeight.bold)),
         linearStrokeCap: LinearStrokeCap.roundAll,
-        progressColor: porcentagem >= 70 && porcentagem <= 100 ? verde :
-        porcentagem >= 40 && porcentagem < 70 ? amarelo : vermelho,
+        progressColor: porcentagem >= 70 && porcentagem <= 100
+            ? verde
+            : porcentagem >= 40 && porcentagem < 70 ? amarelo : vermelho,
 
         //progressColor e linearGradient não pode ser utilizados juntos
 //        linearGradient: LinearGradient(
@@ -71,13 +79,16 @@ class _TelaOficinaState extends State<TelaOficina> {
     }
 
     Widget _pularLinha({double valor}) {
-      return SizedBox(
-        height: valor == null ? 16 : valor
+      return SizedBox(height: valor == null ? 16 : valor);
+    }
+
+    Widget _mensagem(String texto) {
+      return Text(
+        texto,
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       );
     }
-    Widget _mensagem(String texto){
-      return Text(texto, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),);
-    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -95,6 +106,19 @@ class _TelaOficinaState extends State<TelaOficina> {
           crossAxisAlignment:
               CrossAxisAlignment.center, // eixo x da coluna no centro (row)
           children: <Widget>[
+
+            StreamBuilder<UsuarioModel>(
+              stream: _blocOficina.usuarioMoto,
+              builder: (context, snapshot) {
+                if(!snapshot.hasData){
+                  return Container();
+                }
+                else{
+
+                return Text("${snapshot.data.nome}");
+                }
+              }
+            ),
             _mensagem("Funcionamento acelerador"),
             _criarComponenteDePercentual(
               porcentagem: 70, // manipula o componente
@@ -129,7 +153,6 @@ class _TelaOficinaState extends State<TelaOficina> {
           ],
         ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey, // verificar cores chrome white
         currentIndex: indiceDaPagina, // aqui atribui a variavel criada
