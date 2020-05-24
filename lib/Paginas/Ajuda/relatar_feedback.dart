@@ -23,7 +23,6 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        //height: 400,
         child: Column(
           children: <Widget>[
             StreamBuilder<String>(
@@ -40,7 +39,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
               height: 22,
             ),
             TextField(
-              maxLength: 140,
+              maxLength: 260,
               maxLines: 10,
               onChanged: (textoAlterado) {
                 bloc.setMensagem(textoAlterado);
