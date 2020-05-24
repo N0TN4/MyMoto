@@ -195,36 +195,34 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                       }
                     }),
                 _pularLinha(),
-                
-Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Media km diária:",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ),
-                            Expanded(
-                              child: CaixaDeSelecao(
-                                value: "30",
-                                options: [
-                                  "30",
-                                  "50",
-                                  "80",
-                                  "100",
-                                
-                                ],
-                                onChanged: (valor) {
-                                  setState(() {
-                                    kmDiaria = valor;
-                                    _bloc.mudarkmDiariaSelecionada(num.parse(valor));
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        _pularLinha(),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "Media km diária:",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                    Expanded(
+                      child: CaixaDeSelecao(
+                        value: "30",
+                        options: [
+                          "30",
+                          "50",
+                          "80",
+                          "100",
+                        ],
+                        onChanged: (valor) {
+                          setState(() {
+                            kmDiaria = valor;
+                            _bloc.mudarkmDiariaSelecionada(num.parse(valor));
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                _pularLinha(),
                 Divider(height: 60.0, color: Colors.white10),
                 RaisedButton.icon(
                   icon: Icon(
@@ -238,14 +236,15 @@ Row(
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
                       print("senhas divergentes");
                       msg(false);
                     }
                     if (_formularioChave.currentState.validate()) {
-                      msg(true);
-                      return _bloc.salvar();
+                      return await _bloc.salvar().then((cadastrado) {
+                        msg(cadastrado);
+                      });
                     }
                   },
                 )
@@ -262,12 +261,13 @@ Row(
     focoAtual.unfocus();
     FocusScope.of(context).requestFocus(proximoFoco);
   }
+
   msg(bool logado) {
     if (logado) {
       Timer(Duration(seconds: 2), () {
         Navigator.of(context).pop();
-
-        
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
       });
       return showDialog(
         context: context,

@@ -37,9 +37,9 @@ class MenuLateral extends StatelessWidget {
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
                   : Colors.white,
-              child: UsuarioLogado.usuario.linkFoto == null
-                  ? Text("A")
-                  : Image.network("${UsuarioLogado.usuario.linkFoto}"),
+              // child: UsuarioLogado.usuario.linkFoto == null
+              //     ? Text("A")
+              //     : Image.network("${UsuarioLogado.usuario.linkFoto}"),
             ),
           ),
           criarCelulaNoMenu("MyMoto", Icons.motorcycle,

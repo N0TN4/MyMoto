@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoto/Paginas/Ajuda/feeback_bloc.dart';
 
 class RelatarFeedback extends StatefulWidget {
   @override
@@ -6,6 +7,7 @@ class RelatarFeedback extends StatefulWidget {
 }
 
 class _RelatarFeedbackState extends State<RelatarFeedback> {
+  FeedbackBloc bloc = new FeedbackBloc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +26,25 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
         //height: 400,
         child: Column(
           children: <Widget>[
+            StreamBuilder<String>(
+                stream: bloc.mensagem,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data);
+                  } 
+                  else {
+                    return Container();
+                  }
+                }),
             SizedBox(
               height: 22,
             ),
             TextField(
               maxLength: 140,
               maxLines: 10,
+              onChanged: (textoAlterado) {
+                bloc.setMensagem(textoAlterado);
+              },
               decoration: InputDecoration(
                 labelStyle: TextStyle(height: 0.0, color: Colors.red),
                 border: OutlineInputBorder(

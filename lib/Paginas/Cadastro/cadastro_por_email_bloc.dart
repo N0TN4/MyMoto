@@ -1,5 +1,6 @@
 import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_services.dart';
 import 'package:mymoto/Paginas/Cadastro/servico_firebase_cadastro_por_email.dart';
 import 'package:rxdart/rxdart.dart';
@@ -39,27 +40,42 @@ class BlocCadastroPorEmail {
   Function(List<String>) get mudarModelos => _modelos.sink.add;
   Function(List<String>) get mudarNomeMoto => _nomeMoto.sink.add;
   Function(Moto) get mudarMotoSelecioanda => _motoSelecionada.sink.add;
-Function(num) get mudarkmDiariaSelecionada => _kmDiariaSelecionada.sink.add;
-  ServicoFirebaseCadastroPorEmail _servico =
-      new ServicoFirebaseCadastroPorEmail();
+  Function(num) get mudarkmDiariaSelecionada => _kmDiariaSelecionada.sink.add;
 
   CadastroServices _services = new CadastroServices();
 
-  void salvar() async {
+  Future<bool> salvar() async {
     Usuario usuario = new Usuario();
     usuario.nome = _nome.value;
     usuario.login = _login.value;
     usuario.senha = _senha.value;
     usuario.email = _email.value;
     usuario.telefone = _telefone.value;
-    usuario.mediaDiaria = _kmDiariaSelecionada.value;
-    Moto moto = new Moto();
-    moto = _motoSelecionada.value;
+    //usuario.moto.mediaDiariaKm = _kmDiariaSelecionada.value;
+    MotoModel moto = new MotoModel();
+    //moto = _motoSelecionada.value;
+    moto.mediaDiariaKm = _kmDiariaSelecionada.value;
+    moto.cilindradas = _motoSelecionada.value.cilindradas;
+    moto.kmMaxAcelerador = _motoSelecionada.value.kmMaxAcelerador;
+    moto.kmMaxEmbreagem = _motoSelecionada.value.kmMaxEmbreagem;
+    moto.kmMaxFreio = _motoSelecionada.value.kmMaxFreio;
+    moto.kmMaxPneus = _motoSelecionada.value.kmMaxPneus;
+    moto.kmMaxSuspensao = _motoSelecionada.value.kmMaxSuspensao;
+    moto.kmMaxTrocaOleo = _motoSelecionada.value.kmMaxTrocaOleo;
+    moto.kmMaxVela = _motoSelecionada.value.kmMaxVela;
+    usuario.moto = moto;
     print(_kmDiariaSelecionada.value);
-    
-    print("${usuario.nome}"); 
-    await _services.salvarCadastro(usuario, moto).then((response) {
+
+    print("${usuario.nome}");
+    return await _services.salvarCadastro(usuario).then((response) {
       print("POST - $response");
+      if (response != null) {
+        UsuarioLogado.usuario = response;
+        return true;
+      }
+      else{
+        return false;
+      }
     });
   }
 

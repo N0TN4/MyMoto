@@ -32,7 +32,6 @@ class _LoginSocialState extends State<LoginSocial> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
-    
     super.initState();
     DateTime dataAtual = DateTime.now();
     print(dataAtual);
@@ -143,24 +142,32 @@ class _LoginSocialState extends State<LoginSocial> {
                     child: RaisedButton(
                         color: Color(0xffF24333),
                         child: Text("Entrar"),
-                        onPressed: () async {
+                        onPressed: () {
                           if (_chaveFormulario.currentState.validate()) {
-                            await logar(
-                                _loginController.text, _senhaController.text);
+                            Usuario usuario = new Usuario(
+                              email: _loginController.text,
+                              senha: _senhaController.text,
+                            );
+
+                            return _bloc.logar(usuario).then((logado) {
+                              msg(logado);
+                            });
+                            // await logar(
+                            //     _loginController.text, _senhaController.text);
                           }
                         }),
                   ),
                 ],
               ),
-              GoogleSignInButton(
-                text: "Login",
-                onPressed: () async {
-                  AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-                  autenticacao.logarComGoogle();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MenuPrincipal()));
-                },
-              ),
+              // GoogleSignInButton(
+              //   text: "Login",
+              //   onPressed: () async {
+              //     AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
+              //     autenticacao.logarComGoogle();
+              //     Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => MenuPrincipal()));
+              //   },
+              // ),
             ],
           ),
         ),

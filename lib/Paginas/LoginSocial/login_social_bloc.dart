@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mymoto/Modelos/usuario.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
+import 'package:mymoto/Paginas/LoginSocial/login_services.dart';
 import 'package:mymoto/Paginas/LoginSocial/servico_firebase.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,6 +18,7 @@ class BlocLoginSocial {
   Function(String) get mudarSenha => _senha.sink.add;
 
   ServicoFirebase _servico = ServicoFirebase();
+  LoginServices _services = new LoginServices();
 
   void salvar() {
     Usuario usuario = new Usuario();
@@ -26,31 +29,38 @@ class BlocLoginSocial {
     _servico.salvar(usuario);
   }
 
-  Future<dynamic> logar() async {
-
-
-
-    String loginAuxiliar;
-    String senhaAuxiliar;
-    bool logado = false;
-    Future<bool> futuro = Future(() => false); // inicializa logado como falso
-    // consulta
-    Firestore.instance
-        .collection('usuarios')
-        .where('login', isEqualTo: _login.value)
-        .snapshots()
-        .listen((onData) {
-      print(onData.documents[0].data);
-      loginAuxiliar = onData.documents[0].data['login'];
-      senhaAuxiliar = onData.documents[0].data['senha'];
-      if (_senha.value == senhaAuxiliar) {
-        print("Sucesso");
-        logado = true;
+  Future<bool> logar(usuario) async {
+    return await _services.logar(usuario).then((response) {
+      if (response != null) {
+        UsuarioLogado.usuario = response;
+        return true;
       } else {
-        print("Senha errada");
-        logado = false;
+        return false;
+        // tratar false;
       }
     });
+
+    // String loginAuxiliar;
+    // String senhaAuxiliar;
+    // bool logado = false;
+    // Future<bool> futuro = Future(() => false); // inicializa logado como falso
+    // // consulta
+    // Firestore.instance
+    //     .collection('usuarios')
+    //     .where('login', isEqualTo: _login.value)
+    //     .snapshots()
+    //     .listen((onData) {
+    //   print(onData.documents[0].data);
+    //   loginAuxiliar = onData.documents[0].data['login'];
+    //   senhaAuxiliar = onData.documents[0].data['senha'];
+    //   if (_senha.value == senhaAuxiliar) {
+    //     print("Sucesso");
+    //     logado = true;
+    //   } else {
+    //     print("Senha errada");
+    //     logado = false;
+    //   }
+    // });
     //print("Logado ? $logado");
     //return logado;
   }
