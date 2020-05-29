@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mymoto/Paginas/Ajuda/relatar_bug.dart';
-import 'package:mymoto/Paginas/Ajuda/relatar_feedback.dart';
+import 'package:mymoto/Paginas/EnviarFeedback//relatar_bug.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/relatar_feedback.dart';
 
 class Ajuda extends StatelessWidget {
   @override

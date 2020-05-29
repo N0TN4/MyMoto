@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mymoto/Paginas/Ajuda/feeback_bloc.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/feeback_bloc.dart';
 
 class RelatarFeedback extends StatefulWidget {
   @override
