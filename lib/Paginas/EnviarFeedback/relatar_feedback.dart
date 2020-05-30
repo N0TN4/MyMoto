@@ -12,6 +12,14 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.send),onPressed: () {
+            print("Enviar feedback");
+            setState(() {
+
+            });
+          },),
+        ],
         title: Text(
           "Ajuda",
           style: TextStyle(
@@ -35,16 +43,39 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                     return Container();
                   }
                 }),
-            SizedBox(
-              height: 22,
-            ),
+            SizedBox(height: 24.0),
+
             TextField(
-              maxLength: 260,
-              maxLines: 10,
+              maxLength: 50,
+              maxLines: 1,
+              decoration: InputDecoration(
+                counterText: "",
+                labelText: 'Título',
+                labelStyle: TextStyle(height: 0.0, color: Colors.red),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(const Radius.circular(12)),
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(const Radius.circular(12)),
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                ),
+                contentPadding:
+                EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Text("Feedback"),
+            SizedBox(height: 8.0),
+
+            TextField(
+              maxLength: 1200,
+              maxLines: 14,
               onChanged: (textoAlterado) {
                 bloc.setMensagem(textoAlterado);
               },
               decoration: InputDecoration(
+                counterText: "",
                 labelStyle: TextStyle(height: 0.0, color: Colors.red),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(const Radius.circular(12)),
@@ -56,23 +87,6 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                 ),
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            RaisedButton.icon(
-              onPressed: () {},
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              color: Colors.red,
-              label: Text(
-                "Enviar",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
               ),
             ),
           ],
