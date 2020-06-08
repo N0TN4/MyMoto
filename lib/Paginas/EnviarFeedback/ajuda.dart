@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mymoto/Paginas/Ajuda/relatar_bug.dart';
-import 'package:mymoto/Paginas/Ajuda/relatar_feedback.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/obter_informacoes_aparelho.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/relatar_bug.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/relatar_feedback.dart';
+
 
 class Ajuda extends StatelessWidget {
   @override
@@ -32,6 +34,13 @@ class Ajuda extends StatelessWidget {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => RelatarBug()));
+              },
+            ),
+            ListTile(
+              title: Text("teste device"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyApp()));
               },
             ),
           ],

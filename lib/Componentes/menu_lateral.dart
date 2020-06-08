@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
-import 'package:mymoto/Paginas/Ajuda/ajuda.dart';
+import 'package:mymoto/Paginas/EnviarFeedback//ajuda.dart';
 import 'package:mymoto/Paginas/EditarOdometro/editar_odometro.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
 import 'package:mymoto/Paginas/Mapa/tela_mapa.dart';
