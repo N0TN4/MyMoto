@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Paginas/Mapa/mapa_bloc.dart';
 
 class PageMapa extends StatefulWidget {
@@ -25,15 +26,13 @@ class _PageMapaState extends State<PageMapa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mapa"),
-        //iconTheme: IconThemeData(color: ColorsApp.azulEscuro),
-        centerTitle: true,
-        elevation: 0,
-        //automaticallyImplyLeading: false,
-        //backgroundColor: ColorsApp.azulEscuro,
-        actions: <Widget>[
-        ]
-      ),
+          title: Text("Mapa"),
+          //iconTheme: IconThemeData(color: ColorsApp.azulEscuro),
+          centerTitle: true,
+          elevation: 0,
+          //automaticallyImplyLeading: false,
+          //backgroundColor: ColorsApp.azulEscuro,
+          actions: <Widget>[]),
       body: Container(
         child: StreamBuilder(
             stream: _bloc.posicao,
@@ -42,11 +41,13 @@ class _PageMapaState extends State<PageMapa> {
                 return Container();
               } else {
                 return Stack(
+                  alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     GoogleMap(
                       onMapCreated: (GoogleMapController controller) async {
                         mapController = controller;
                       },
+                      markers: _bloc.pegarMarker(),
                       myLocationEnabled: true,
                       initialCameraPosition: CameraPosition(
                           target: LatLng(
@@ -55,92 +56,61 @@ class _PageMapaState extends State<PageMapa> {
                           ),
                           zoom: 17),
                     ),
-                    // adicionar pesquisa neste container
-                    // Padding(
-                    //   padding: const EdgeInsets.all(20.0),
-                    //   child: Container(
-                    //     height: 100,
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius:
-                    //           new BorderRadius.all(Radius.circular(10)),
-                    //     ),
-                    //     child: Form(
-                    //       key: _cepKey,
-                    //       child: Row(
-                    //         children: <Widget>[
-                    //           //PESQUISA!
-                    //           // Expanded(
-                    //           //   flex: 7,
-                    //           //   child: Padding(
-                    //           //     padding: const EdgeInsets.all(15.0),
-                    //           //     child: Caixa(
-                    //           //       textInputType: TextInputType.number,
-                    //           //       controller: cepController,
-                    //           //       required: true,
-                    //           //       bloc: _bloc
-                    //           //           .changeCepDaBusca(cepController.text),
-                    //           //     ),
-                    //           //   ),
-                    //           // ),
-                    //         //   Expanded(
-                    //         //     flex: 2,
-                    //         //     child: IconButton(
-                    //         //         icon: Container(
-                    //         //             decoration: BoxDecoration(
-                    //         //               color: Colors.red,
-                    //         //               borderRadius: new BorderRadius.all(
-                    //         //                   Radius.circular(10)),
-                    //         //             ),
-                    //         //             child: Padding(
-                    //         //               padding: const EdgeInsets.all(4.0),
-                    //         //               child: Icon(Icons.search),
-                    //         //             )),
-                    //         //         onPressed: () async {
-                    //         //           // Verifica se os dados não são nulos
-                    //         //           if (_cepKey.currentState.validate()) {
-                    //         //             var result = await CEP.searchCEP(
-                    //         //                 cepController.text, 'json', '');
-
-                    //         //             if (CEP.getResponse() == 200) {
-                    //         //               // validacao de cpf
-                    //         //               // se o cpf buscado (200) tiver a cidade null ou bairro null é porque o usuario
-                    //         //               // digitou um cpf inválido
-                    //         //               if (CEP.getLogradouro() != null ||
-                    //         //                   CEP.getBairro() != null) {
-                    //         //                 await _bloc
-                    //         //                     .getEndereco(cepController.text)
-                    //         //                     .then((posicaoDaBusca) {
-                    //         //                   if (posicaoDaBusca != null ||
-                    //         //                       posicaoDaBusca != "") {
-                    //         //                     mapController.animateCamera(
-                    //         //                       CameraUpdate
-                    //         //                           .newCameraPosition(
-                    //         //                         CameraPosition(
-                    //         //                             target: LatLng(
-                    //         //                                 posicaoDaBusca
-                    //         //                                     .latitude,
-                    //         //                                 posicaoDaBusca
-                    //         //                                     .longitude),
-                    //         //                             zoom: 17),
-                    //         //                       ),
-                    //         //                     );
-                    //         //                   }
-                    //         //                 });
-                    //         //               }
-                    //         //             } else {
-                    //         //               print('Código de Retorno: ' +
-                    //         //                   CEP.getResponse().toString());
-                    //         //               print('Erro: ' + CEP.getBody());
-                    //         //             }
-                    //         //           }
-                    //         //         }),
-                    //         //   ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      width: MediaQuery.of(context).size.width,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white,
+                            Colors.white,
+                            Colors.white.withOpacity(0.1),
+                          ],
+                        ),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.motorcycle,
+                                      color: CoresApp.secundaria),
+                                  onPressed: () {
+                                    setState(() {
+                                      _bloc.getPontosOficina(
+                                          snapshot.data.latitude,
+                                          snapshot.data.longitude);
+                                    });
+                                  },
+                                ),
+                                Text("Oficinas"),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.local_gas_station,
+                                      color: Colors.green),
+                                  onPressed: () {
+                                    setState(() {
+                                      _bloc.getPontosDeGasolina(
+                                          snapshot.data.latitude,
+                                          snapshot.data.longitude);
+                                      setState(() {});
+                                    });
+                                  },
+                                ),
+                                Text("Postos de gasolina"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 );
               }

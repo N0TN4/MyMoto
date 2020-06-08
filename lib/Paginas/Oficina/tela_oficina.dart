@@ -101,57 +101,57 @@ class _TelaOficinaState extends State<TelaOficina> {
         backgroundColor: Colors.red,
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:
-              CrossAxisAlignment.center, // eixo x da coluna no centro (row)
-          children: <Widget>[
-
-            StreamBuilder<UsuarioModel>(
-              stream: _blocOficina.usuarioMoto,
-              builder: (context, snapshot) {
-                if(!snapshot.hasData){
-                  return Container();
-                }
-                else{
-
-                return Text("${snapshot.data.nome}");
-                }
+        child: StreamBuilder<UsuarioModel>(
+            stream: _blocOficina.usuarioMoto,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Container();
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment
+                      .center, // eixo x da coluna no centro (row)
+                  children: <Widget>[
+                    _mensagem("Oléo"),
+                    _criarComponenteDePercentual(
+                      porcentagem: snapshot.data.moto.kmAtualTrocaOleo // manipula o componente
+                    ),
+                    _pularLinha(),
+                    // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
+                    // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
+                    _mensagem("Acelerador"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 69,
+                    ),
+                    _pularLinha(),
+                    _mensagem("Vela de ignição"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 100,
+                    ),
+                    _pularLinha(),
+                    _mensagem("Freio"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 70,
+                    ),
+                    _pularLinha(),
+                    _mensagem("Embreagem"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 40,
+                    ),
+                    _pularLinha(),
+                    _mensagem("Pneus"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 20,
+                    ),
+                    _pularLinha(),
+                    _mensagem("Suspensão"),
+                    _criarComponenteDePercentual(
+                      porcentagem: 20,
+                    ),
+                  ],
+                );
               }
-            ),
-            _mensagem("Funcionamento acelerador"),
-            _criarComponenteDePercentual(
-              porcentagem: 70, // manipula o componente
-            ),
-            _pularLinha(),
-            // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
-            // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
-            _mensagem("Filtro de ar"),
-            _criarComponenteDePercentual(
-              porcentagem: 69,
-            ),
-            _pularLinha(),
-            _mensagem("Sinalização"),
-            _criarComponenteDePercentual(
-              porcentagem: 100,
-            ),
-            _pularLinha(),
-            _mensagem("Cabo de freio"),
-            _criarComponenteDePercentual(
-              porcentagem: 70,
-            ),
-            _pularLinha(),
-            _mensagem("Cabo de embreagem"),
-            _criarComponenteDePercentual(
-              porcentagem: 40,
-            ),
-            _pularLinha(),
-            _mensagem("Tambor freio"),
-            _criarComponenteDePercentual(
-              porcentagem: 20,
-            ),
-          ],
-        ),
+            }),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey, // verificar cores chrome white

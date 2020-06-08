@@ -10,7 +10,7 @@ class OficinaServices extends AbstractService {
 
   Future<UsuarioModel> getUsuarioMoto() {
     return Session.get(
-            '${AbstractService.staticAPI}/usuarios/64')
+            '${AbstractService.staticAPI}/usuarios/${UsuarioLogado.usuario.id}')
         .then((response) {
       print(response);
       return fromJson(response);
