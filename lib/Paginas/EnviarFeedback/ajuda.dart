@@ -36,13 +36,6 @@ class Ajuda extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => RelatarBug()));
               },
             ),
-            ListTile(
-              title: Text("teste device"),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyApp()));
-              },
-            ),
           ],
         ),
       ),
