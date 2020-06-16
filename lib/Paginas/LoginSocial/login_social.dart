@@ -14,6 +14,7 @@ import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginSocial extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class LoginSocial extends StatefulWidget {
 }
 
 class _LoginSocialState extends State<LoginSocial> {
-  TextEditingController _loginController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
   TextEditingController _senhaController = new TextEditingController();
   BlocLoginSocial _bloc = new BlocLoginSocial();
   bool campoDeTextoDeSenhaAtivo = false;
@@ -98,14 +99,14 @@ class _LoginSocialState extends State<LoginSocial> {
                 padding: const EdgeInsets.all(15.0),
                 child: Container(
                   child: CampoDeTextoFormularioCustomizado(
-                    controlador: _loginController,
+                    controlador: _emailController,
                     linhasMax: 1,
                     required: true,
                     campoSubmetido: (str) {
                       focusNode.requestFocus();
                     },
-                    bloc: _bloc.mudarLogin(_loginController.text),
-                    label: "Login",
+                    bloc: _bloc.mudarLogin(_emailController.text),
+                    label: "Email",
                   ),
                 ),
               ),
@@ -145,12 +146,33 @@ class _LoginSocialState extends State<LoginSocial> {
                         onPressed: () {
                           if (_chaveFormulario.currentState.validate()) {
                             Usuario usuario = new Usuario(
-                              email: _loginController.text,
+                              email: _emailController.text,
                               senha: _senhaController.text,
                             );
-
-                            return _bloc.logar(usuario).then((logado) {
-                              msg(logado);
+                            showDialog(
+                              context: context,
+                              builder: (context) => new AlertDialog(
+                                content: new Text("Carregando..."),
+                                actions: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: new CircularProgressIndicator(),
+                                  ), // loading
+                                ],
+                              ),
+                            );
+                            Timer(Duration(seconds: 2), () {
+                              return _bloc.logar(usuario).then((logado) {
+                               // msg(logado);
+                                if (logado) {
+                                  loginUser();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MenuPrincipal()));
+                                }
+                              });
                             });
                             // await logar(
                             //     _loginController.text, _senhaController.text);
@@ -208,28 +230,14 @@ class _LoginSocialState extends State<LoginSocial> {
 
   msg(bool logado) {
     if (logado) {
-      Timer(Duration(seconds: 1), () {
-        Navigator.of(context).pop();
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
-      });
       return showDialog(
         context: context,
         builder: (context) => new AlertDialog(
           content: new Text("Carregando..."),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: new CircularProgressIndicator(),
-            ), // loading
-          ],
+          actions: <Widget>[],
         ),
       );
     } else {
-      Timer(Duration(seconds: 1), () {
-        Navigator.of(context).pop();
-      });
       return showDialog(
         context: context,
         builder: (context) => new AlertDialog(
@@ -243,5 +251,12 @@ class _LoginSocialState extends State<LoginSocial> {
         ),
       );
     }
+  }
+
+  Future<Null> loginUser() async {
+    print("AUTO LOGIN");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', _emailController.text);
+    prefs.setString('senha', _senhaController.text);
   }
 }

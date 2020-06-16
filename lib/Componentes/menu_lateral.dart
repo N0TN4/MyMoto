@@ -4,13 +4,19 @@ import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/EnviarFeedback//ajuda.dart';
 import 'package:mymoto/Paginas/EditarOdometro/editar_odometro.dart';
 import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
+import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
 import 'package:mymoto/Paginas/Mapa/tela_mapa.dart';
 import 'package:mymoto/Paginas/Oficina/oficina.dart';
+import 'package:mymoto/Paginas/Oficina/tela_oficina.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuLateral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     criarCelulaNoMenu(String label, IconData icone, {pagina}) {
+      if (label == "Sair") {
+        logout();
+      }
       return ListTile(
         leading: Icon(icone),
         title: Text(label),
@@ -44,11 +50,18 @@ class MenuLateral extends StatelessWidget {
           ),
           criarCelulaNoMenu("MyMoto", Icons.motorcycle,
               pagina: EditarOdometro()),
-          criarCelulaNoMenu("Oficina", Icons.settings, pagina: Oficina()),
+          criarCelulaNoMenu("Oficina", Icons.settings, pagina: TelaOficina()),
           criarCelulaNoMenu("Mapa", Icons.location_on, pagina: PageMapa()),
           criarCelulaNoMenu("Ajuda", Icons.help, pagina: Ajuda()),
+          criarCelulaNoMenu("Sair", Icons.exit_to_app, pagina: LoginSocial()),
         ],
       ),
     );
+  }
+
+  Future<Null> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', null);
+    prefs.setString('senha', null);
   }
 }
