@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/Paginas/Oficina/tela_oficina_bloc.dart';
@@ -44,6 +45,23 @@ class _TelaOficinaState extends State<TelaOficina> {
       return LinearPercentIndicator(
         width: MediaQuery.of(context).size.width - 80,
         animation: true,
+        trailing: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: IconButton(
+            icon: Icon(Icons.settings, color: CoresApp.secundaria),
+            onPressed: () {
+
+              // set objeto que está sendo criado do post 
+              // set a km atual do index alterado
+              // --
+              // setState -- porcentagem atual do indice = 100 (em tempo real (Sqn))
+               setState(() {
+                 porcentagem = 100;
+                 print(porcentagem);
+               });
+            },
+          ),
+        ),
         lineHeight: 26.0,
         animationDuration: 2500,
         percent: porcentagem / 100,
@@ -110,63 +128,65 @@ class _TelaOficinaState extends State<TelaOficina> {
                 print((snapshot.data.moto.kmAtualTrocaOleo -
                         snapshot.data.moto.kmMaxTrocaOleo) /
                     snapshot.data.moto.kmMaxTrocaOleo);
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment
-                      .center, // eixo x da coluna no centro (row)
-                  children: <Widget>[
-                    _mensagem("Oléo"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualTrocaOleo,
-                          snapshot.data.moto
-                              .kmMaxTrocaOleo), // manipula o componente
-                    ),
-                    _pularLinha(),
-                    // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
-                    // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
-                    _mensagem("Acelerador"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualAcelerador,
-                          snapshot.data.moto.kmMaxAcelerador),
-                    ),
-                    _pularLinha(),
-                    _mensagem("Vela de ignição"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualVela,
-                          snapshot.data.moto.kmMaxVela),
-                    ),
-                    _pularLinha(),
-                    _mensagem("Freio"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualFreio,
-                          snapshot.data.moto.kmMaxFreio),
-                    ),
-                    _pularLinha(),
-                    _mensagem("Embreagem"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualEmbreagem,
-                          snapshot.data.moto.kmMaxEmbreagem),
-                    ),
-                    _pularLinha(),
-                    _mensagem("Pneus"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualPneus,
-                          snapshot.data.moto.kmMaxPneus),
-                    ),
-                    _pularLinha(),
-                    _mensagem("Suspensão"),
-                    _criarComponenteDePercentual(
-                      porcentagem: _blocOficina.calcularPorcentagem(
-                          snapshot.data.moto.kmAtualSuspensao,
-                          snapshot.data.moto.kmMaxSuspensao),
-                    ),
-                  ],
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment
+                        .center, // eixo x da coluna no centro (row)
+                    children: <Widget>[
+                      _mensagem("Oléo"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualTrocaOleo,
+                            snapshot.data.moto
+                                .kmMaxTrocaOleo), // manipula o componente
+                      ),
+                      _pularLinha(),
+                      // esse valor de porcentagem na verdade vai ser o calculo que está vindo do backend
+                      // aqui vai ter uma lista envolta de um StreamBuilder no futuro.
+                      _mensagem("Acelerador"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualAcelerador,
+                            snapshot.data.moto.kmMaxAcelerador),
+                      ),
+                      _pularLinha(),
+                      _mensagem("Vela de ignição"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualVela,
+                            snapshot.data.moto.kmMaxVela),
+                      ),
+                      _pularLinha(),
+                      _mensagem("Freio"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualFreio,
+                            snapshot.data.moto.kmMaxFreio),
+                      ),
+                      _pularLinha(),
+                      _mensagem("Embreagem"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualEmbreagem,
+                            snapshot.data.moto.kmMaxEmbreagem),
+                      ),
+                      _pularLinha(),
+                      _mensagem("Pneus"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualPneus,
+                            snapshot.data.moto.kmMaxPneus),
+                      ),
+                      _pularLinha(),
+                      _mensagem("Suspensão"),
+                      _criarComponenteDePercentual(
+                        porcentagem: _blocOficina.calcularPorcentagem(
+                            snapshot.data.moto.kmAtualSuspensao,
+                            snapshot.data.moto.kmMaxSuspensao),
+                      ),
+                    ],
+                  ),
                 );
               }
             }),
