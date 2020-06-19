@@ -7,18 +7,24 @@ class RelatarFeedback extends StatefulWidget {
 }
 
 class _RelatarFeedbackState extends State<RelatarFeedback> {
-  FeedbackBloc bloc = new FeedbackBloc();
+  FeedbackBloc _bloc = new FeedbackBloc();
+  final _ctrlEnviarMensagem = TextEditingController();
+  final _chaveFormulario = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.send),onPressed: () {
-            print("Enviar feedback");
-            setState(() {
+          IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () async {
+              if (_chaveFormulario.currentState.validate()){
 
-            });
-          },),
+              }
+              print("enviando feedback");
+              }
+          ),
         ],
         title: Text(
           "Ajuda",
@@ -31,65 +37,66 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            StreamBuilder<String>(
-                stream: bloc.mensagem,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data);
-                  } 
-                  else {
-                    return Container();
-                  }
-                }),
-            SizedBox(height: 24.0),
-
-            TextField(
-              maxLength: 50,
-              maxLines: 1,
-              decoration: InputDecoration(
-                counterText: "",
-                labelText: 'Título',
-                labelStyle: TextStyle(height: 0.0, color: Colors.red),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(const Radius.circular(12)),
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+        child: Form(
+          key: _chaveFormulario,
+          child: Column(
+            children: <Widget>[
+              StreamBuilder<String>(
+                  stream: _bloc.mensagem,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(snapshot.data);
+                    } else {
+                      return Container();
+                    }
+                  }),
+              SizedBox(height: 24.0),
+              TextField(
+                maxLength: 50,
+                maxLines: 1,
+                decoration: InputDecoration(
+                  counterText: "",
+                  labelText: 'Título',
+                  labelStyle: TextStyle(height: 0.0, color: Colors.red),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(const Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(const Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(const Radius.circular(12)),
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                ),
-                contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
               ),
-            ),
-            SizedBox(height: 16.0),
-            Text("Feedback"),
-            SizedBox(height: 8.0),
-
-            TextField(
-              maxLength: 1200,
-              maxLines: 14,
-              onChanged: (textoAlterado) {
-                bloc.setMensagem(textoAlterado);
-              },
-              decoration: InputDecoration(
-                counterText: "",
-                labelStyle: TextStyle(height: 0.0, color: Colors.red),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(const Radius.circular(12)),
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+              SizedBox(height: 16.0),
+              Text("Feedback"),
+              SizedBox(height: 8.0),
+              TextField(
+                controller: _ctrlEnviarMensagem,
+                maxLength: 1200,
+                maxLines: 14,
+                onChanged: (textoAlterado) {
+                  _bloc.setMensagem(textoAlterado);
+                },
+                decoration: InputDecoration(
+                  counterText: "",
+                  labelStyle: TextStyle(height: 0.0, color: Colors.red),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(const Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(const Radius.circular(12)),
+                    borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(const Radius.circular(12)),
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                ),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
