@@ -49,7 +49,6 @@ class TelaOficinaBloc {
       kmAtual = kmMax;
     }
     num percentual = ((kmAtual - kmMax) / kmMax) * 100;
-
     return percentual < 0 ? (percentual * -1).toInt() : percentual.toInt();
   }
 }

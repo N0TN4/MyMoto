@@ -52,6 +52,8 @@ class MenuLateral extends StatelessWidget {
               pagina: EditarOdometro()),
           criarCelulaNoMenu("Oficina", Icons.settings, pagina: TelaOficina()),
           criarCelulaNoMenu("Mapa", Icons.location_on, pagina: PageMapa()),
+          criarCelulaNoMenu("Ajuda", Icons.help, pagina: TelaAjuda()),
+          criarCelulaNoMenu("Sair", Icons.exit_to_app, pagina: LoginSocial()),
         ],
       ),
     );
