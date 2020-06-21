@@ -11,6 +11,7 @@ import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CadastroPorEmail extends StatefulWidget {
   @override
@@ -242,8 +243,34 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                       msg(false);
                     }
                     if (_formularioChave.currentState.validate()) {
-                      return await _bloc.salvar().then((cadastrado) {
-                        msg(cadastrado);
+// auto login true cadastrado
+                      //loginUser
+
+                      showDialog(
+                        context: context,
+                        builder: (context) => new AlertDialog(
+                          content: new Text("Carregando..."),
+                          actions: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new CircularProgressIndicator(),
+                            ), // loading
+                          ],
+                        ),
+                      );
+                      Timer(Duration(seconds: 2), () {
+                        return _bloc.salvar().then((cadastrado) async {
+                          //msg(cadastrado);
+                          if (cadastrado) {
+                            await loginUser();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuPrincipal()));
+                          } else {
+                            Navigator.of(context).pop();
+                          }
+                        });
                       });
                     }
                   },
@@ -298,5 +325,14 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
         ),
       );
     }
+  }
+
+  Future<Null> loginUser() async {
+    print("AUTO LOGIN");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', emailCtrl.text);
+    prefs.setString('senha', senhaCtrl.text);
+    print(
+        "auto login : ${prefs.getString('email')} e ${prefs.getString('senha')}");
   }
 }

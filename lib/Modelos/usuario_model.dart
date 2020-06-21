@@ -161,7 +161,7 @@ class Moto {
         "km_atual_embreagem": kmAtualEmbreagem,
         "km_atual_pneus": kmAtualPneus,
         "km_atual_suspensao": kmAtualSuspensao,
-        "usuario": usuario,
+        //"usuario": usuario,
         "id_usuario": idUsuario,
         "dataDeCriacao": dataDeCriacao.toIso8601String(),
         "dataDeAlteracao": dataDeAlteracao.toIso8601String(),

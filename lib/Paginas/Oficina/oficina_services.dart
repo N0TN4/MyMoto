@@ -1,4 +1,3 @@
-
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
@@ -17,15 +16,16 @@ class OficinaServices extends AbstractService {
     });
   }
 
-  // Future<dynamic> salvarCadastro(Usuario usuario, Moto moto) {
-  //   return Session.post('${AbstractService.staticAPI}/usuarios',
-  //           body: toJsonUsuario(usuario, moto))
-  //       .then((response) {
-  //     print(response);
-  //     print("JSON POST : ${json.jsonEncode(toJsonUsuario(usuario, moto))}");
-  //     return fromJsonUsuario(response);
-  //   });
-  // }
+  Future<dynamic> putMotoOficina(UsuarioModel usuario) {
+    return Session.put(
+            '${AbstractService.staticAPI}/usuarios/${UsuarioLogado.usuario.id}/moto',
+            body: usuario.moto.toJson())
+        .then((response) {
+      print(response);
+      print("JSON POST : ${json.jsonEncode(usuario.moto.toJson())}");
+      return fromJsonUsuario(response);
+    });
+  }
 
   @override
   fromJson(json) {

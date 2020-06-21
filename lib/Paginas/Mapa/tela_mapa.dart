@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -78,11 +80,24 @@ class _PageMapaState extends State<PageMapa> {
                                   icon: Icon(Icons.motorcycle,
                                       color: CoresApp.secundaria),
                                   onPressed: () {
-                                    setState(() {
-                                      _bloc.getPontosOficina(
-                                          snapshot.data.latitude,
-                                          snapshot.data.longitude);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Center(
+                                          child:
+                                              new CircularProgressIndicator()),
+                                    );
+
+                                    Timer(Duration(seconds: 2), () {
+                                      return _bloc
+                                          .getPontosOficina(
+                                              snapshot.data.latitude,
+                                              snapshot.data.longitude)
+                                          .then((response) {
+                                        setState(() {});
+                                        return Navigator.of(context).pop();
+                                      });
                                     });
+                                    //
                                   },
                                 ),
                                 Text("Oficinas"),
@@ -96,12 +111,32 @@ class _PageMapaState extends State<PageMapa> {
                                   icon: Icon(Icons.local_gas_station,
                                       color: Colors.green),
                                   onPressed: () {
-                                    setState(() {
-                                      _bloc.getPontosDeGasolina(
-                                          snapshot.data.latitude,
-                                          snapshot.data.longitude);
-                                      setState(() {});
+                                    //     setState(() {
+                                    //       _bloc.getPontosDeGasolina(
+                                    //           snapshot.data.latitude,
+                                    //           snapshot.data.longitude);
+                                    //       setState(() {});
+                                    //     });
+                                    //   },
+                                    // ),
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => Center(
+                                          child:
+                                              new CircularProgressIndicator()),
+                                    );
+
+                                    Timer(Duration(seconds: 2), () {
+                                      return _bloc
+                                          .getPontosDeGasolina(
+                                              snapshot.data.latitude,
+                                              snapshot.data.longitude)
+                                          .then((response) {
+                                        setState(() {});
+                                        return Navigator.of(context).pop();
+                                      });
                                     });
+                                    //
                                   },
                                 ),
                                 Text("Postos de gasolina"),
