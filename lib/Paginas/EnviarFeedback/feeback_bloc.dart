@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 class FeedbackBloc {
   final _mensagemDoUsuario = BehaviorSubject<String>();
   
-  Function(String) get mensagemDoUsuario => _mensagemDoUsuario.sink.add;
+  Function(String) get setMensagemDoUsuario => _mensagemDoUsuario.sink.add;
 
   FeedbackServices _services = new FeedbackServices();
   
