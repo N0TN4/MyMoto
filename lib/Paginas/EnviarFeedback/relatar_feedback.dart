@@ -7,7 +7,8 @@ class RelatarFeedback extends StatefulWidget {
 }
 
 class _RelatarFeedbackState extends State<RelatarFeedback> {
-  FeedbackBloc _bloc = new FeedbackBloc();
+  FeedbackBloc bloc = new FeedbackBloc();
+  //final _ctrlEnviarTitulo = TextEditingController();
   final _ctrlEnviarMensagem = TextEditingController();
   final _chaveFormulario = GlobalKey<FormState>();
 
@@ -20,7 +21,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
             icon: Icon(Icons.send),
             onPressed: () async {
               if (_chaveFormulario.currentState.validate()){
-
+                bloc.mensagemDoUsuario;
               }
               print("enviando feedback");
               }
@@ -42,7 +43,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
           child: Column(
             children: <Widget>[
               StreamBuilder<String>(
-                  stream: _bloc.mensagem,
+                  //stream: _bloc.
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Text(snapshot.data);
@@ -52,6 +53,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                   }),
               SizedBox(height: 24.0),
               TextField(
+                //controller: _ctrlEnviarTitulo,
                 maxLength: 50,
                 maxLines: 1,
                 decoration: InputDecoration(
@@ -75,10 +77,11 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
               SizedBox(height: 8.0),
               TextField(
                 controller: _ctrlEnviarMensagem,
+                //onFieldSubmitted : bloc.mensagemDoUsuario, 
                 maxLength: 1200,
                 maxLines: 14,
                 onChanged: (textoAlterado) {
-                  _bloc.setMensagem(textoAlterado);
+                  bloc.enviarMensagem();
                 },
                 decoration: InputDecoration(
                   counterText: "",
