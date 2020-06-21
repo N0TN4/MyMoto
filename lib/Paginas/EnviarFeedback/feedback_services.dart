@@ -1,22 +1,23 @@
-import 'package:mymoto/Paginas/EnviarFeedback/obter_informacoes_aparelho.dart';
-import 'package:mymoto/Paginas/EnviarFeedback/relatar_feedback.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/feedback_model.dart';
 import 'package:mymoto/services/abstract_services.dart';
 import 'dart:convert' as json;
 
 class FeedbackServices extends AbstractService {
   FeedbackServices() : super('/feedback');
 
-  Future<dynamic> enviarMensagem(RelatarFeedback relatar, InformacoesAparelho aparelho){
+  Future<dynamic> enviarMensagem(FeedBackModel feedback){
     return Session.post('${AbstractService.staticAPI}/feedback',
-      body: toJsonFeedback(relatar, aparelho)).then((response){
+      body: toJsonFeedback(feedback)).then((response){
         print(response);
-        print("JSON POST: ${json.jsonEncode(toJsonFeedback(relatar, aparelho))}");
+        print("JSON POST: ${json.jsonEncode(toJsonFeedback(feedback))}");
       });
   }
-  Map<String, dynamic> toJsonFeedback(RelatarFeedback relatar, InformacoesAparelho aparelho) => {
-    "mensagemDoUsuario" : relatar,
-    "dataDeEnvio" : relatar,
-    "informacoesDoAparelho" : aparelho.deviceData,
+
+  Map<String, dynamic> toJsonFeedback(FeedBackModel feedback) => {
+    "mensagemDoUsuario" : feedback.mensagemDoUsuario,
+    "titulo" : feedback.titulo,
+    "dataDeEnvio" : feedback.dataEnvio,
+    // "informacoesDoAparelho" : null,
   };
 
   @override
@@ -25,8 +26,8 @@ class FeedbackServices extends AbstractService {
   }
 
   @override
-  fromJsonUsuario(json) {
-    return json;
+  fromJsonFeedBackModel(json) {
+    return new FeedBackModel.fromJson(json);
   }
 
 }
