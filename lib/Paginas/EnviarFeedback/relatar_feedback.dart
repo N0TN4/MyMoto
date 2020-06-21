@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mymoto/Paginas/EnviarFeedback/feeback_bloc.dart';
 
+
+
 class RelatarFeedback extends StatefulWidget {
   @override
   _RelatarFeedbackState createState() => _RelatarFeedbackState();
@@ -11,6 +13,14 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
   //final _ctrlEnviarTitulo = TextEditingController();
   final _ctrlEnviarMensagem = TextEditingController();
   final _chaveFormulario = GlobalKey<FormState>();
+
+ @override
+  void initState() {
+    super.initState();
+    bloc.initPlatformState().then((resposta){
+      print(resposta);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
