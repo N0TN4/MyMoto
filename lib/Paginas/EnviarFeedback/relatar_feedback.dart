@@ -21,7 +21,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
             icon: Icon(Icons.send),
             onPressed: () async {
               if (_chaveFormulario.currentState.validate()){
-                bloc.mensagemDoUsuario;
+                bloc.enviarMensagem();
               }
               print("enviando feedback");
               }
@@ -81,7 +81,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                 maxLength: 1200,
                 maxLines: 14,
                 onChanged: (textoAlterado) {
-                  bloc.enviarMensagem();
+                  bloc.setMensagemDoUsuario(textoAlterado);
                 },
                 decoration: InputDecoration(
                   counterText: "",
