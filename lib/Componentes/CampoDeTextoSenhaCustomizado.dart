@@ -18,6 +18,7 @@ class CampoDeTextoSenhaCustomizado extends StatefulWidget {
   final FocusNode focusNode;
   final Function onFieldSubmitted;
   final int maxLines;
+  final Function onChanged;
   final Function validator;
   final bool ativo;
   final dynamic bloc;
@@ -34,6 +35,7 @@ class CampoDeTextoSenhaCustomizado extends StatefulWidget {
       this.textInputType,
       this.enabled,
       this.focusNode,
+      this.onChanged,
       this.required,
       this.onFieldSubmitted,
       this.maxLines,
@@ -58,6 +60,7 @@ class _CampoDeTextoSenhaCustomizadoState
       maxLines: widget.maxLines,
       enabled: widget.ativo,
       focusNode: widget.focusNode,
+      onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,
       textInputAction: widget.textInputAction,
       keyboardType: widget.textInputType,

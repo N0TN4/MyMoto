@@ -15,6 +15,7 @@ class Usuario {
   String email;
   String telefone;
   String senha;
+  String tokenUid;
   MotoModel moto;
   DateTime dataDeCriacao;
   DateTime dataDeAlteracao;
@@ -27,6 +28,7 @@ class Usuario {
     this.telefone,
     this.senha,
     this.moto,
+    this.tokenUid,
     this.dataDeCriacao,
     this.dataDeAlteracao,
   });
@@ -36,6 +38,7 @@ class Usuario {
         nome: json["nome"],
         login: json["login"],
         email: json["email"],
+        tokenUid: json["tokenUid"],
         telefone: json["telefone"],
         senha: json["senha"],
         moto: MotoModel.fromJson(json["moto"]),
@@ -48,6 +51,7 @@ class Usuario {
         "nome": nome,
         "login": login,
         "email": email,
+        "tokenUid": tokenUid,
         "telefone": telefone,
         "senha": senha,
         "moto": moto.toJson(),

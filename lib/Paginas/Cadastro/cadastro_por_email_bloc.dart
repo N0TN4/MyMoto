@@ -47,13 +47,19 @@ class BlocCadastroPorEmail {
   Future<bool> salvar() async {
     Usuario usuario = new Usuario();
     usuario.nome = _nome.value;
-    usuario.login = _login.value;
+    usuario.login = _email.value; // removido login por que é required
     usuario.senha = _senha.value;
     usuario.email = _email.value;
     usuario.telefone = _telefone.value;
+    usuario.tokenUid = "ASKODNJAUISD";
     //usuario.moto.mediaDiariaKm = _kmDiariaSelecionada.value;
     MotoModel moto = new MotoModel();
     //moto = _motoSelecionada.value;
+    //moto.id = _motoSelecionada.value.id;
+    moto.nome = _motoSelecionada.value.nome;
+    moto.modelo = _motoSelecionada.value.modelo;
+    moto.marca = _motoSelecionada.value.marca;
+    moto.modelo = _motoSelecionada.value.nome;
     moto.mediaDiariaKm = _kmDiariaSelecionada.value;
     moto.cilindradas = _motoSelecionada.value.cilindradas;
     moto.kmMaxAcelerador = _motoSelecionada.value.kmMaxAcelerador;
@@ -72,8 +78,7 @@ class BlocCadastroPorEmail {
       if (response != null) {
         UsuarioLogado.usuario = response;
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     });
@@ -98,6 +103,7 @@ class BlocCadastroPorEmail {
           modelos.add(moto.modelo);
           nomeMoto.add(moto.nome);
         });
+        mudarMotoSelecioanda(response[0]);
         mudarMotos(response);
         mudarMarcas(marcas);
         mudarModelos(modelos);

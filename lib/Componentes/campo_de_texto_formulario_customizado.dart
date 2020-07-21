@@ -17,6 +17,7 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
   final TextCapitalization capitalizacao;
   final String valorInicial;
   final String valorController;
+  final Function onChanged;
   final dynamic bloc;
   final String mask;
   final TextEditingController maskedTextFieldController;
@@ -40,6 +41,7 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
       this.valorController,
       this.bloc,
       this.mask,
+      this.onChanged,
       this.maskedTextFieldController,
       this.obscureText,
       this.label});
@@ -52,6 +54,7 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
       enabled: ativo,
       maxLines: linhasMax,
       focusNode: focusNode,
+      onChanged: onChanged,
       textCapitalization:
           capitalizacao == null ? TextCapitalization.none : capitalizacao,
       onFieldSubmitted: campoSubmetido,

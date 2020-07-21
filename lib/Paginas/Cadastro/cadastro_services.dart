@@ -43,8 +43,8 @@ class CadastroServices extends AbstractService {
         "telefone": usuario.telefone,
         "senha": usuario.senha,
         "moto": {
-          // "id": moto.id, // consertar para moto_id no backend
-         // "id": usuario.moto.id,
+          //"id": usuario.moto.id, // consertar para moto_id no backend
+          //"id": usuario.moto.id,
           "nome": usuario.moto.nome,
           "modelo": usuario.moto.modelo,
           "marca": usuario.moto.marca,
@@ -71,6 +71,7 @@ class CadastroServices extends AbstractService {
       };
 
   fromJsonUsuario(json) {
+    print("From Json $json");
     return new Usuario.fromJson(json);
   }
 }

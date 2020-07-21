@@ -83,19 +83,19 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
             key: _formularioChave,
             child: Column(
               children: <Widget>[
-                CampoDeTextoFormularioCustomizado(
-                  label: "Login",
-                  required: true,
-                  controlador: loginCtrl,
-                  linhasMax: 1,
-                  focusNode: focoLogin,
-                  campoSubmetido: (txt) {
-                    _bloc.mudarLogin(txt);
-                    _alterarFoco(context, focoLogin, focoNome);
-                  },
-                  bloc: _bloc.mudarLogin(loginCtrl.text),
-                ),
-                _pularLinha(),
+                // CampoDeTextoFormularioCustomizado(
+                //   label: "Login",
+                //   required: true,
+                //   controlador: loginCtrl,
+                //   linhasMax: 1,
+                //   focusNode: focoLogin,
+                //   campoSubmetido: (txt) {
+                //     _bloc.mudarLogin(txt);
+                //     _alterarFoco(context, focoLogin, focoNome);
+                //   },
+                //   bloc: _bloc.mudarLogin(loginCtrl.text),
+                // ),
+                // _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
                   label: "Nome",
                   required: true,
@@ -106,7 +106,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     _bloc.mudarNome(txt);
                     _alterarFoco(context, focoNome, focoEmail);
                   },
-                  bloc: _bloc.mudarNome(nomeCtrl.text),
+                  onChanged: (text) {
+                    _bloc.mudarNome(text);
+                  },
                 ),
                 _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
@@ -120,7 +122,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     _bloc.mudarEmail(txt);
                     _alterarFoco(context, focoEmail, focoSenha);
                   },
-                  bloc: _bloc.mudarEmail(emailCtrl.text),
+                  onChanged: (text) {
+                    _bloc.mudarEmail(text);
+                  },
                 ),
                 _pularLinha(),
                 CampoDeTextoSenhaCustomizado(
@@ -133,20 +137,22 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     _bloc.mudarSenha(senhaCtrl.text);
                     _alterarFoco(context, focoSenha, focoConfirmarSenha);
                   },
-                  bloc: _bloc.mudarSenha(senhaCtrl.text),
+                  onChanged: (text) {
+                    _bloc.mudarSenha(text);
+                  },
                 ),
                 _pularLinha(),
-                CampoDeTextoSenhaCustomizado(
-                    labelText: "Confirmar senha",
-                    required: true,
-                    maxLines: 1,
-                    controller: confirmarSenhaCtrl,
-                    focusNode: focoConfirmarSenha,
-                    onFieldSubmitted: (txt) {
-                      _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text);
-                      _alterarFoco(context, focoConfirmarSenha, focoTelefone);
-                    }),
-                _pularLinha(),
+                // CampoDeTextoSenhaCustomizado(
+                //     labelText: "Confirmar senha",
+                //     required: true,
+                //     maxLines: 1,
+                //     controller: confirmarSenhaCtrl,
+                //     focusNode: focoConfirmarSenha,
+                //     onFieldSubmitted: (txt) {
+                //       _bloc.mudarConfirmarSenhar(confirmarSenhaCtrl.text);
+                //       _alterarFoco(context, focoConfirmarSenha, focoTelefone);
+                //     }),
+                // _pularLinha(),
                 CampoDeTextoFormularioCustomizado(
                   label: "Telefone",
                   tipoDoInput: TextInputType.number,
@@ -156,7 +162,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   campoSubmetido: (txt) {
                     focoTelefone.unfocus();
                   },
-                  bloc: _bloc.mudarTelefone(telefoneCtrl.text),
+                  onChanged: (text) {
+                    _bloc.mudarTelefone(text);
+                  },
                 ),
                 _pularLinha(),
                 StreamBuilder<List<String>>(
@@ -238,10 +246,10 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     ),
                   ),
                   onPressed: () async {
-                    if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
-                      print("senhas divergentes");
-                      msg(false);
-                    }
+                    // if (!confirmarSenhaCtrl.text.contains(senhaCtrl.text)) {
+                    //   print("senhas divergentes");
+                    //   msg(false);
+                    // }
                     if (_formularioChave.currentState.validate()) {
 // auto login true cadastrado
                       //loginUser
