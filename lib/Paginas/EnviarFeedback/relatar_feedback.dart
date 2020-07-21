@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mymoto/Paginas/EnviarFeedback/feeback_bloc.dart';
 
+
+
 class RelatarFeedback extends StatefulWidget {
   @override
   _RelatarFeedbackState createState() => _RelatarFeedbackState();
@@ -12,6 +14,14 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
   final _ctrlEnviarMensagem = TextEditingController();
   final _chaveFormulario = GlobalKey<FormState>();
 
+ @override
+  void initState() {
+    super.initState();
+    bloc.initPlatformState().then((resposta){
+      print(resposta);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +31,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
             icon: Icon(Icons.send),
             onPressed: () async {
               if (_chaveFormulario.currentState.validate()){
-                bloc.mensagemDoUsuario;
+                bloc.enviarMensagem();
               }
               print("enviando feedback");
               }
@@ -81,7 +91,7 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                 maxLength: 1200,
                 maxLines: 14,
                 onChanged: (textoAlterado) {
-                  bloc.enviarMensagem();
+                  bloc.setMensagemDoUsuario(textoAlterado);
                 },
                 decoration: InputDecoration(
                   counterText: "",

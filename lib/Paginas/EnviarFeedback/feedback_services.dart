@@ -7,18 +7,11 @@ class FeedbackServices extends AbstractService {
 
   Future<dynamic> enviarMensagem(FeedBackModel feedback){
     return Session.post('${AbstractService.staticAPI}/feedback',
-      body: toJsonFeedback(feedback)).then((response){
+      body: feedback.toJson()).then((response){
         print(response);
-        print("JSON POST: ${json.jsonEncode(toJsonFeedback(feedback))}");
+        print("JSON POST: ${feedback.toJson()}");
       });
   }
-
-  Map<String, dynamic> toJsonFeedback(FeedBackModel feedback) => {
-    "mensagemDoUsuario" : feedback.mensagemDoUsuario,
-    "titulo" : feedback.titulo,
-    "dataDeEnvio" : feedback.dataEnvio,
-    // "informacoesDoAparelho" : null,
-  };
 
   @override
   fromJson(json) {
