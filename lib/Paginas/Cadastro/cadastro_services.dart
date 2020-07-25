@@ -5,6 +5,8 @@ import 'dart:convert' as json;
 
 class CadastroServices extends AbstractService {
   CadastroServices() : super('/motos');
+  
+
 
   Future<List<Moto>> getMotos() {
     return Session.get('$api').then((response) {

@@ -43,7 +43,7 @@ class _PageMapaState extends State<PageMapa> {
                 return Container();
               } else {
                 return Stack(
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.topCenter,
                   children: <Widget>[
                     GoogleMap(
                       onMapCreated: (GoogleMapController controller) async {
@@ -59,7 +59,7 @@ class _PageMapaState extends State<PageMapa> {
                           zoom: 17),
                     ),
                     Container(
-                      alignment: Alignment.bottomCenter,
+                      alignment: Alignment.topCenter,
                       width: MediaQuery.of(context).size.width,
                       height: 100,
                       decoration: BoxDecoration(

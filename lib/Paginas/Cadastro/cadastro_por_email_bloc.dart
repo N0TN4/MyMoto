@@ -69,6 +69,7 @@ class BlocCadastroPorEmail {
     moto.kmMaxSuspensao = _motoSelecionada.value.kmMaxSuspensao;
     moto.kmMaxTrocaOleo = _motoSelecionada.value.kmMaxTrocaOleo;
     moto.kmMaxVela = _motoSelecionada.value.kmMaxVela;
+
     usuario.moto = moto;
     print(_kmDiariaSelecionada.value);
 
