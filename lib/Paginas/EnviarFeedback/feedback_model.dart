@@ -1,33 +1,37 @@
 import 'dart:convert';
 
-FeedBackModel feedBackModelFromJson(String str) => FeedBackModel.fromJson(json.decode(str));
+FeedBackModel feedbackFromJson(String str) => FeedBackModel.fromJson(json.decode(str));
 
-String feedBackModelToJson(FeedBackModel data) => json.encode(data.toJson());
+String feedbackToJson(FeedBackModel data) => json.encode(data.toJson());
 
 class FeedBackModel {
-    FeedBackModel({
-        this.id,
-        this.mensagemDoUsuario,
-        this.informacoesDoAparelho,
-        this.dataDeEnvio,
-    });
+  int id;
+  String titulo;
+  String mensagemDoUsuario;
+  String informacoesDoAparelho;
+  DateTime dataEnvio;
 
-    int id;
-    String mensagemDoUsuario;
-    String informacoesDoAparelho;
-    DateTime dataDeEnvio;
+  FeedBackModel({
+    this.id,
+    this.titulo,
+    this.mensagemDoUsuario,
+    //this.informacoesDoAparelho,
+    //this.dataEnvio,
+  });
 
-    factory FeedBackModel.fromJson(Map<String, dynamic> json) => FeedBackModel(
+  factory FeedBackModel.fromJson(Map<String, dynamic> json) => FeedBackModel(
         id: json["id"],
+        titulo: json["titulo"],
         mensagemDoUsuario: json["mensagemDoUsuario"],
-        informacoesDoAparelho: json["informacoesDoAparelho"],
-        dataDeEnvio: DateTime.parse(json["dataDeEnvio"]),
-    );
+        //informacoesDoAparelho: json["informacoesDoAparelho"],
+        //dataEnvio: DateTime.parse(json["dataEnvio"]),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
+        "titulo" : titulo,
         "mensagemDoUsuario": mensagemDoUsuario,
-        "informacoesDoAparelho": informacoesDoAparelho,
-        "dataDeEnvio": dataDeEnvio.toIso8601String(),
-    };
+        //"informacoesDoAparelho": informacoesDoAparelho,
+        //s"dataEnvio": dataEnvio.toIso8601String(),
+      };
 }
