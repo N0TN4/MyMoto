@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
@@ -20,7 +20,6 @@ class _TelaOficinaState extends State<TelaOficina> {
   TelaOficinaBloc _blocOficina = new TelaOficinaBloc();
   @override
   void initState() {
-    // TODO: implement initState
     print("${UsuarioLogado.usuario.id}");
     _blocOficina.getUsuarioMoto();
     super.initState();
@@ -233,11 +232,14 @@ class _TelaOficinaState extends State<TelaOficina> {
                       );
                     }
                   }),
+              SizedBox(
+                height: 70,
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomSheet: BottomNavigationBar(
         backgroundColor: Colors.red, // verificar cores chrome white
         currentIndex: indiceDaPagina, // aqui atribui a variavel criada
         selectedIconTheme: IconThemeData(

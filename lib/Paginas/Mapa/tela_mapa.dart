@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Paginas/Mapa/mapa_bloc.dart';
@@ -16,7 +15,6 @@ class _PageMapaState extends State<PageMapa> {
   //MaskedTextController cepController = MaskedTextController(mask: "00000-000");
   GoogleMapController mapController;
   //var CEP = new via_cep();
-  final _cepKey = GlobalKey<FormState>();
 
   @override
   void initState() {

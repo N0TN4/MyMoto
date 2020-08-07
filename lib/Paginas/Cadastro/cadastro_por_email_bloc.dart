@@ -2,7 +2,6 @@ import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_services.dart';
-import 'package:mymoto/Paginas/Cadastro/servico_firebase_cadastro_por_email.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BlocCadastroPorEmail {
@@ -97,25 +96,19 @@ class BlocCadastroPorEmail {
     List<String> marcas = new List<String>();
     List<String> modelos = new List<String>();
     List<String> nomeMoto = new List<String>();
-    _services.getMotos().then((response) {
-      if (response != null) {
-        response.forEach((moto) {
-          marcas.add(moto.marca);
-          modelos.add(moto.modelo);
-          nomeMoto.add(moto.nome);
-        });
-        mudarMotoSelecioanda(response[0]);
-        mudarMotos(response);
-        mudarMarcas(marcas);
-        mudarModelos(modelos);
-        mudarNomeMoto(nomeMoto);
-      } else {
-        mudarMotos(null);
-        mudarMarcas(null);
-        mudarModelos(null);
-        mudarNomeMoto(null);
-      }
-    });
+    List<Moto> motos = _services.getMotos();
+    if (motos != null) {
+      motos.forEach((moto) {
+        marcas.add(moto.marca);
+        modelos.add(moto.modelo);
+        nomeMoto.add(moto.nome);
+      });
+      mudarMotoSelecioanda(motos[0]);
+      mudarMotos(motos);
+      mudarMarcas(marcas);
+      mudarModelos(modelos);
+      mudarNomeMoto(nomeMoto);
+    }
   }
 
   void dispose() {

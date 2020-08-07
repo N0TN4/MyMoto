@@ -54,7 +54,6 @@ class _CampoDeTextoSenhaCustomizadoState
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return TextFormField(
       obscureText: obscureText,
       maxLines: widget.maxLines,

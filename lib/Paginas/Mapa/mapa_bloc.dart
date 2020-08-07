@@ -67,7 +67,7 @@ class MapaBloc {
     Set<Marker> marker = {};
     await _servicesMapa.getPostosDeGasolinaProximos(lat, lon).then((response) {
       if (response != null) {
-        print("resposta ${response}");
+        print("resposta $response");
         for (var i = 0; i < response.length; i++) {
           print("lat long ${response[i].latitude} ${response[i].longitude}");
           marker.add(
@@ -96,7 +96,7 @@ class MapaBloc {
     Set<Marker> marker = {};
     await _servicesMapa.getPontosOficina(lat, lon).then((response) {
       if (response != null) {
-        print("resposta ${response}");
+        print("resposta $response");
         for (var i = 0; i < response.length; i++) {
           print("lat long ${response[i].latitude} ${response[i].longitude}");
           marker.add(

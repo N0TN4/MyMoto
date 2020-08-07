@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Componentes/menu_lateral.dart';
 import 'package:mymoto/Ferramentas/estilos_de_texto.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
@@ -44,7 +45,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
               Center(
                 child: Container(
                   child: Text(
-                    "Bem vindo ao MyMoto \n${UsuarioLogado.usuario.nome}",
+                    "Seja bem vindo ao MyMoto \n${UsuarioLogado.usuario.nome}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
@@ -83,19 +84,42 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                     ),
                     // imagem
                     Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: ListTile(
-                        leading: Container(
-                          child: Image.network(
-                              "https://www.cabralmotor.com.br/wp-content/uploads/Honda-cg-160-fan-cinza-cabral-motor.jpg"),
+                      padding: const EdgeInsets.only(top: 15, bottom: 8),
+                      child: Container(
+                        child: Text(
+                          "Minha moto ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
-                        title:
-                            Text("CG 160", style: EstilosDeTexto.estiloLista),
-                        trailing: IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () {},
-                          //Para fazer : levar o objeto da moto, contendo os atributos de nome, urlDaFoto, e afins
-                          //Ao pressionar o ícone o Usuario vai pra tela da moto que escolheu.
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        child: ListTile(
+                          title: Text(
+                            "${UsuarioLogado.usuario.moto.nome ?? ""}",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          subtitle: Text(
+                              "${UsuarioLogado.usuario.moto.mediaDiariaKm ?? ""} km/dia\n" +
+                                  "Ultima modificação : ${UsuarioLogado.usuario.moto.dataDeAlteracao.day}/${UsuarioLogado.usuario.moto.dataDeAlteracao.month}/${UsuarioLogado.usuario.moto.dataDeAlteracao.year}"),
+                          leading: Icon(
+                            Icons.motorcycle,
+                            size: 32,
+                            color: CoresApp.secundaria,
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            color: CoresApp.secundaria,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TelaOficina()),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -105,13 +129,14 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                           side: BorderSide(color: Colors.red)),
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => TelaOficina()),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TelaOficina()),
                         );
                       },
                       color: Colors.red,
                       textColor: Colors.white,
-                      child: Text("Oficina".toUpperCase(),
+                      child: Text("Ir para a oficina".toUpperCase(),
                           style: TextStyle(fontSize: 14)),
                     ),
                   ], // Coluna do body

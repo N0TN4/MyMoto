@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' as prefix0;
+
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
-import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -251,7 +248,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                     //   msg(false);
                     // }
                     if (_formularioChave.currentState.validate()) {
-// auto login true cadastrado
+//  login true cadastrado
                       //loginUser
 
                       showDialog(

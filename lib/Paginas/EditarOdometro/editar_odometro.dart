@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
 
 class EditarOdometro extends StatefulWidget {
   @override
@@ -24,9 +25,14 @@ class _EditarOdometroState extends State<EditarOdometro> {
           children: <Widget>[
             // retirar divider
 
-            Divider(
-              height: 50,
-              color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                child: Text(
+                  "Olá ${UsuarioLogado.usuario.nome}, aqui estão as informações atuais sobre a sua moto de cadastro.",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
             ),
 
             //retirar center
@@ -34,11 +40,16 @@ class _EditarOdometroState extends State<EditarOdometro> {
             // padding : EdgeInsects.only(top : 20 ),
             // MediaQuery.of(context).size.height - 100
             // pintar de vermelho
-
-            Center(
-              child: Text(
-                "Moto 150cc",
-                style: TextStyle(color: Colors.black, fontSize: 30),
+            Card(
+              child: ListTile(
+                title: Text(
+                  "${UsuarioLogado.usuario.moto.nome ?? ""}",
+                  style: TextStyle(color: Colors.black),
+                ),
+                subtitle: Text(
+                    "${UsuarioLogado.usuario.moto.mediaDiariaKm ?? ""} km/dia\n" +
+                        "Ultima modificação : ${UsuarioLogado.usuario.moto.dataDeAlteracao.day}/${UsuarioLogado.usuario.moto.dataDeAlteracao.month}/${UsuarioLogado.usuario.moto.dataDeAlteracao.year}"),
+                leading: Icon(Icons.motorcycle),
               ),
             ),
           ],

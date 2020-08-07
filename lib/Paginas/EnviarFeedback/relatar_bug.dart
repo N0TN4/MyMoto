@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 
 class RelatarBug extends StatefulWidget {
   @override
@@ -12,12 +11,13 @@ class _RelatarBugState extends State<RelatarBug> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.send),onPressed: () {
-            print("Enviar relato de bug");
-            setState(() {
-
-            });
-          },),
+          IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () {
+              print("Enviar relato de bug");
+              setState(() {});
+            },
+          ),
         ],
         title: Text(
           "Reporte um bug",
@@ -33,7 +33,6 @@ class _RelatarBugState extends State<RelatarBug> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 24),
-
             TextField(
               maxLength: 50,
               maxLines: 1,
@@ -53,11 +52,9 @@ class _RelatarBugState extends State<RelatarBug> {
                     EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
               ),
             ),
-
             SizedBox(height: 16.0),
             Text("Relatar problema"),
             SizedBox(height: 8.0),
-
             TextField(
               maxLength: 900,
               maxLines: 10,

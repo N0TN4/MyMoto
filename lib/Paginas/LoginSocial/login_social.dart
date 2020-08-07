@@ -1,18 +1,11 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mymoto/Autenticacao/autenticacao_google.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/usuario.dart';
-import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,8 +22,6 @@ class _LoginSocialState extends State<LoginSocial> {
   FocusNode focusNode = FocusNode();
   final _chaveFormulario = GlobalKey<FormState>();
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
@@ -163,7 +154,7 @@ class _LoginSocialState extends State<LoginSocial> {
                             );
                             Timer(Duration(seconds: 2), () {
                               return _bloc.logar(usuario).then((logado) {
-                               // msg(logado);
+                                // msg(logado);
                                 if (logado) {
                                   loginUser();
                                   Navigator.push(
@@ -195,37 +186,6 @@ class _LoginSocialState extends State<LoginSocial> {
         ),
       ),
     );
-  }
-
-  logar(String login, String senha) async {
-    String loginAuxiliar;
-    String senhaAuxiliar;
-    bool logado = false;
-    // consulta
-    return await Firestore.instance
-        .collection('usuarios')
-        .where('login', isEqualTo: login)
-        .snapshots()
-        .listen((onData) {
-      print(onData.documents[0].data);
-      loginAuxiliar = onData.documents[0].data['login'];
-      senhaAuxiliar = onData.documents[0].data['senha'];
-      if (senha == senhaAuxiliar) {
-        print("Sucesso");
-        // dados usuario usuario =  from json
-        UsuarioLogado.usuario = Usuario.fromJson(onData.documents[0].data);
-        //Navigator.of(context).pop();
-        // Navigator.push(
-        //    context, MaterialPageRoute(builder: (context) => MenuPrincipal()));
-        msg(true);
-
-        //_bloc.dispose();
-      } else {
-        print("Senha errada.");
-        msg(false);
-      }
-    });
-    //print("Logado ? $logado");
   }
 
   msg(bool logado) {

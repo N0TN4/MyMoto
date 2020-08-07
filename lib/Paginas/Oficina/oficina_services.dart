@@ -1,4 +1,3 @@
-import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/services/abstract_services.dart';

@@ -2,7 +2,6 @@ import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/ponto_de_interesse.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/services/abstract_services.dart';
-import 'dart:convert' as json;
 
 class MapaServices extends AbstractService {
   MapaServices() : super('/');

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mymoto/Paginas/EnviarFeedback/obter_informacoes_aparelho.dart';
 import 'package:mymoto/Paginas/EnviarFeedback/relatar_bug.dart';
 import 'package:mymoto/Paginas/EnviarFeedback/relatar_feedback.dart';
-
 
 class TelaAjuda extends StatelessWidget {
   @override

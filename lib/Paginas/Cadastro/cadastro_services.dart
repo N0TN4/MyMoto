@@ -5,14 +5,9 @@ import 'dart:convert' as json;
 
 class CadastroServices extends AbstractService {
   CadastroServices() : super('/motos');
-  
 
-
-  Future<List<Moto>> getMotos() {
-    return Session.get('$api').then((response) {
-      print(response);
-      return fromJson(response);
-    });
+  List<Moto> getMotos() {
+    return getLista();
   }
 
   Future<dynamic> salvarCadastro(Usuario usuario) {
@@ -36,6 +31,27 @@ class CadastroServices extends AbstractService {
     } else {
       return null;
     }
+  }
+
+  getLista() {
+    List<Moto> motos = new List<Moto>();
+    Moto moto1 = new Moto(
+      id: 1,
+      cilindradas: 160,
+      kmMaxTrocaOleo: 6000,
+      kmMaxAcelerador: 6000,
+      kmMaxVela: 12000,
+      kmMaxFreio: 6000,
+      kmMaxEmbreagem: 6000,
+      kmMaxPneus: 1000,
+      kmMaxSuspensao: 24000,
+      marca: "HONDA",
+      modelo: "CG",
+      nome: "HONDA CG 160 FAN",
+    );
+    motos.add(moto1);
+
+    return motos;
   }
 
   Map<String, dynamic> toJsonUsuario(Usuario usuario) => {

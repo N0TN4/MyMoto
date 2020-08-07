@@ -11,11 +11,12 @@ class FeedbackBloc {
   final _mensagemDoUsuario = BehaviorSubject<String>();
   final _informacoesDoAparelho = BehaviorSubject<String>();
 
-  Function(String) get setInformacoesDoAparelho => _informacoesDoAparelho.sink.add;
+  Function(String) get setInformacoesDoAparelho =>
+      _informacoesDoAparelho.sink.add;
   Function(String) get setMensagemDoUsuario => _mensagemDoUsuario.sink.add;
-  
+
   FeedbackServices _services = new FeedbackServices();
-  
+
   Future<String> initPlatformState() async {
     Map<String, dynamic> deviceData;
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -32,12 +33,15 @@ class FeedbackBloc {
       };
     }
 
-    String aparelhoInfo = deviceData['model'] +", "+ deviceData['androidId'] +", "+ deviceData['version.securityPatch'];
-      print(aparelhoInfo.toString().toUpperCase());
-      setInformacoesDoAparelho(aparelhoInfo);
+    String aparelhoInfo = deviceData['model'] +
+        ", " +
+        deviceData['androidId'] +
+        ", " +
+        deviceData['version.securityPatch'];
+    print(aparelhoInfo.toString().toUpperCase());
+    setInformacoesDoAparelho(aparelhoInfo);
     return aparelhoInfo;
   }
-
 
   Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
     return <String, dynamic>{
@@ -81,26 +85,22 @@ class FeedbackBloc {
       'utsname.machine:': data.utsname.machine,
     };
   }
-  
+
   Future<bool> enviarMensagem() async {
     FeedBackModel feedback = new FeedBackModel();
     feedback.mensagemDoUsuario = _mensagemDoUsuario.value;
     feedback.informacoesDoAparelho = _informacoesDoAparelho.value;
-    feedback.dataDeEnvio = DateTime.now();
-    
+    feedback.dataEnvio = DateTime.now();
 
     print("${feedback.mensagemDoUsuario}");
     return await _services.enviarMensagem(feedback).then((response) {
       print("POST - $response");
       if (response != null) {
-        
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     });
-
   }
 
   void dispose() {

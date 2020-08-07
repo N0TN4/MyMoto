@@ -48,8 +48,6 @@ class CampoDeTextoFormularioCustomizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tema = Theme.of(context);
-
     return TextFormField(
       enabled: ativo,
       maxLines: linhasMax,

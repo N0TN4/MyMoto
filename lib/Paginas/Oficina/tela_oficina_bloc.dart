@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/Paginas/Oficina/oficina_services.dart';
 import 'package:rxdart/rxdart.dart';
@@ -15,7 +14,6 @@ class TelaOficinaBloc {
   }
 
   submit() async {
-    
     return await _services
         .putMotoOficina(_usuarioMoto.value)
         .then((value) => print(value));
