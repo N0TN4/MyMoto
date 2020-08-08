@@ -49,7 +49,37 @@ class CadastroServices extends AbstractService {
       modelo: "CG",
       nome: "HONDA CG 160 FAN",
     );
+    Moto moto2 = new Moto(
+      id: 2,
+      cilindradas: 125,
+      kmMaxTrocaOleo: 1000,
+      kmMaxAcelerador: 5000,
+      kmMaxVela: 10000,
+      kmMaxFreio: 5000,
+      kmMaxEmbreagem: 5000,
+      kmMaxPneus: 1000,
+      kmMaxSuspensao: 5000,
+      marca: "YAMAHA",
+      modelo: "YBR",
+      nome: "YAMAHA YBR 125i ED",
+    );
+    Moto moto3 = new Moto(
+      id: 3,
+      cilindradas: 125,
+      kmMaxTrocaOleo: 1000,
+      kmMaxAcelerador: 5000,
+      kmMaxVela: 10000,
+      kmMaxFreio: 5000,
+      kmMaxEmbreagem: 5000,
+      kmMaxPneus: 1000,
+      kmMaxSuspensao: 5000,
+      marca: "SUZUKI",
+      modelo: "YES",
+      nome: "SUZUKI YES EN125",
+    );
     motos.add(moto1);
+    motos.add(moto2);
+    motos.add(moto3);
 
     return motos;
   }

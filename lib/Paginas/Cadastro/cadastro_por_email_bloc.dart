@@ -68,11 +68,13 @@ class BlocCadastroPorEmail {
     moto.kmMaxSuspensao = _motoSelecionada.value.kmMaxSuspensao;
     moto.kmMaxTrocaOleo = _motoSelecionada.value.kmMaxTrocaOleo;
     moto.kmMaxVela = _motoSelecionada.value.kmMaxVela;
+    moto.dataDeCriacao = DateTime.now();
+    moto.dataDeAlteracao = DateTime.now();
 
     usuario.moto = moto;
     print(_kmDiariaSelecionada.value);
 
-    print("${usuario.nome}");
+    //print("${usuario.toJson()}");
     return await _services.salvarCadastro(usuario).then((response) {
       print("POST - $response");
       if (response != null) {
