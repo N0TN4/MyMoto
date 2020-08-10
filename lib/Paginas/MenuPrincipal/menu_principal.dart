@@ -144,7 +144,9 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
               ),
             ],
           ),
-        ));
+        ),
+        );
+        
   }
 
   criarCelulaNoMenu(String label, IconData icone, {pagina}) {

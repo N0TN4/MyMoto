@@ -44,19 +44,52 @@ class _MyHomePageState extends State<MyHomePage> {
   var initializationSettingsAndroid;
   var initializationSettingsIOS;
   var initializationSettings;
+    void _showNotification() async {
+    await _demoNotification();
+  }
 
-  @override
+  Future<void> _demoNotification() async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'channel_ID', 'channel name', 'channel description',
+        importance: Importance.Max,
+        priority: Priority.High,
+        ticker: 'test ticker');
+
+    var iOSChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(0, 'Hello, buddy',
+        'A message from flutter buddy', platformChannelSpecifics,
+        payload: 'test oayload');
+  }
+
   void initState() {
     super.initState();
-    initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-    initializationSettingsIOS = IOSInitializationSettings(
-      onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettingsAndroid =
+        new AndroidInitializationSettings('app_icon');
+    initializationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+        _showNotification();
   }
-  Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('Notification payload: $payload');
+    }
+    await Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => new SecondRoute()));
+  }
+
+  Future onDidReceiveLocalNotification(int id, String titulo, String body, String payload) async {
     await showDialog(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text(title),
+        title: Text(titulo),
         content: Text(body),
         actions: <Widget>[
           CupertinoDialogAction(
@@ -64,16 +97,38 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text('Ok'),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
+              await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SecondRoute())
+              );
             },
           )
         ]
       )
     );
   }
-
   @override
   Widget build(BuildContext context) {
-    return _introScreen();
+    return _introScreen(); 
+    
+  }
+  
+}
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AlertPage'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('go Back ...'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
   }
 }
 
