@@ -15,10 +15,10 @@ class MenuPrincipal extends StatefulWidget {
 }
 
 class _MenuPrincipalState extends State<MenuPrincipal> {
-  List imagemLista = [
-    'https://st.depositphotos.com/1428083/1907/i/950/depositphotos_19076717-stock-photo-motorcycle.jpg',
-    'https://st2.depositphotos.com/2853475/7322/i/950/depositphotos_73223241-stock-photo-two-motorcycles-on-the-hills.jpg',
-    'https://st2.depositphotos.com/2853475/7010/i/450/depositphotos_70102441-stock-photo-two-motorbikes-driving-in-the.jpg',
+  List _imagemLista = [
+    'assets/manutencao01.jpg',
+    'assets/manutencao02.jpg',
+    'assets/manutencao03.jpg',
   ];
   @override
   void initState() {
@@ -60,21 +60,21 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                   children: <Widget>[
                     CarouselSlider(
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 4),
-                      autoPlayAnimationDuration: Duration(milliseconds: 1300),
-                      pauseAutoPlayOnTouch: Duration(seconds: 8),
+                      autoPlayInterval: Duration(seconds: 6),
+                      autoPlayAnimationDuration: Duration(seconds: 4),
+                      pauseAutoPlayOnTouch: Duration(seconds: 6),
                       height: 220.0,
-                      items: imagemLista.map((imagemUrl) {
+                      items: _imagemLista.map((imagemUrl) {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
                               width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              margin: EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(16),
                                 color: Colors.redAccent,
                               ),
-                              child: Image.network(
+                              child: Image.asset(
                                 imagemUrl,
                               ),
                             );
