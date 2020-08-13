@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
-import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
       title: 'MyMoto',
       theme: ThemeData(
         primarySwatch: Colors.red,
-        
       ),
       // my home page trocar para splash
       home: MyHomePage(),
@@ -40,11 +38,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
   var initializationSettingsAndroid;
   var initializationSettingsIOS;
   var initializationSettings;
-    void _showNotification() async {
+  void _showNotification() async {
     await _demoNotification();
   }
 
@@ -74,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
-        _showNotification();
+    _showNotification();
   }
 
   Future onSelectNotification(String payload) async {
@@ -85,34 +83,34 @@ class _MyHomePageState extends State<MyHomePage> {
         new MaterialPageRoute(builder: (context) => new SecondRoute()));
   }
 
-  Future onDidReceiveLocalNotification(int id, String titulo, String body, String payload) async {
+  Future onDidReceiveLocalNotification(
+      int id, String titulo, String body, String payload) async {
     await showDialog(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text(titulo),
-        content: Text(body),
-        actions: <Widget>[
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            child: Text('Ok'),
-            onPressed: () async {
-              Navigator.of(context, rootNavigator: true).pop();
-              await Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SecondRoute())
-              );
-            },
-          )
-        ]
-      )
-    );
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Text(titulo),
+                content: Text(body),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    child: Text('Ok'),
+                    onPressed: () async {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SecondRoute()));
+                    },
+                  )
+                ]));
   }
+
   @override
   Widget build(BuildContext context) {
-    return _introScreen(); 
-    
+    return _introScreen();
   }
-  
 }
+
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
