@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
-import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
@@ -12,6 +11,10 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+      SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
