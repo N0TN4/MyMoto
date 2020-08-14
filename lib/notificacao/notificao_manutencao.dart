@@ -18,6 +18,7 @@ class NotificaoManutencao {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'channel_ID', 'channel name', 'channel description',
         importance: Importance.Max,
+        icon: 'app_icon',
         priority: Priority.High,
         ticker: 'test ticker');
 
@@ -31,34 +32,34 @@ class NotificaoManutencao {
   }
 
   initializedNotification() async {
-    configuracaoDeInicializacaoAndroid =
-        new AndroidInitializationSettings('app_icon');
-    configuracaoDeInicializacaoIOS = new IOSInitializationSettings(
-        onDidReceiveLocalNotification: notificacaoLocal);
-    configuracoesDeInicializacao = new InitializationSettings(
-        configuracaoDeInicializacaoAndroid, configuracaoDeInicializacaoIOS);
+    // configuracaoDeInicializacaoAndroid =
+    //     new AndroidInitializationSettings('app_icon');
+    // configuracaoDeInicializacaoIOS = new IOSInitializationSettings(
+    //     onDidReceiveLocalNotification: notificacaoLocal);
+    // configuracoesDeInicializacao = new InitializationSettings(
+    //     configuracaoDeInicializacaoAndroid, configuracaoDeInicializacaoIOS);
 
     configuracoesDeInicializacao = InitializationSettings(
         configuracaoDeInicializacaoAndroid, configuracaoDeInicializacaoIOS);
     await flutterLocalNotificationsPlugin.initialize(configuracoesDeInicializacao);
   }
 
-  Future notificacaoLocal(
-      int id, String titulo, String body, String payLoad) async {
-    await showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(titulo),
-              content: Text(body),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  isDefaultAction: true,
-                  child: Text('OK'),
-                  onPressed: () {
+  // Future notificacaoLocal(
+  //     int id, String titulo, String body, String payLoad) async {
+  //   await showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) => CupertinoAlertDialog(
+  //             title: Text(titulo),
+  //             content: Text(body),
+  //             actions: <Widget>[
+  //               CupertinoDialogAction(
+  //                 isDefaultAction: true,
+  //                 child: Text('OK'),
+  //                 onPressed: () {
                     
-                  },
-                )
-              ],
-            ));
-  }
+  //                 },
+  //               )
+  //             ],
+  //           ));
+  // }
 }

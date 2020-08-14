@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
-import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
-import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/Paginas/Oficina/navegacao_oficina.dart';
 import 'package:mymoto/Paginas/Oficina/tela_oficina_bloc.dart';
 import 'package:mymoto/Paginas/TrocarMoto/trocar_moto.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:mymoto/notificacao/notificao_manutencao.dart';
 
 class TelaOficina extends StatefulWidget {
   @override
@@ -20,23 +16,21 @@ class _TelaOficinaState extends State<TelaOficina> {
   // inicializa com prevenção
 
   TelaOficinaBloc _blocOficina = new TelaOficinaBloc();
+
   @override
   void initState() {
+    
     print("${UsuarioLogado.usuario.id}");
     _blocOficina.getUsuarioMoto();
     super.initState();
 
     // é necessário isso no meu celular, pois os botões nativos do android fica em cima da BottomNavigation
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    // colocado retorno Widget só para entendimento que uma função
-    // pode retornar um componente e ser manipulada pelos parametros
-    //
-    // parametro com { }  dentro do ( ) "({variavel})"
-    // por ser um atributo opcional.
-
+    NotificaoManutencao notificao = NotificaoManutencao();
+    notificao.exibirNotificacao();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
