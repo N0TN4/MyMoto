@@ -21,6 +21,13 @@ class Moto {
   num kmMaxEmbreagem;
   num kmMaxPneus;
   num kmMaxSuspensao;
+  int kmAtualTrocaOleo;
+  int kmAtualAcelerador;
+  int kmAtualVela;
+  int kmAtualFreio;
+  int kmAtualEmbreagem;
+  int kmAtualPneus;
+  int kmAtualSuspensao;
 
   Moto({
     this.id,
@@ -65,5 +72,12 @@ class Moto {
         "km_max_embreagem": kmMaxEmbreagem,
         "km_max_pneus": kmMaxPneus,
         "km_max_suspensao": kmMaxSuspensao,
+        "km_atual_troca_oleo": kmAtualTrocaOleo,
+        "km_atual_acelerador": kmAtualAcelerador,
+        "km_atual_vela": kmAtualVela,
+        "km_atual_freio": kmAtualFreio,
+        "km_atual_embreagem": kmAtualEmbreagem,
+        "km_atual_pneus": kmAtualPneus,
+        "km_atual_suspensao": kmAtualSuspensao,
       };
 }
