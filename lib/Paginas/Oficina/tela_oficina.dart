@@ -39,6 +39,8 @@ class _TelaOficinaState extends State<TelaOficina> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        shape: null,
         title: Text(
           "Oficina",
           style: TextStyle(
@@ -48,81 +50,85 @@ class _TelaOficinaState extends State<TelaOficina> {
         centerTitle: true,
         backgroundColor: Colors.red,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.done),
-            onPressed: () {
-              // submit
-              showDialog(
-                context: context,
-                builder: (context) => new AlertDialog(
-                  content: new Text(
-                    "Você realmente deseja confirmar essas alterações?",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  actions: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "Não",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Icon(Icons.cancel, color: Colors.red)
-                          ],
+          indiceDaPagina == 0
+              ? IconButton(
+                  icon: Icon(Icons.done),
+                  onPressed: () {
+                    // submit
+                    showDialog(
+                      context: context,
+                      builder: (context) => new AlertDialog(
+                        content: new Text(
+                          "Você realmente deseja confirmar essas alterações?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: FlatButton(
-                        child: Row(children: <Widget>[
-                          Text(
-                            "Sim",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.green),
+                        actions: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: FlatButton(
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    "Não",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Icon(Icons.cancel, color: Colors.red)
+                                ],
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
                           ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(Icons.check_circle, color: Colors.green),
-                        ]),
-                        onPressed: () {
-                          //Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) =>
-                                Center(child: new CircularProgressIndicator()),
-                          );
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: FlatButton(
+                              child: Row(children: <Widget>[
+                                Text(
+                                  "Sim",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.green),
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Icon(Icons.check_circle, color: Colors.green),
+                              ]),
+                              onPressed: () {
+                                //Navigator.of(context).pop();
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => Center(
+                                      child: new CircularProgressIndicator()),
+                                );
 
-                          Timer(Duration(seconds: 2), () {
-                            return _blocOficina.submit().then((response) {
-                              setState(() {});
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            });
-                          });
-                        },
+                                Timer(Duration(seconds: 2), () {
+                                  return _blocOficina.submit().then((response) {
+                                    setState(() {});
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  });
+                                });
+                              },
+                            ),
+                          ), // loading
+                        ],
                       ),
-                    ), // loading
-                  ],
-                ),
-              );
+                    );
 
-              //
-            },
-          ),
+                    //
+                  },
+                )
+              : Container()
         ],
       ),
       body: Container(

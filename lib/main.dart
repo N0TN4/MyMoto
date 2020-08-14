@@ -11,7 +11,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
       title: 'MyMoto',
       theme: ThemeData(
         primarySwatch: Colors.red,
-        
       ),
       // my home page trocar para splash
       home: MyHomePage(),
@@ -44,10 +43,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return _introScreen(); 
-    
+    return _introScreen();
   }
-  
 }
 
 Widget _introScreen() {
