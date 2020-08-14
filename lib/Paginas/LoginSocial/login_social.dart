@@ -62,26 +62,22 @@ class _LoginSocialState extends State<LoginSocial> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 60),
+                        padding: const EdgeInsets.only(top: 70),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
                               Icons.motorcycle,
-                              size: 80,
+                              size: 90,
                             ),
                             Text(
                               "MyMoto",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 30),
+                                  TextStyle(color: Colors.black, fontSize: 38),
                             ),
                           ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text("Login"),
-                      )
                     ],
                   ),
                 ),
@@ -117,61 +113,96 @@ class _LoginSocialState extends State<LoginSocial> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: RaisedButton(
-                        color: Color(0xffF24333),
-                        child: Text("Cadastrar"),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CadastroPorEmail()));
-                        }),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: RaisedButton(
-                        color: Color(0xffF24333),
-                        child: Text("Entrar"),
-                        onPressed: () {
-                          if (_chaveFormulario.currentState.validate()) {
-                            Usuario usuario = new Usuario(
-                              email: _emailController.text,
-                              senha: _senhaController.text,
-                            );
-                            showDialog(
-                              context: context,
-                              builder: (context) => new AlertDialog(
-                                content: new Text("Carregando..."),
-                                actions: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: new CircularProgressIndicator(),
-                                  ), // loading
-                                ],
-                              ),
-                            );
-                            Timer(Duration(seconds: 2), () {
-                              return _bloc.logar(usuario).then((logado) {
-                                // msg(logado);
-                                if (logado) {
-                                  loginUser();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MenuPrincipal()));
-                                }
+                  Expanded(
+                    child: Container(
+                      height: 90,
+                      padding: EdgeInsets.all(20),
+                      child: RaisedButton(
+                          color: Color(0xffF24333),
+                          child: Text(
+                            "ENTRAR",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
+                          ),
+                          onPressed: () {
+                            if (_chaveFormulario.currentState.validate()) {
+                              Usuario usuario = new Usuario(
+                                email: _emailController.text,
+                                senha: _senhaController.text,
+                              );
+                              showDialog(
+                                context: context,
+                                builder: (context) => new AlertDialog(
+                                  content: new Text("Carregando..."),
+                                  actions: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: new CircularProgressIndicator(),
+                                    ), // loading
+                                  ],
+                                ),
+                              );
+                              Timer(Duration(seconds: 2), () {
+                                return _bloc.logar(usuario).then((logado) {
+                                  // msg(logado);
+                                  if (logado) {
+                                    loginUser();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MenuPrincipal()));
+                                  }
+                                });
                               });
-                            });
-                            // await logar(
-                            //     _loginController.text, _senhaController.text);
-                          }
-                        }),
+                              // await logar(
+                              //     _loginController.text, _senhaController.text);
+                            }
+                          }),
+                    ),
                   ),
                 ],
               ),
+              SizedBox(height: 20),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 18.0, right: 13.0),
+                        child: Divider(
+                          color: Colors.black,
+                          height: 20,
+                        )),
+                  ),
+                  InkWell(
+                    child: Text(
+                      'Cadastrar',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CadastroPorEmail()));
+                    },
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 18.0, right: 13.0),
+                        child: Divider(
+                          color: Colors.black,
+                          height: 20,
+                        )),
+                  ),
+                ],
+              ),
+
               // GoogleSignInButton(
               //   text: "Login",
               //   onPressed: () async {
