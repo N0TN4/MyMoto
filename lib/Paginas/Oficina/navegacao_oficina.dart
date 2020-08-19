@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymoto/Componentes/cores_app.dart';
@@ -270,6 +272,75 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
           ),
         ),
       ],
+    );
+  }
+
+  dialogoConsertaPeca() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+          "Você realmente deseja confirmar essas alterações?",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+        ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FlatButton(
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Não",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Icon(Icons.cancel, color: Colors.red)
+                ],
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FlatButton(
+              child: Row(children: <Widget>[
+                Text(
+                  "Sim",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.green),
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Icon(Icons.check_circle, color: Colors.green),
+              ]),
+              onPressed: () {
+                //Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) =>
+                      Center(child: new CircularProgressIndicator()),
+                );
+
+                Timer(Duration(seconds: 2), () {
+                  return _blocOficina.submit().then((response) {
+                    setState(() {});
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  });
+                });
+              },
+            ),
+          ), // loading
+        ],
+      ),
     );
   }
 }
