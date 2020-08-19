@@ -14,20 +14,33 @@ class NotificaoManutencao {
 
   static BuildContext context;
 
-  Future<void> _notificacao() async {
+  Future<void> _notificacao({@required int dias, String peca}) async {
+    print("hello");
+
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'channel_ID', 'channel name', 'channel description',
         importance: Importance.Max,
+        color: Colors.red,
         icon: 'app_icon',
         priority: Priority.High,
+        sound: RawResourceAndroidNotificationSound('notificacao_moto_ligar'),
+        playSound: true,
         ticker: 'test ticker');
 
     var iOSChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.show(0, 'Hello World!!!',
-        'Hello World', platformChannelSpecifics,
+    // await flutterLocalNotificationsPlugin.show(0, 'Hello World!!!',
+    //     'Hello World', platformChannelSpecifics,
+    //     payload: 'test oayload');
+
+    await flutterLocalNotificationsPlugin.schedule(
+        0,
+        'Hello World!!!',
+        'A sua peça ${peca ?? ""} está acabando em % porcento',
+        DateTime.now().add(new Duration(days: dias)),
+        platformChannelSpecifics,
         payload: 'test oayload');
   }
 
@@ -41,7 +54,8 @@ class NotificaoManutencao {
 
     configuracoesDeInicializacao = InitializationSettings(
         configuracaoDeInicializacaoAndroid, configuracaoDeInicializacaoIOS);
-    await flutterLocalNotificationsPlugin.initialize(configuracoesDeInicializacao);
+    await flutterLocalNotificationsPlugin
+        .initialize(configuracoesDeInicializacao);
   }
 
   // Future notificacaoLocal(
@@ -56,7 +70,7 @@ class NotificaoManutencao {
   //                 isDefaultAction: true,
   //                 child: Text('OK'),
   //                 onPressed: () {
-                    
+
   //                 },
   //               )
   //             ],

@@ -178,6 +178,8 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
               //msg
               LinearPercentIndicator(
                 //width: MediaQuery.of(context).size.width - 80,
+                animateFromLastPercent: true,
+
                 animation: true,
 
                 trailing: Padding(
@@ -189,6 +191,9 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
                         switch (tipo) {
                           case "Oléo":
                             usuarioMoto.moto.kmAtualTrocaOleo = 0;
+                            // data de hoje até a data de 25% da peça (oléo)
+                            // diferanca data atual até 25%
+                            // programaparaxDiasNotiicao(dias peca,);
                             _blocOficina.mudarUsuarioMoto(usuarioMoto);
                             break;
                           case "Acelerador":

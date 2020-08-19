@@ -19,18 +19,19 @@ class _TelaOficinaState extends State<TelaOficina> {
 
   @override
   void initState() {
-    
     print("${UsuarioLogado.usuario.id}");
     _blocOficina.getUsuarioMoto();
+    NotificaoManutencao notificao = NotificaoManutencao();
+    notificao.exibirNotificacao();
+    print("HelloWorld");
+    print("Time = ${DateTime.now().add(new Duration(seconds: 10))}");
     super.initState();
 
     // é necessário isso no meu celular, pois os botões nativos do android fica em cima da BottomNavigation
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    NotificaoManutencao notificao = NotificaoManutencao();
-    notificao.exibirNotificacao();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
