@@ -6,6 +6,7 @@ import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/Paginas/Oficina/tela_oficina_bloc.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NavegacaoOficina extends StatefulWidget {
@@ -15,6 +16,7 @@ class NavegacaoOficina extends StatefulWidget {
 
 class _NavegacaoOficinaState extends State<NavegacaoOficina> {
   TelaOficinaBloc _blocOficina = new TelaOficinaBloc();
+  int diasEscolhidos = 0;
 
   @override
   void initState() {
@@ -190,42 +192,7 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
                     icon: Icon(Icons.settings, color: CoresApp.secundaria),
                     onPressed: () {
                       setState(() {
-                        switch (tipo) {
-                          case "Oléo":
-                            usuarioMoto.moto.kmAtualTrocaOleo = 0;
-                            // data de hoje até a data de 25% da peça (oléo)
-                            // diferanca data atual até 25%
-                            // programaparaxDiasNotiicao(dias peca,);
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Acelerador":
-                            usuarioMoto.moto.kmAtualAcelerador = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Vela de ignição":
-                            usuarioMoto.moto.kmAtualVela = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Freio":
-                            usuarioMoto.moto.kmAtualFreio = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Embreagem":
-                            usuarioMoto.moto.kmAtualEmbreagem = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Pneus":
-                            usuarioMoto.moto.kmAtualPneus = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-                          case "Suspensão":
-                            usuarioMoto.moto.kmAtualSuspensao = 0;
-                            _blocOficina.mudarUsuarioMoto(usuarioMoto);
-                            break;
-
-                          default:
-                            return;
-                        }
+                        dialogoConsertaPeca(usuarioMoto, tipo);
                       });
                     },
                   ),
@@ -275,72 +242,153 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
     );
   }
 
-  dialogoConsertaPeca() {
+  dialogoConsertaPeca(UsuarioModel usuarioMoto, String tipo) {
+    diasEscolhidos = 0;
+
     return showDialog(
       context: context,
-      builder: (context) => new AlertDialog(
-        content: new Text(
-          "Você realmente deseja confirmar essas alterações?",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-        ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FlatButton(
-              child: Row(
-                children: <Widget>[
+      builder: (context) => StatefulBuilder(builder: (context, setState) {
+        return new AlertDialog(
+          content: Container(
+            child: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 28),
+                  child: new Text(
+                    "Consertei esta peça há ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                ),
+                NumberPicker.integer(
+                    initialValue: diasEscolhidos,
+                    minValue: 0,
+                    maxValue: 99,
+                    itemExtent: 25,
+                    listViewWidth: 40,
+                    onChanged: (value) {
+                      setState(() {
+                        diasEscolhidos = value;
+                      });
+                    }),
+                Padding(
+                  padding: const EdgeInsets.only(top: 28),
+                  child: Text(
+                    " dias atrás",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: FlatButton(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      "Não",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Icon(Icons.cancel, color: Colors.red)
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: FlatButton(
+                child: Row(children: <Widget>[
                   Text(
-                    "Não",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    "Sim",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.green),
                   ),
                   SizedBox(
                     width: 4,
                   ),
-                  Icon(Icons.cancel, color: Colors.red)
-                ],
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: FlatButton(
-              child: Row(children: <Widget>[
-                Text(
-                  "Sim",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.green),
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Icon(Icons.check_circle, color: Colors.green),
-              ]),
-              onPressed: () {
-                //Navigator.of(context).pop();
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) =>
-                      Center(child: new CircularProgressIndicator()),
-                );
+                  Icon(Icons.check_circle, color: Colors.green),
+                ]),
+                onPressed: () {
+                  setState(() {
+                    //Navigator.of(context).pop();
+                    final mediaKmDiaria = usuarioMoto.moto.mediaDiariaKm;
+                    // start lógica de dias que o usuário está alterando/consertando a peça.
+                    // ao tocar em sim, significa que ele trocou, vai mandar um request para a
+                    // api e alterare bloc da peça (aniação na view de porcentagem)
+                    switch (tipo) {
+                      case "Oléo":
+                        usuarioMoto.moto.kmAtualTrocaOleo =
+                            mediaKmDiaria * diasEscolhidos;
 
-                Timer(Duration(seconds: 2), () {
-                  return _blocOficina.submit().then((response) {
-                    setState(() {});
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
+                        // data de hoje até a data de 25% da peça (oléo)
+                        // diferanca data atual até 25%
+                        // programaparaxDiasNotiicao(dias peca,);
+                        //dialogoConsertaPeca(usuarioMoto.moto);
+
+                        break;
+                      case "Acelerador":
+                        usuarioMoto.moto.kmAtualAcelerador =
+                            mediaKmDiaria * diasEscolhidos;
+
+                        break;
+                      case "Vela de ignição":
+                        usuarioMoto.moto.kmAtualVela =
+                            mediaKmDiaria * diasEscolhidos;
+                        break;
+                      case "Freio":
+                        usuarioMoto.moto.kmAtualFreio =
+                            mediaKmDiaria * diasEscolhidos;
+                        break;
+                      case "Embreagem":
+                        usuarioMoto.moto.kmAtualEmbreagem =
+                            mediaKmDiaria * diasEscolhidos;
+                        break;
+                      case "Pneus":
+                        usuarioMoto.moto.kmAtualPneus =
+                            mediaKmDiaria * diasEscolhidos;
+                        break;
+                      case "Suspensão":
+                        usuarioMoto.moto.kmAtualSuspensao =
+                            mediaKmDiaria * diasEscolhidos;
+                        break;
+
+                      default:
+                        return;
+                    }
+                    _blocOficina.mudarUsuarioMoto(usuarioMoto);
+
+                    // end lógica
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) =>
+                          Center(child: new CircularProgressIndicator()),
+                    );
+
+                    Timer(Duration(seconds: 2), () {
+                      return _blocOficina.submit().then((response) {
+                        setState(() {});
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      });
+                    });
                   });
-                });
-              },
-            ),
-          ), // loading
-        ],
-      ),
+                },
+              ),
+            ), // loading
+          ],
+        );
+      }),
     );
   }
 }

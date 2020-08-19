@@ -9,7 +9,8 @@ class NotificaoManutencao {
   var configuracaoDeInicializacaoIOS;
   var configuracoesDeInicializacao;
   void exibirNotificacao() async {
-    await _notificacao();
+    //await _notificacao();
+    // retirado apenas para nao da error
   }
 
   static BuildContext context;
