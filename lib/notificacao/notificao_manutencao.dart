@@ -39,7 +39,7 @@ class NotificaoManutencao {
     await flutterLocalNotificationsPlugin.schedule(
         0,
         'Atenção!!!',
-        '$peca está acabando em % porcento',
+        '$peca está em 25%',
         DateTime.now().add(new Duration(days: dias)),
         platformChannelSpecifics,
         payload: 'test oayload');
