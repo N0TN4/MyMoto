@@ -20,7 +20,7 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
   int diasEscolhidos = 0;
   NotificaoManutencao notificaoDeAlerta = NotificaoManutencao();
 
-  notificaoProgramada(UsuarioModel usuarioMoto, mediaKmDiaria){
+  notificaoProgramada(UsuarioModel usuarioMoto, mediaKmDiaria, String peca){
   var alertaManutencao = int.parse((usuarioMoto.moto.kmMaxTrocaOleo
    / 4).toStringAsFixed(0));
 
@@ -33,7 +33,7 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
     days: int.parse(diferencaDias.toStringAsFixed(0))));
 
   var dias = DateTime.now().difference(dataDiferencaManutencao);
-  return notificaoDeAlerta.notificar(dias: dias.inDays, peca: "Oléo");
+  return notificaoDeAlerta.notificar(dias: dias.inDays, peca: peca);
   }
 
   @override
@@ -347,12 +347,12 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
                       case "Oléo":
                         usuarioMoto.moto.kmAtualTrocaOleo =
                             mediaKmDiaria * diasEscolhidos;
-                            notificaoProgramada(usuarioMoto, mediaKmDiaria);
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, "Oléo");
                         break;
                       case "Acelerador":
                         usuarioMoto.moto.kmAtualAcelerador =
                             mediaKmDiaria * diasEscolhidos;
-
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, "Acelerador");
                         break;
                       case "Vela de ignição":
                         usuarioMoto.moto.kmAtualVela =
