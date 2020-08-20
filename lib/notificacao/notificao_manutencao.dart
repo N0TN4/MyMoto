@@ -15,8 +15,8 @@ class NotificaoManutencao {
 
   static BuildContext context;
 
-  Future<void> _notificacao({@required int dias, String peca}) async {
-    print("hello");
+  Future<void> notificar({@required int dias, String peca}) async {
+    print("enviando notificação para $dias dias");
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'channel_ID', 'channel name', 'channel description',
@@ -38,8 +38,8 @@ class NotificaoManutencao {
 
     await flutterLocalNotificationsPlugin.schedule(
         0,
-        'Hello World!!!',
-        'A sua peça ${peca ?? ""} está acabando em % porcento',
+        'Atenção!!!',
+        '$peca está acabando em % porcento',
         DateTime.now().add(new Duration(days: dias)),
         platformChannelSpecifics,
         payload: 'test oayload');

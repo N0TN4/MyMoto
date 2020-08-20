@@ -6,6 +6,7 @@ import 'package:mymoto/Componentes/cores_app.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Modelos/usuario_model.dart';
 import 'package:mymoto/Paginas/Oficina/tela_oficina_bloc.dart';
+import 'package:mymoto/notificacao/notificao_manutencao.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -17,6 +18,23 @@ class NavegacaoOficina extends StatefulWidget {
 class _NavegacaoOficinaState extends State<NavegacaoOficina> {
   TelaOficinaBloc _blocOficina = new TelaOficinaBloc();
   int diasEscolhidos = 0;
+  NotificaoManutencao notificaoDeAlerta = NotificaoManutencao();
+
+  notificaoProgramada(UsuarioModel usuarioMoto, mediaKmDiaria){
+  var alertaManutencao = int.parse((usuarioMoto.moto.kmMaxTrocaOleo
+   / 4).toStringAsFixed(0));
+
+  DateTime dataAtual = DateTime.now();
+
+  num diferencaDias = int.parse(alertaManutencao.toString()) /
+   int.parse(mediaKmDiaria.toString());
+
+  var dataDiferencaManutencao = dataAtual.subtract(Duration(
+    days: int.parse(diferencaDias.toStringAsFixed(0))));
+
+  var dias = DateTime.now().difference(dataDiferencaManutencao);
+  return notificaoDeAlerta.notificar(dias: dias.inDays, peca: "Oléo");
+  }
 
   @override
   void initState() {
@@ -329,12 +347,7 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
                       case "Oléo":
                         usuarioMoto.moto.kmAtualTrocaOleo =
                             mediaKmDiaria * diasEscolhidos;
-
-                        // data de hoje até a data de 25% da peça (oléo)
-                        // diferanca data atual até 25%
-                        // programaparaxDiasNotiicao(dias peca,);
-                        //dialogoConsertaPeca(usuarioMoto.moto);
-
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria);
                         break;
                       case "Acelerador":
                         usuarioMoto.moto.kmAtualAcelerador =
