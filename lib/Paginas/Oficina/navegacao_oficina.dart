@@ -347,32 +347,37 @@ class _NavegacaoOficinaState extends State<NavegacaoOficina> {
                       case "Oléo":
                         usuarioMoto.moto.kmAtualTrocaOleo =
                             mediaKmDiaria * diasEscolhidos;
-                            notificaoProgramada(usuarioMoto, mediaKmDiaria, "Oléo");
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Acelerador":
                         usuarioMoto.moto.kmAtualAcelerador =
                             mediaKmDiaria * diasEscolhidos;
-                            notificaoProgramada(usuarioMoto, mediaKmDiaria, "Acelerador");
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Vela de ignição":
                         usuarioMoto.moto.kmAtualVela =
                             mediaKmDiaria * diasEscolhidos;
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Freio":
                         usuarioMoto.moto.kmAtualFreio =
                             mediaKmDiaria * diasEscolhidos;
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Embreagem":
                         usuarioMoto.moto.kmAtualEmbreagem =
                             mediaKmDiaria * diasEscolhidos;
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Pneus":
                         usuarioMoto.moto.kmAtualPneus =
                             mediaKmDiaria * diasEscolhidos;
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
                       case "Suspensão":
                         usuarioMoto.moto.kmAtualSuspensao =
                             mediaKmDiaria * diasEscolhidos;
+                            notificaoProgramada(usuarioMoto, mediaKmDiaria, tipo);
                         break;
 
                       default:
