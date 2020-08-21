@@ -22,19 +22,35 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
   ];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuLateral(),
-        appBar: AppBar(
-          title: Text(
-            "MyMoto",
-          ),
-        ),
+      drawer: MenuLateral(),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text("My Moto",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.0,
+                      )),
+                  background: Image.network(
+                    "https://media.istockphoto.com/photos/motorcycle-driving-on-the-asphalt-road-in-rural-landscape-at-sunset-picture-id1140461954?k=6&m=1140461954&s=612x612&w=0&h=GhpYh3hNXKSDcFMdW7qY3sZLdzpk9tQrghSKxf0BmHw=",
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ];
+        },
         body: Container(
           child: Column(
             children: <Widget>[
@@ -145,8 +161,8 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             ],
           ),
         ),
-        );
-        
+      ),
+    );
   }
 
   criarCelulaNoMenu(String label, IconData icone, {pagina}) {
