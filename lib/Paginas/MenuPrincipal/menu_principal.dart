@@ -16,9 +16,9 @@ class MenuPrincipal extends StatefulWidget {
 
 class _MenuPrincipalState extends State<MenuPrincipal> {
   List _imagemLista = [
-    'assets/manutencao01.jpg',
-    'assets/manutencao02.jpg',
-    'assets/manutencao03.jpg',
+    'assets/motorbike01.jpg',
+    'assets/motorbike02.jpg',
+    'assets/motorbike03.jpg',
   ];
   @override
   void initState() {
