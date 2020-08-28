@@ -51,7 +51,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
             ),
           ];
         },
-        body: Container(
+        body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               //tela de boas vindas

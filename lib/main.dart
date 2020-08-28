@@ -57,6 +57,7 @@ Widget _introScreen() {
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
+
           colors: [Colors.white, Colors.white70],
         ),
         loadingText: Text("Pilote com cuidado!"),
