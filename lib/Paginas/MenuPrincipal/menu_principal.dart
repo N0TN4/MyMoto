@@ -33,7 +33,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 200.0,
+              expandedHeight: 200,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -42,10 +42,10 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
+                        fontSize: 17,
                       )),
-                  background: Image.network(
-                    "https://media.istockphoto.com/photos/motorcycle-driving-on-the-asphalt-road-in-rural-landscape-at-sunset-picture-id1140461954?k=6&m=1140461954&s=612x612&w=0&h=GhpYh3hNXKSDcFMdW7qY3sZLdzpk9tQrghSKxf0BmHw=",
+                  background: Image.asset(
+                    "assets/motorbike-principal.jpg",
                     fit: BoxFit.cover,
                   )),
             ),
@@ -70,7 +70,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 30.0),
+                padding: const EdgeInsets.only(top: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -85,11 +85,12 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                           builder: (BuildContext context) {
                             return Container(
                               width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 16.0),
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                color: Colors.redAccent,
-                              ),
+                                gradient: LinearGradient(
+                                  colors: [Colors.black, Colors.red]),
+                                ),
                               child: Image.asset(
                                 imagemUrl,
                               ),
@@ -110,7 +111,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10),
                       child: Card(
                         child: ListTile(
                           title: Text(
