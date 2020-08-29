@@ -13,15 +13,13 @@ class Sobre extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: const Text("Licenças"),
-            onTap: () => Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => Licenca())),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Licenca())),
           ),
           ListTile(
             title: const Text("Desenvolvimento"),
             subtitle: const Text("https://github.com/N0TN4/MyMoto"),
-            onTap: (){
-              
-            },
+            onTap: () {},
           ),
           ListTile(
             title: const Text("Versão"),
