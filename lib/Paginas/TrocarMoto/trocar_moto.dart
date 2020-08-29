@@ -59,7 +59,6 @@ class _TrocarMotoState extends State<TrocarMoto> {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [CoresApp.secundaria, Colors.white.withOpacity(0)],
-        //stops: _stops.map((s) => s + animation.value).toList(),
       )),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8),

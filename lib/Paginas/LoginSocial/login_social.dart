@@ -26,6 +26,7 @@ class _LoginSocialState extends State<LoginSocial> {
   void initState() {
     super.initState();
     DateTime dataAtual = DateTime.now();
+    logarAutomaticamente();
     print(dataAtual);
   }
 
@@ -34,6 +35,40 @@ class _LoginSocialState extends State<LoginSocial> {
     focusNode.dispose();
 
     super.dispose();
+  }
+
+  logarAutomaticamente() async {
+    final prefs = await SharedPreferences.getInstance();
+    String emailUsuario = prefs.getString("email");
+    String senhaUsuario = prefs.getString("senha");
+    if (emailUsuario != null || senhaUsuario != null) {
+      Usuario usuario = new Usuario(
+        email: emailUsuario,
+        senha: senhaUsuario,
+      );
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Entrando..."),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+      Timer(Duration(seconds: 2), () {
+        return _bloc.logar(usuario).then((logado) {
+          // msg(logado);
+          if (logado) {
+            loginUser();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MenuPrincipal()));
+          }
+        });
+      });
+    }
   }
 
   @override
