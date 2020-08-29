@@ -9,6 +9,7 @@ import 'package:mymoto/Paginas/LoginSocial/login_social.dart';
 import 'package:mymoto/Paginas/Mapa/tela_mapa.dart';
 
 import 'package:mymoto/Paginas/Oficina/tela_oficina.dart';
+import 'package:mymoto/Paginas/sobre/sobre.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuLateral extends StatelessWidget {
@@ -51,11 +52,12 @@ class MenuLateral extends StatelessWidget {
               ),
             ),
           ),
-          criarCelulaNoMenu("MyMoto", Icons.motorcycle,
+          criarCelulaNoMenu("Minha moto", Icons.motorcycle,
               pagina: EditarOdometro()),
+          criarCelulaNoMenu("Sobre", Icons.help, pagina: Sobre()),
           criarCelulaNoMenu("Oficina", Icons.settings, pagina: TelaOficina()),
-          criarCelulaNoMenu("Mapa", Icons.location_on, pagina: PageMapa()),
-          criarCelulaNoMenu("Ajuda", Icons.help, pagina: TelaAjuda()),
+          criarCelulaNoMenu("Encontrar postos e oficinas", Icons.location_on, pagina: PageMapa()),
+          criarCelulaNoMenu("Enviar feedback ou reportar", Icons.send, pagina: TelaAjuda()),
           criarCelulaNoMenu("Sair", Icons.exit_to_app, pagina: LoginSocial()),
         ],
       ),
