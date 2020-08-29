@@ -17,6 +17,13 @@ class Sobre extends StatelessWidget {
             MaterialPageRoute(builder: (context) => Licenca())),
           ),
           ListTile(
+            title: const Text("Desenvolvimento"),
+            subtitle: const Text("https://github.com/N0TN4/MyMoto"),
+            onTap: (){
+              
+            },
+          ),
+          ListTile(
             title: const Text("Versão"),
             subtitle: const Text("v 2.0.0"),
           ),
