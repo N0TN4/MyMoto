@@ -7,25 +7,27 @@ class RelatarFeedback extends StatefulWidget {
 }
 
 class _RelatarFeedbackState extends State<RelatarFeedback> {
-  FeedbackBloc bloc = new FeedbackBloc();
-  //final _ctrlEnviarTitulo = TextEditingController();
+  FeedbackBloc _bloc = new FeedbackBloc();
+  final _ctrlEnviarTitulo = TextEditingController();
   final _ctrlEnviarMensagem = TextEditingController();
   final _chaveFormulario = GlobalKey<FormState>();
+  final _chaveScaffold = GlobalKey<ScaffoldState>();
+  final _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _chaveScaffold,
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () async {
-              if (_chaveFormulario.currentState.validate()){
-                bloc.enviarMensagem();
-              }
-              print("enviando feedback");
-              }
-          ),
+              icon: Icon(Icons.send),
+              onPressed: () async {
+                _validacaoFormulario();
+                if (_chaveFormulario.currentState.validate()) {
+                  _bloc.enviarMensagem();
+                }
+              }),
         ],
         title: Text(
           "Ajuda",
@@ -37,23 +39,29 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
         backgroundColor: Colors.red,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _chaveFormulario,
           child: Column(
             children: <Widget>[
-              StreamBuilder<String>(
-                  //stream: _bloc.
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(snapshot.data);
-                    } else {
-                      return Container();
-                    }
-                  }),
-              SizedBox(height: 24.0),
-              TextField(
+              // StreamBuilder<String>(
+              //     stream: _bloc.mensagemDoUsuario,
+              //     builder: (context, snapshot) {
+              //       if (snapshot.hasData) {
+
+              //       } else {
+              //         return Container();
+              //       }
+              //     }),
+              const SizedBox(height: 24),
+              TextFormField(
                 //controller: _ctrlEnviarTitulo,
+                validator: (valor) {
+                  if (valor.isEmpty) {
+                    return "Insira seu título";
+                  }
+                  return null;
+                },
                 maxLength: 50,
                 maxLines: 1,
                 decoration: InputDecoration(
@@ -72,16 +80,22 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                       EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text("Feedback"),
-              SizedBox(height: 8.0),
-              TextField(
+              const SizedBox(height: 16),
+              const Text("Feedback"),
+              const SizedBox(height: 8),
+              TextFormField(
                 controller: _ctrlEnviarMensagem,
-                //onFieldSubmitted : bloc.mensagemDoUsuario, 
+                //onFieldSubmitted : bloc.mensagemDoUsuario,
+                validator: (valor) {
+                  if (valor.isEmpty) {
+                    return "Insira seu feedback";
+                  }
+                  return null;
+                },
                 maxLength: 1200,
                 maxLines: 14,
                 onChanged: (textoAlterado) {
-                  bloc.setMensagemDoUsuario(textoAlterado);
+                  _bloc.setMensagemDoUsuario(textoAlterado);
                 },
                 decoration: InputDecoration(
                   counterText: "",
@@ -94,8 +108,8 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
                     borderRadius: BorderRadius.all(const Radius.circular(12)),
                     borderSide: BorderSide(color: Colors.red, width: 1.0),
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 15.0),
                 ),
               ),
             ],
@@ -103,5 +117,21 @@ class _RelatarFeedbackState extends State<RelatarFeedback> {
         ),
       ),
     );
+  }
+  _validacaoFormulario() {
+    final _snackBar = SnackBar(content: Text("Campo não pode ser vazio."));
+    if(!_chaveFormulario.currentState.validate()){
+      return _chaveScaffold.currentState.showSnackBar(_snackBar);
+    }
+    print("feedback enviado");
+    return Navigator.pop(context);
+  }
+  
+  @override
+  void dispose() {
+    _ctrlEnviarTitulo.dispose();
+    _ctrlEnviarMensagem.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoto/Paginas/EnviarFeedback/feeback_bloc.dart';
 
 class RelatarBug extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class _RelatarBugState extends State<RelatarBug> {
   final _chaveFormulario = GlobalKey<FormState>();
   final _focusNode = FocusNode();
   final _chaveScaffold = GlobalKey<ScaffoldState>();
+  final _bloc = FeedbackBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class _RelatarBugState extends State<RelatarBug> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: () {
+            onPressed: () async {
               setState(() {
                 _validacaoFormulario();
               });
@@ -42,6 +44,15 @@ class _RelatarBugState extends State<RelatarBug> {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
+              // StreamBuilder<String>(
+              //     stream: _bloc.mensagemDoUsuario,
+              //     builder: (context, snapshot) {
+              //       if (snapshot.hasData) {
+                      
+              //       } else {
+              //         return Container();
+              //       }
+              //     }),
               SizedBox(height: 24),
               TextFormField(
                 controller: _ctrlEnviarMensagem,
@@ -50,6 +61,9 @@ class _RelatarBugState extends State<RelatarBug> {
                     return 'Por favor insira o título.';
                   }
                   return null;
+                },
+                onChanged: (textoAlterado) {
+                  _bloc.setTitulo(textoAlterado);
                 },
                 maxLength: 50,
                 maxLines: 1,
@@ -79,6 +93,9 @@ class _RelatarBugState extends State<RelatarBug> {
                     return 'Por favor insira seu report bug';
                   }
                   return null;
+                },
+                onChanged: (textoAlterado) {
+                  _bloc.setMensagemDoUsuario(textoAlterado);
                 },
                 maxLength: 900,
                 maxLines: 10,

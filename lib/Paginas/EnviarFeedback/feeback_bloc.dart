@@ -8,11 +8,17 @@ import 'package:flutter/services.dart';
 import 'package:device_info/device_info.dart';
 
 class FeedbackBloc {
+  final _titulo = BehaviorSubject<String>();
   final _mensagemDoUsuario = BehaviorSubject<String>();
   final _informacoesDoAparelho = BehaviorSubject<String>();
 
+  Stream<String> get titulo => _titulo.stream;
+  Stream<String> get mensagemDoUsuario => _mensagemDoUsuario.stream;
+  Stream<String> get informacoesDoAparelho => _informacoesDoAparelho.stream;
+
   Function(String) get setInformacoesDoAparelho =>
       _informacoesDoAparelho.sink.add;
+  Function(String) get setTitulo => _titulo.sink.add;
   Function(String) get setMensagemDoUsuario => _mensagemDoUsuario.sink.add;
 
   FeedbackServices _services = new FeedbackServices();
@@ -88,6 +94,7 @@ class FeedbackBloc {
 
   Future<bool> enviarMensagem() async {
     FeedBackModel feedback = new FeedBackModel();
+    feedback.titulo = _titulo.value;
     feedback.mensagemDoUsuario = _mensagemDoUsuario.value;
     feedback.informacoesDoAparelho = _informacoesDoAparelho.value;
     feedback.dataEnvio = DateTime.now();
@@ -104,6 +111,7 @@ class FeedbackBloc {
   }
 
   void dispose() {
+    _titulo.close();
     _mensagemDoUsuario.close();
     _informacoesDoAparelho.close();
   }
