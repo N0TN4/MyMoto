@@ -11,7 +11,7 @@ class Licenca extends StatelessWidget {
       body: Column(
         children: <Widget>[
           ListTile(
-            title: const Text("Images (menu principal)"),
+            title: const Text("Imagens (menu principal)"),
             subtitle: const Text("pixabay.com"),
           ),
           ListTile(
