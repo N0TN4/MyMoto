@@ -225,7 +225,19 @@ class _LoginSocialState extends State<LoginSocial> {
                         Image.asset("assets/icon_google.png", height: 26),
                         SizedBox(width: 10),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            // primeiro cadastro > uid
+                            // passar tela cadastro firebase user
+                            // usuarioSocial retorno da authenticação google
+
+                            // request nossa rota api se o token de uid já existe na base
+                            // caso sim chamar método login
+                            // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
+                            //    Navigator.push(
+                            // context,
+                            // MaterialPageRoute(
+                            //     builder: (context) => CadastroPorEmail(usuarioSocial : usuarioGoogle)));
+                          },
                           child: Text("Google",
                               style: TextStyle(
                                   color: Colors.white,

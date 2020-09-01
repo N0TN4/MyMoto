@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,6 +12,9 @@ import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CadastroPorEmail extends StatefulWidget {
+  // receber firebase user
+  final User usuarioSocial;
+  const CadastroPorEmail({this.usuarioSocial});
   @override
   _CadastroPorEmailState createState() => _CadastroPorEmailState();
 }
@@ -264,6 +268,10 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         ),
                       );
                       Timer(Duration(seconds: 2), () {
+                        // widget.usuarioSocial.uid;
+                        // if(usuarioSocial != null ){
+
+                        // }
                         return _bloc.salvar().then((cadastrado) async {
                           //msg(cadastrado);
                           if (cadastrado) {
