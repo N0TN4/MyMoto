@@ -16,7 +16,11 @@ class Licenca extends StatelessWidget {
           ),
           ListTile(
             title: const Text("Ícone notificação"),
-            subtitle: const Text(""),
+            subtitle: const Text("Autor: monkik,   www.flaticon.com"),
+          ),
+          ListTile(
+            title: const Text("Ícone login com conta google"),
+            subtitle: const Text("www.iconfinder.com"),
           ),
         ],
       ),
