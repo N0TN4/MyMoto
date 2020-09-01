@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
@@ -15,9 +16,9 @@ class LoginSocial extends StatefulWidget {
 }
 
 class _LoginSocialState extends State<LoginSocial> {
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _senhaController = new TextEditingController();
-  BlocLoginSocial _bloc = new BlocLoginSocial();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  BlocLoginSocial _bloc = BlocLoginSocial();
   bool campoDeTextoDeSenhaAtivo = false;
   FocusNode focusNode = FocusNode();
   final _chaveFormulario = GlobalKey<FormState>();
@@ -148,76 +149,119 @@ class _LoginSocialState extends State<LoginSocial> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      height: 90,
-                      padding: EdgeInsets.all(20),
-                      child: RaisedButton(
-                          color: Color(0xffF24333),
-                          child: Text(
-                            "ENTRAR",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
-                          ),
-                          onPressed: () {
-                            if (_chaveFormulario.currentState.validate()) {
-                              Usuario usuario = new Usuario(
-                                email: _emailController.text,
-                                senha: _senhaController.text,
-                              );
-                              showDialog(
-                                context: context,
-                                builder: (context) => new AlertDialog(
-                                  content: new Text("Carregando..."),
-                                  actions: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: new CircularProgressIndicator(),
-                                    ), // loading
-                                  ],
-                                ),
-                              );
-                              Timer(Duration(seconds: 2), () {
-                                return _bloc.logar(usuario).then((logado) {
-                                  // msg(logado);
-                                  if (logado) {
-                                    loginUser();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MenuPrincipal()));
-                                  }
-                                });
+                  Container(
+                    height: 90,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                        color: Color(0xffF24333),
+                        child: Text(
+                          "ENTRAR",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                        onPressed: () {
+                          if (_chaveFormulario.currentState.validate()) {
+                            Usuario usuario = new Usuario(
+                              email: _emailController.text,
+                              senha: _senhaController.text,
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (context) => new AlertDialog(
+                                content: new Text("Carregando..."),
+                                actions: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: new CircularProgressIndicator(),
+                                  ), // loading
+                                ],
+                              ),
+                            );
+                            Timer(Duration(seconds: 2), () {
+                              return _bloc.logar(usuario).then((logado) {
+                                // msg(logado);
+                                if (logado) {
+                                  loginUser();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MenuPrincipal()));
+                                }
                               });
-                              // await logar(
-                              //     _loginController.text, _senhaController.text);
-                            }
-                          }),
+                            });
+                            // await logar(
+                            //     _loginController.text, _senhaController.text);
+                          }
+                        }),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Ou conecte usando",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3.8,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset("assets/icon_google.png", height: 26),
+                        SizedBox(width: 10),
+                        InkWell(
+                          onTap: () {},
+                          child: Text("Google",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16)),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 32),
               Row(
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                        margin: const EdgeInsets.only(left: 18.0, right: 13.0),
+                        margin: const EdgeInsets.only(left: 11, right: 8),
                         child: Divider(
                           color: Colors.black,
                           height: 20,
                         )),
                   ),
+                  Text(
+                    "Não tem conta?",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
                   InkWell(
                     child: Text(
-                      'Cadastrar',
+                      " Cadastre-se",
                       style: TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade500,
                       ),
                     ),
                     onTap: () {
@@ -229,7 +273,7 @@ class _LoginSocialState extends State<LoginSocial> {
                   ),
                   Expanded(
                     child: Container(
-                        margin: const EdgeInsets.only(left: 18.0, right: 13.0),
+                        margin: const EdgeInsets.only(left: 8, right: 11),
                         child: Divider(
                           color: Colors.black,
                           height: 20,
