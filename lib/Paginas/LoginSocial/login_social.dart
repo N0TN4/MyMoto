@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'dart:ffi';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mymoto/Autenticacao/autenticacao_google.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
 import 'package:mymoto/Modelos/usuario.dart';
+import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_social_bloc.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
@@ -22,6 +24,7 @@ class _LoginSocialState extends State<LoginSocial> {
   bool campoDeTextoDeSenhaAtivo = false;
   FocusNode focusNode = FocusNode();
   final _chaveFormulario = GlobalKey<FormState>();
+  AutenticacaoGoogle autenticacaoGoogle = AutenticacaoGoogle();
 
   @override
   void initState() {
@@ -224,25 +227,38 @@ class _LoginSocialState extends State<LoginSocial> {
                       children: <Widget>[
                         Image.asset("assets/icon_google.png", height: 26),
                         SizedBox(width: 10),
-                        InkWell(
-                          onTap: () {
-                            // primeiro cadastro > uid
-                            // passar tela cadastro firebase user
-                            // usuarioSocial retorno da authenticação google
+                        Material(
+                          child: InkWell(
+                            onTap: () async {
+                              await autenticacaoGoogle.logarComGoogle();
+                              if (autenticacaoGoogle.getCurrentUser() != null) {
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CadastroPorEmail(),
+                                    ));
+                              }
+                              //final autenticacao =
+                              //    autenticaoGoogle.getCurrentUser();
+                              // primeiro cadastro > uid
+                              // passar tela cadastro firebase user
+                              // usuarioSocial retorno da authenticação google
 
-                            // request nossa rota api se o token de uid já existe na base
-                            // caso sim chamar método login
-                            // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
-                            //    Navigator.push(
-                            // context,
-                            // MaterialPageRoute(
-                            //     builder: (context) => CadastroPorEmail(usuarioSocial : usuarioGoogle)));
-                          },
-                          child: Text("Google",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16)),
+                              // request nossa rota api se o token de uid já existe na base
+                              // caso sim chamar método login
+                              // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => CadastroPorEmail(
+                              //             usuarioSocial: autenticacao)));
+                            },
+                            child: Text("Google",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16)),
+                          ),
                         ),
                       ],
                     ),

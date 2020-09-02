@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CadastroPorEmail extends StatefulWidget {
   // receber firebase user
-  final User usuarioSocial;
+  final FirebaseUser usuarioSocial;
   const CadastroPorEmail({this.usuarioSocial});
   @override
   _CadastroPorEmailState createState() => _CadastroPorEmailState();

@@ -9,7 +9,7 @@ class AutenticacaoGoogle {
 
   getCurrentUser() async {
     bool nulo = false;
-    User _user = FirebaseAuth.instance.currentUser;
+    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
     print(_user);
     if (_user == null) {
       return nulo;
@@ -22,32 +22,30 @@ class AutenticacaoGoogle {
     //return nulo;
   }
 
-  void logarComGoogle() async {
+   Future<FirebaseUser> logarComGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final User user =
+    final FirebaseUser user =
         (await _auth.signInWithCredential(credential)).user;
     assert(user.email != null);
     assert(user.displayName != null);
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final User currentUser = _auth.currentUser;
-
     Usuario usuario = new Usuario(
       tokenUid: user.uid,
       nome: user.displayName,
       email: user.email,
-      urlFoto: user.photoURL,
+      urlFoto: user.photoUrl,
       //telefone?
     );
     UsuarioLogado.usuario = usuario;
 
-    assert(user.uid == currentUser.uid);
+    return await _auth.currentUser();
   }
 }
