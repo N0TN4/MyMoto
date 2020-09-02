@@ -41,7 +41,7 @@ dependencies:
 
   #Firebase e api
   flutter_auth_buttons: ^0.6.0
-  firebase_auth: ^0.18.0+1
+  firebase_auth: ^0.16.1
   google_sign_in: ^4.5.1
   http: ^0.12.0+4
   geolocator: ^5.1.5

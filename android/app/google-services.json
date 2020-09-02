@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "685966952690-i3g12mdkbmg31rf2lpmr4g246t7l49ce.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notna.mymoto",
+            "certificate_hash": "74c9fa69c1b65b284b323ecdafe0903eba2ec4c2"
+          }
+        },
+        {
+          "client_id": "685966952690-0ivtsm2si33tj9c901vsds1scnlvt9dv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notna.mymoto",
+            "certificate_hash": "cbf543df44dfab7cb13cf4cb810c64792646ab7b"
+          }
+        },
+        {
           "client_id": "685966952690-qdjjkf89o957v17b74kgkqrknqoo6le1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
