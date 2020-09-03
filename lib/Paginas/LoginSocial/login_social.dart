@@ -227,38 +227,39 @@ class _LoginSocialState extends State<LoginSocial> {
                       children: <Widget>[
                         Image.asset("assets/icon_google.png", height: 26),
                         SizedBox(width: 10),
-                        Material(
-                          child: InkWell(
-                            onTap: () async {
-                              await autenticacaoGoogle.logarComGoogle();
-                              if (autenticacaoGoogle.getCurrentUser() != null) {
-                                await Navigator.push(
+                        InkWell(
+                          onTap: () async {
+                            await autenticacaoGoogle
+                                .logarComGoogle()
+                                .then((usuarioSocial) {
+                              if (usuarioSocial != null) {
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CadastroPorEmail(),
+                                      builder: (context) => CadastroPorEmail(usuarioSocial: usuarioSocial),
                                     ));
                               }
-                              //final autenticacao =
-                              //    autenticaoGoogle.getCurrentUser();
-                              // primeiro cadastro > uid
-                              // passar tela cadastro firebase user
-                              // usuarioSocial retorno da authenticação google
+                            });
+                          },
+                          //final autenticacao =
+                          //    autenticaoGoogle.getCurrentUser();
+                          // primeiro cadastro > uid
+                          // passar tela cadastro firebase user
+                          // usuarioSocial retorno da authenticação google
 
-                              // request nossa rota api se o token de uid já existe na base
-                              // caso sim chamar método login
-                              // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => CadastroPorEmail(
-                              //             usuarioSocial: autenticacao)));
-                            },
-                            child: Text("Google",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16)),
-                          ),
+                          // request nossa rota api se o token de uid já existe na base
+                          // caso sim chamar método login
+                          // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => CadastroPorEmail(
+                          //             usuarioSocial: autenticacao)));
+                          child: Text("Google",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16)),
                         ),
                       ],
                     ),

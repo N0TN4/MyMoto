@@ -689,6 +689,7 @@ class CadastroServices extends AbstractService {
         "nome": usuario.nome,
         "login": usuario.login,
         "email": usuario.email,
+        "tokenUid": usuario.tokenUid,
         "telefone": usuario.telefone,
         "senha": usuario.senha,
         "moto": {

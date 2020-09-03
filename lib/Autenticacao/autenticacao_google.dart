@@ -7,21 +7,7 @@ class AutenticacaoGoogle {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  getCurrentUser() async {
-    bool nulo = false;
-    FirebaseUser _user = await FirebaseAuth.instance.currentUser();
-    print(_user);
-    if (_user == null) {
-      return nulo;
-    } else {
-      nulo = true;
-      return nulo;
-    }
-
-    //print("User: ${_user.displayName ?? "None"}");
-    //return nulo;
-  }
-
+  
    Future<FirebaseUser> logarComGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =

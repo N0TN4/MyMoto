@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mymoto/Modelos/moto.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
@@ -43,14 +44,16 @@ class BlocCadastroPorEmail {
 
   CadastroServices _services = new CadastroServices();
 
-  Future<bool> salvar() async {
+  Future<bool> salvar({FirebaseUser usuarioSocial}) async {
     Usuario usuario = new Usuario();
     usuario.nome = _nome.value;
     usuario.login = _email.value; // removido login por que é required
     usuario.senha = _senha.value;
     usuario.email = _email.value;
     usuario.telefone = _telefone.value;
-    usuario.tokenUid = "ASKODNJAUISD";
+    if(usuarioSocial != null){
+      usuario.tokenUid = usuarioSocial.uid;
+    }
     //usuario.moto.mediaDiariaKm = _kmDiariaSelecionada.value;
     MotoModel moto = new MotoModel();
     //moto = _motoSelecionada.value;

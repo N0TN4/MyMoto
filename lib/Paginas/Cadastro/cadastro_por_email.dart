@@ -272,7 +272,7 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         // if(usuarioSocial != null ){
 
                         // }
-                        return _bloc.salvar().then((cadastrado) async {
+                        return _bloc.salvar(usuarioSocial: widget.usuarioSocial).then((cadastrado) async {
                           //msg(cadastrado);
                           if (cadastrado) {
                             await loginUser();
