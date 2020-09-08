@@ -10,8 +10,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="mymoto"
-        android:icon="@mipmap/ic_launcher">
+        android:label="MyMoto"
+        android:icon="@mipmap/launcher_icon">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDB_OwiXpM9oDGvnkbQUs9EwwmwrhgNaU4"/>
