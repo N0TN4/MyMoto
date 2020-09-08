@@ -7,6 +7,7 @@ import 'package:mymoto/Modelos/usuario_logado.dart';
 //import 'package:mymoto/Paginas/EditarPerfil/editar_perfil.dart';
 //import 'package:mymoto/Paginas/EditarOdometro/editar_odometro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mymoto/Paginas/Mapa/tela_mapa.dart';
 import 'package:mymoto/Paginas/Oficina/tela_oficina.dart';
 
 class MenuPrincipal extends StatefulWidget {
@@ -220,7 +221,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TelaOficina()),
+                                          builder: (context) => PageMapa()),
                                     );
                                   },
                                   color: Colors.green,

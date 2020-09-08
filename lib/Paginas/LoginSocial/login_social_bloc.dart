@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/LoginSocial/login_services.dart';
 
@@ -27,6 +28,9 @@ class BlocLoginSocial {
       }
     });
   }
+
+  Future<Usuario> verificarUsuarioToken(String uid) =>
+      _services.verificarUsuarioToken(uid);
 
   void dispose() {
     _login.close();

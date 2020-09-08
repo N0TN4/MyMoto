@@ -12,6 +12,17 @@ class LoginServices extends AbstractService {
     });
   }
 
+  Future<Usuario> verificarUsuarioToken(String uid) {
+    return Session.get('http://mymotoapi.herokuapp.com/usuarios/social/$uid')
+        .then((response) {
+      print(response);
+      if (response['id'] == 0) {
+        return null;
+      }
+      return fromJson(response);
+    });
+  }
+
   Future<dynamic> logar(Usuario usuario) {
     return Session.post('$api', body: usuario.toJsonAuth()).then((response) {
       print(response);

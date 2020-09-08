@@ -38,7 +38,13 @@ class _PageMapaState extends State<PageMapa> {
             stream: _bloc.posicao,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Container();
+                return Container(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    "Carregando... \nCaso essa mensagem persista ative a localização do seu dispositivo.",
+                    textAlign: TextAlign.center,
+                  ),
+                );
               } else {
                 return Stack(
                   alignment: Alignment.topCenter,
@@ -72,73 +78,80 @@ class _PageMapaState extends State<PageMapa> {
                       child: Row(
                         children: <Widget>[
                           Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.motorcycle,
-                                      color: CoresApp.secundaria),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Center(
-                                          child:
-                                              new CircularProgressIndicator()),
-                                    );
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                      child: new CircularProgressIndicator()),
+                                );
 
-                                    Timer(Duration(seconds: 2), () {
-                                      return _bloc
-                                          .getPontosOficina(
-                                              snapshot.data.latitude,
-                                              snapshot.data.longitude)
-                                          .then((response) {
-                                        setState(() {});
-                                        return Navigator.of(context).pop();
-                                      });
-                                    });
-                                    //
-                                  },
+                                Timer(Duration(seconds: 2), () {
+                                  return _bloc
+                                      .getPontosOficina(snapshot.data.latitude,
+                                          snapshot.data.longitude)
+                                      .then((response) {
+                                    setState(() {});
+                                    return Navigator.of(context).pop();
+                                  });
+                                });
+                                //
+                              },
+                              child: Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(Icons.motorcycle,
+                                          size: 36, color: CoresApp.secundaria),
+                                      Text(
+                                        "Procurar Oficinas",
+                                        style: TextStyle(
+                                          color: CoresApp.secundaria,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text("Oficinas"),
-                              ],
+                              ),
                             ),
                           ),
                           Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.local_gas_station,
-                                      color: Colors.green),
-                                  onPressed: () {
-                                    //     setState(() {
-                                    //       _bloc.getPontosDeGasolina(
-                                    //           snapshot.data.latitude,
-                                    //           snapshot.data.longitude);
-                                    //       setState(() {});
-                                    //     });
-                                    //   },
-                                    // ),
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => Center(
-                                          child:
-                                              new CircularProgressIndicator()),
-                                    );
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                      child: new CircularProgressIndicator()),
+                                );
 
-                                    Timer(Duration(seconds: 2), () {
-                                      return _bloc
-                                          .getPontosDeGasolina(
-                                              snapshot.data.latitude,
-                                              snapshot.data.longitude)
-                                          .then((response) {
-                                        setState(() {});
-                                        return Navigator.of(context).pop();
-                                      });
-                                    });
-                                    //
-                                  },
+                                Timer(Duration(seconds: 2), () {
+                                  return _bloc
+                                      .getPontosDeGasolina(
+                                          snapshot.data.latitude,
+                                          snapshot.data.longitude)
+                                      .then((response) {
+                                    setState(() {});
+                                    return Navigator.of(context).pop();
+                                  });
+                                });
+                                //
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(Icons.local_gas_station,
+                                        size: 36, color: Colors.green),
+                                    Text(
+                                      "Postos de gasolina",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text("Postos de gasolina"),
-                              ],
+                              ),
                             ),
                           )
                         ],

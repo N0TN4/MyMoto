@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "685966952690-m59db5dushe7mqd1617qnl58quuin1us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notna.mymoto",
+            "certificate_hash": "2896a100ef65ed8553c03f784b233b2b7cdcabce"
+          }
+        },
+        {
           "client_id": "685966952690-i3g12mdkbmg31rf2lpmr4g246t7l49ce.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

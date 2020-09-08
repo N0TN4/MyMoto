@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mymoto/Cores/cores.dart';
 
 class CaixaDeSelecao extends StatefulWidget {
   final Function onChanged;
@@ -28,13 +29,14 @@ class _CaixaDeSelecao extends State<CaixaDeSelecao> {
       width: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
+          Radius.circular(10.0),
         ),
-        border: Border.all(color: Color(0xffBA1B1D), width: 2),
+        border: Border.all(color: corSecundaria, width: 2),
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),
         child: DropdownButtonFormField(
+            isExpanded: true,
             onChanged: (value) {
               setState(() => selected = value);
               widget.onChanged(value);
@@ -45,8 +47,7 @@ class _CaixaDeSelecao extends State<CaixaDeSelecao> {
                   (option) => DropdownMenuItem(
                     value: option,
                     child: Text('$option',
-                        style: TextStyle(
-                            fontSize: 11.0, color: Color(0xffBA1B1D))),
+                        style: TextStyle(fontSize: 12.0, color: corSecundaria)),
                   ),
                 )
                 .toList()),

@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:mymoto/Autenticacao/autenticacao_google.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Cores/cores.dart';
 import 'package:mymoto/Modelos/usuario.dart';
 import 'package:mymoto/Modelos/usuario_logado.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email.dart';
@@ -85,7 +87,7 @@ class _LoginSocialState extends State<LoginSocial> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 2.5,
+                height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -110,7 +112,7 @@ class _LoginSocialState extends State<LoginSocial> {
                               size: 90,
                             ),
                             Text(
-                              "MyMoto",
+                              " MyMoto",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 38),
                             ),
@@ -121,8 +123,9 @@ class _LoginSocialState extends State<LoginSocial> {
                   ),
                 ),
               ),
+              SizedBox(height: 15),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Container(
                   child: CampoDeTextoFormularioCustomizado(
                     controlador: _emailController,
@@ -137,7 +140,7 @@ class _LoginSocialState extends State<LoginSocial> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Container(
                   child: CampoDeTextoSenhaCustomizado(
                     controller: _senhaController,
@@ -203,123 +206,110 @@ class _LoginSocialState extends State<LoginSocial> {
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 11, right: 12),
+                        child: Divider(
+                          color: Colors.black,
+                          height: 20,
+                        )),
+                  ),
                   Text(
-                    "Ou conecte usando",
+                    " Não tem conta?  ",
                     style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey.shade600,
+                      fontSize: 18,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3.8,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: InkWell(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: corSecundaria,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            " Cadastre-se",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey.shade100),
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CadastroPorEmail()));
+                      },
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset("assets/icon_google.png", height: 26),
-                        SizedBox(width: 10),
-                        InkWell(
-                          onTap: () async {
-                            await autenticacaoGoogle
-                                .logarComGoogle()
-                                .then((usuarioSocial) {
-                              if (usuarioSocial != null) {
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 12, right: 11),
+                        child: Divider(
+                          color: Colors.black,
+                          height: 20,
+                        )),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: GoogleSignInButton(
+                  text: "Entrar com o Google",
+                  onPressed: () async {
+                    await autenticacaoGoogle
+                        .logarComGoogle()
+                        .then((usuarioSocial) async {
+                      // verifica na base se o usuario tem um uid
+                      await _bloc
+                          .verificarUsuarioToken(usuarioSocial.uid)
+                          .then((value) {
+                        if (value != null) {
+                          if (value.tokenUid == usuarioSocial.uid) {
+                            Usuario usuario = new Usuario(
+                              email: value.email,
+                              senha: value.senha,
+                            );
+
+                            return _bloc.logar(usuario).then((logado) {
+                              // msg(logado);
+                              if (logado) {
+                                loginUser();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => CadastroPorEmail(usuarioSocial: usuarioSocial),
-                                    ));
+                                        builder: (context) => MenuPrincipal()));
                               }
                             });
-                          },
-                          //final autenticacao =
-                          //    autenticaoGoogle.getCurrentUser();
-                          // primeiro cadastro > uid
-                          // passar tela cadastro firebase user
-                          // usuarioSocial retorno da authenticação google
-
-                          // request nossa rota api se o token de uid já existe na base
-                          // caso sim chamar método login
-                          // caso não chama cadastro passando o uid como parametro para ser cadastrado no post.
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => CadastroPorEmail(
-                          //             usuarioSocial: autenticacao)));
-                          child: Text("Google",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CadastroPorEmail(
+                                      usuarioSocial: usuarioSocial),
+                                ));
+                          }
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CadastroPorEmail(
+                                    usuarioSocial: usuarioSocial),
+                              ));
+                        }
+                      });
+                    });
+                  },
+                ),
               ),
-              const SizedBox(height: 32),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 11, right: 8),
-                        child: Divider(
-                          color: Colors.black,
-                          height: 20,
-                        )),
-                  ),
-                  Text(
-                    "Não tem conta?",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey.shade500,
-                    ),
-                  ),
-                  InkWell(
-                    child: Text(
-                      " Cadastre-se",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CadastroPorEmail()));
-                    },
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 8, right: 11),
-                        child: Divider(
-                          color: Colors.black,
-                          height: 20,
-                        )),
-                  ),
-                ],
-              ),
-
-              // GoogleSignInButton(
-              //   text: "Login",
-              //   onPressed: () async {
-              //     AutenticacaoGoogle autenticacao = new AutenticacaoGoogle();
-              //     autenticacao.logarComGoogle();
-              //     Navigator.push(context,
-              //         MaterialPageRoute(builder: (context) => MenuPrincipal()));
-              //   },
-              // ),
             ],
           ),
         ),

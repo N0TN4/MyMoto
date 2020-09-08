@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mymoto/Componentes/CampoDeTextoSenhaCustomizado.dart';
 import 'package:mymoto/Componentes/caixa_de_selecao.dart';
 import 'package:mymoto/Componentes/campo_de_texto_formulario_customizado.dart';
+import 'package:mymoto/Cores/cores.dart';
 import 'package:mymoto/Paginas/Cadastro/cadastro_por_email_bloc.dart';
 import 'package:mymoto/Paginas/MenuPrincipal/menu_principal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -168,71 +169,95 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                   },
                 ),
                 _pularLinha(),
-                StreamBuilder<List<String>>(
-                    stream: _bloc.nomeMoto,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Container();
-                      } else {
-                        String valorMoto = snapshot.data[0];
-                        return Row(
+
+                SizedBox(height: 10),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text("Insira os dados da sua motocicleta",
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: corSecundaria,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(height: 20),
+                        StreamBuilder<List<String>>(
+                            stream: _bloc.nomeMoto,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              } else {
+                                String valorMoto = snapshot.data[0];
+                                return Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "Moto:",
+                                        style: TextStyle(
+                                            color: Colors.red, fontSize: 17),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: CaixaDeSelecao(
+                                        value: valorMoto,
+                                        options: snapshot.data,
+                                        onChanged: (valor) {
+                                          setState(() {
+                                            valorMoto = valor;
+                                            _bloc.selecionarMoto(valor);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                            }),
+                        _pularLinha(),
+                        Row(
                           children: <Widget>[
                             Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  "Moto:",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 18),
-                                ),
+                              flex: 3,
+                              child: Text(
+                                "Media km diária:",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 17),
                               ),
                             ),
                             Expanded(
+                              flex: 4,
                               child: CaixaDeSelecao(
-                                value: valorMoto,
-                                options: snapshot.data,
+                                value: "30",
+                                options: [
+                                  "10",
+                                  "15",
+                                  "30",
+                                  "50",
+                                  "75",
+                                  "100",
+                                  "150",
+                                  "200",
+                                ],
                                 onChanged: (valor) {
                                   setState(() {
-                                    valorMoto = valor;
-                                    _bloc.selecionarMoto(valor);
+                                    kmDiaria = valor;
+                                    _bloc.mudarkmDiariaSelecionada(
+                                        num.parse(valor));
                                   });
                                 },
                               ),
                             ),
                           ],
-                        );
-                      }
-                    }),
-                _pularLinha(),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "Media km diária:",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                        ),
+                        _pularLinha(),
+                      ],
                     ),
-                    Expanded(
-                      child: CaixaDeSelecao(
-                        value: "30",
-                        options: [
-                          "30",
-                          "50",
-                          "80",
-                          "100",
-                        ],
-                        onChanged: (valor) {
-                          setState(() {
-                            kmDiaria = valor;
-                            _bloc.mudarkmDiariaSelecionada(num.parse(valor));
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                _pularLinha(),
+
                 Divider(height: 60.0, color: Colors.white10),
                 RaisedButton.icon(
                   icon: Icon(
@@ -272,7 +297,9 @@ class _CadastroPorEmailState extends State<CadastroPorEmail> {
                         // if(usuarioSocial != null ){
 
                         // }
-                        return _bloc.salvar(usuarioSocial: widget.usuarioSocial).then((cadastrado) async {
+                        return _bloc
+                            .salvar(usuarioSocial: widget.usuarioSocial)
+                            .then((cadastrado) async {
                           //msg(cadastrado);
                           if (cadastrado) {
                             await loginUser();
