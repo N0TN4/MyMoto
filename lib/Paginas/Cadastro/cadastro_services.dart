@@ -215,7 +215,7 @@ class CadastroServices extends AbstractService {
 
     Moto moto13 = new Moto(
       id: 13,
-      cilindradas: 160,
+      cilindradas: 300,
       kmMaxTrocaOleo: 6000,
       kmMaxAcelerador: 12000,
       kmMaxVela: 48000,

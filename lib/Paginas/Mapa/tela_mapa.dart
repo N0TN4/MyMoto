@@ -97,21 +97,19 @@ class _PageMapaState extends State<PageMapa> {
                                 });
                                 //
                               },
-                              child: Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(Icons.motorcycle,
-                                          size: 36, color: CoresApp.secundaria),
-                                      Text(
-                                        "Procurar Oficinas",
-                                        style: TextStyle(
-                                          color: CoresApp.secundaria,
-                                        ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(Icons.motorcycle,
+                                        size: 36, color: CoresApp.secundaria),
+                                    Text(
+                                      "Procurar Oficinas",
+                                      style: TextStyle(
+                                        color: CoresApp.secundaria,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

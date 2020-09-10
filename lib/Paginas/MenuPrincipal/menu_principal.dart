@@ -204,7 +204,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => TelaOficina()),
+                                          builder: (context) => PageMapa()),
                                     );
                                   },
                                 ),

@@ -32,6 +32,7 @@ class _LoginSocialState extends State<LoginSocial> {
   void initState() {
     super.initState();
     DateTime dataAtual = DateTime.now();
+
     logarAutomaticamente();
     print(dataAtual);
   }
@@ -41,40 +42,6 @@ class _LoginSocialState extends State<LoginSocial> {
     focusNode.dispose();
 
     super.dispose();
-  }
-
-  logarAutomaticamente() async {
-    final prefs = await SharedPreferences.getInstance();
-    String emailUsuario = prefs.getString("email");
-    String senhaUsuario = prefs.getString("senha");
-    if (emailUsuario != null || senhaUsuario != null) {
-      Usuario usuario = new Usuario(
-        email: emailUsuario,
-        senha: senhaUsuario,
-      );
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("Entrando..."),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: new CircularProgressIndicator(),
-            ), // loading
-          ],
-        ),
-      );
-      Timer(Duration(seconds: 2), () {
-        return _bloc.logar(usuario).then((logado) {
-          // msg(logado);
-          if (logado) {
-            loginUser();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MenuPrincipal()));
-          }
-        });
-      });
-    }
   }
 
   @override
@@ -265,30 +232,46 @@ class _LoginSocialState extends State<LoginSocial> {
                 child: GoogleSignInButton(
                   text: "Entrar com o Google",
                   onPressed: () async {
-                    await autenticacaoGoogle
-                        .logarComGoogle()
-                        .then((usuarioSocial) async {
-                      // verifica na base se o usuario tem um uid
-                      await _bloc
-                          .verificarUsuarioToken(usuarioSocial.uid)
-                          .then((value) {
-                        if (value != null) {
-                          if (value.tokenUid == usuarioSocial.uid) {
-                            Usuario usuario = new Usuario(
-                              email: value.email,
-                              senha: value.senha,
-                            );
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          Center(child: new CircularProgressIndicator()),
+                    );
 
-                            return _bloc.logar(usuario).then((logado) {
-                              // msg(logado);
-                              if (logado) {
-                                loginUser();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MenuPrincipal()));
-                              }
-                            });
+                    Timer(Duration(seconds: 3), () {
+                      autenticacaoGoogle
+                          .logarComGoogle()
+                          .then((usuarioSocial) async {
+                        // verifica na base se o usuario tem um uid
+                        await _bloc
+                            .verificarUsuarioToken(usuarioSocial.uid)
+                            .then((value) {
+                          if (value != null) {
+                            if (value.tokenUid == usuarioSocial.uid) {
+                              Usuario usuario = new Usuario(
+                                email: value.email,
+                                senha: value.senha,
+                              );
+
+                              return _bloc.logar(usuario).then((logado) {
+                                // msg(logado);
+                                if (logado) {
+                                  loginSocial(usuario.email, usuario.senha);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MenuPrincipal()));
+                                }
+                              });
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CadastroPorEmail(
+                                        usuarioSocial: usuarioSocial),
+                                  ));
+                            }
                           } else {
                             Navigator.push(
                                 context,
@@ -297,15 +280,9 @@ class _LoginSocialState extends State<LoginSocial> {
                                       usuarioSocial: usuarioSocial),
                                 ));
                           }
-                        } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CadastroPorEmail(
-                                    usuarioSocial: usuarioSocial),
-                              ));
-                        }
+                        });
                       });
+                      return Navigator.of(context).pop();
                     });
                   },
                 ),
@@ -342,10 +319,53 @@ class _LoginSocialState extends State<LoginSocial> {
     }
   }
 
+  logarAutomaticamente() async {
+    final prefs = await SharedPreferences.getInstance();
+    String emailUsuario = prefs.getString("email");
+    String senhaUsuario = prefs.getString("senha");
+    if (emailUsuario != null || senhaUsuario != null) {
+      Usuario usuario = new Usuario(
+        email: emailUsuario,
+        senha: senhaUsuario,
+      );
+      setState(() {
+        _emailController.text = usuario.email;
+      });
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("Entrando..."),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new CircularProgressIndicator(),
+            ), // loading
+          ],
+        ),
+      );
+      Timer(Duration(seconds: 2), () {
+        return _bloc.logar(usuario).then((logado) {
+          // msg(logado);
+          if (logado) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MenuPrincipal()));
+          }
+        });
+      });
+    }
+  }
+
   Future<Null> loginUser() async {
     print("AUTO LOGIN");
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', _emailController.text);
     prefs.setString('senha', _senhaController.text);
+  }
+
+  Future<Null> loginSocial(String email, senha) async {
+    print("AUTO LOGIN");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', email ?? "");
+    prefs.setString('senha', senha ?? "");
   }
 }
