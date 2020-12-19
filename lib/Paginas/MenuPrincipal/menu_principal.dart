@@ -17,9 +17,9 @@ class MenuPrincipal extends StatefulWidget {
 
 class _MenuPrincipalState extends State<MenuPrincipal> {
   List _imagemLista = [
-    'assets/motorbike01.jpg',
-    'assets/motorbike02.jpg',
-    'assets/motorbike03.jpg',
+    'assets/white.png',
+    'assets/white.png',
+    'assets/white.png',
   ];
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                         fontSize: 17,
                       )),
                   background: Image.asset(
-                    "assets/motorbike-principal.jpg",
+                    "assets/white.png",
                     fit: BoxFit.cover,
                   )),
             ),

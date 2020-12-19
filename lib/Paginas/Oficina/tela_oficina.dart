@@ -130,7 +130,7 @@ class _TelaOficinaState extends State<TelaOficina> {
         });
       },
       children: <Widget>[
-        NavegacaoOficina(),
+        //NavegacaoOficina(),
         TrocarMoto(),
       ],
     );
